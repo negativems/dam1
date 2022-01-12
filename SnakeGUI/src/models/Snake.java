@@ -4,8 +4,6 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
-import listener.Square;
-
 public class Snake {
 	// Constantes. No hay
 
@@ -25,7 +23,8 @@ public class Snake {
 		squareList = new ArrayList<Square>();
 
 		// añadimos el primero de los cuadrados...
-		squareList.add(new Square(60, 60, 20, (int) (Math.random() * 16000000)));
+		// squareList.add(new Square(60, 60, 20, (int) (Math.random() * 16000000)));
+		squareList.add(new Square(60, 60, 20, 255));
 
 		// siempre hacia abajo al principio
 		direction = Square.DOWN;
@@ -115,13 +114,13 @@ public class Snake {
 
 	// controlamos el cambio de dirección
 	public void changeDirection(int key) {
-		if (key == KeyEvent.VK_A) {
+		if (key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) {
 			direction = Square.LEFT;
-		} else if (key == KeyEvent.VK_S) {
+		} else if (key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) {
 			direction = Square.DOWN;
-		} else if (key == KeyEvent.VK_W) {
+		} else if (key == KeyEvent.VK_W || key == KeyEvent.VK_UP) {
 			direction = Square.UP;
-		} else if (key == KeyEvent.VK_D) {
+		} else if (key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
 			direction = Square.RIGHT;
 		}
 	}
