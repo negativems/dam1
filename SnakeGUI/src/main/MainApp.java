@@ -11,9 +11,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import listener.ButtonsListener;
-import listener.Controller;
-import panels.SnakeFrame;
+import models.Controller;
 import panels.GamePanel;
+import panels.SnakeFrame;
 
 public class MainApp {
 
@@ -31,7 +31,7 @@ public class MainApp {
 		frame = new SnakeFrame();
 
 		// asignamos el tamaño a nuestra ventana, y hacemos que se cierre cuando nos
-		// pulsan la X de cerrar la ventana
+		// pulsan la X de cerrar la ventana		
 		frame.setSize(600, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -47,7 +47,7 @@ public class MainApp {
 
 		// Les damos las propiedades a nuestro tablero. Su color, tamaño y borde
 		tablero.setBorder(BorderFactory.createLineBorder(Color.black));
-		tablero.setBackground(new java.awt.Color(116, 184, 142));
+		tablero.setBackground(new java.awt.Color(100, 125, 110));
 		tablero.setSize(600, 400);
 
 		// Le damos un enlace al tablero para que sepa quién es su frame (ventana) y así
@@ -94,16 +94,44 @@ public class MainApp {
 
 		mainPanel.add(botonera, BorderLayout.PAGE_END);
 		mainPanel.add(tablero, BorderLayout.CENTER);
-		frame.add(mainPanel);
+		frame.getContentPane().add(mainPanel);
 
 		frame.setVisible(true); // activamos la ventana principal para que sea "pintable"
 
 		contador = 0; // nuestro control de los pasos del tiempo. Cada vez que contador cuenta un paso, pasan 10ms
 
+		// Map size menu
+		String sizeSelection = (String) JOptionPane.showInputDialog(
+				frame,
+				"Seleccione una opción",
+				"Tamaño del mapa",
+				JOptionPane.QUESTION_MESSAGE,
+				null,
+				new Object[] {"Normal", "Grande", "Inmenso"},
+				"Fácil"
+		);
+
+		int mapSize = (sizeSelection.equals("Normal") ? 600 : sizeSelection.equals("Grande") ? 800 : 1000);
+		
+		frame.setSize(mapSize, mapSize);
+		
+		// Difficulty menu
+		String difSelection = (String) JOptionPane.showInputDialog(
+								frame,
+								"Seleccione una opción",
+								"Dificultad",
+								JOptionPane.QUESTION_MESSAGE,
+								null,
+								new Object[] {"Fácil", "Normal", "Dificil", "Imposible"},
+								"Fácil"
+						);
+		
+		int difficulty = (difSelection.equals("Fácil") ? 10 : difSelection.equals("Normal") ? 5 : difSelection.equals("Dificil") ? 2 : difSelection.equals("Imposible") ? 1 : 20);
+		
 		while (true) { // por siempre jamás (hasta que nos cierren la ventana) estamos controlando el juego.
 			
 			// actualizamos el estado del juego
-			if (contador % 10 == 0) { // cada 200ms nos movemos o crecemos...
+			if (contador % difficulty == 0) { // cada 200ms nos movemos o crecemos...
 				if (contador == 60) { // Cada 600ms crecemos y reseteamos el contador
 					contador = 0;
 					frame.grow();
@@ -113,8 +141,9 @@ public class MainApp {
 					contador++;
 					frame.move();
 				}
+				
+				// Comentando el checkStatus hacemos que la serpiente nunca muera
 				frame.checkStatus(tablero.getHeight(), tablero.getWidth()); // comprobamos si hemos muerto o no.
-
 			} else { // Cada vez que no hay que moverse o crecer, simplemente contamos...
 				contador++;
 			}
