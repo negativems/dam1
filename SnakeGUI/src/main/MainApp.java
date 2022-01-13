@@ -134,9 +134,6 @@ public class MainApp {
 			if (contador % difficulty == 0) { // cada 200ms nos movemos o crecemos...
 				if (contador == 60) { // Cada 600ms crecemos y reseteamos el contador
 					contador = 0;
-					frame.grow();
-					// hemos crecido... actualizamos puntos.
-					puntosNum.setText(Integer.toString(frame.getSnake().getPoints()));
 				} else { // a los 200 y 400 ms nos movemos...
 					contador++;
 					frame.move();
@@ -149,7 +146,7 @@ public class MainApp {
 			}
 
 			// hemos terminado?? mostramos msg
-			if (frame.mostrarFin()) {
+			if (frame.showFin()) {
 				JOptionPane.showMessageDialog(frame,
 						"Se acabo vaquero, has conseguido " + puntosNum.getText() + " puntos");
 			}

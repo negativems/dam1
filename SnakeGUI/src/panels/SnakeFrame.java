@@ -1,7 +1,12 @@
 package panels;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+
 import javax.swing.JFrame;
 
+import models.Apple;
 import models.Snake;
 
 /**
@@ -28,12 +33,10 @@ import models.Snake;
 
 public class SnakeFrame extends JFrame {	
 	
-	//***** estado
-	
 	private static final long serialVersionUID = 1L;
 
-	//Nuestra serpiente
 	private Snake snake;
+	private Apple apple;
 	
 	//semáforos para indicar que estamos jugando o no
 	private boolean playing;
@@ -49,6 +52,7 @@ public class SnakeFrame extends JFrame {
 	//Constructor
 	public SnakeFrame() {
 		snake = new Snake();
+		apple = new Apple(getHeight(), getWidth());
 		playing = false;
 		showFinal = false;
 		displayed = false;
@@ -61,32 +65,46 @@ public class SnakeFrame extends JFrame {
 		return snake;
 	}
 	
+	public void printApple(Graphics g) {
+		System.out.println("asd");
+		Graphics2D g2d = (Graphics2D) g;
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		apple.print(g2d);
+	}
+	
 	
 	//tenemos que mostrar la ventanita de final de partida??? Sólo una vez...
-	public boolean mostrarFin() {
-		boolean resultado;
+	public boolean showFin() {
+		boolean result;
 		
-		resultado = false;
+		result = false;
 		if (showFinal && !displayed) { //estamos al final de una partida y no hemos mostrado nada
-			resultado = true;  //activamos el resultado para que se muestre la ventana
+			result = true;  //activamos el resultado para que se muestre la ventana
 			displayed = true;   //ya no dejamos que se muestre más la próxima vez...
 		}
 		
-		return resultado;
+		return result;
 	}
 	
 	
 	//toca crecer sólo si estamos en una partida activa y no estamos pausados...
 	public void grow() {
 		if (playing && !paused) {
-			snake.crecer();
+			snake.grow();
+		}
+	}
+	
+	public void checkApple() {
+		if (apple.getPosX() == snake.getSquareList().get(0).getX() && apple.getPosY() == snake.getSquareList().get(0).getY()) {
+			apple.respawn();
 		}
 	}
 	
 	//toca moverse sólo si estamos en una partida activa y no estamos pausados...
 	public void move() {
 		if (playing && !paused) {
-			snake.moverse();
+			snake.move();
+			checkApple();
 		}
 	}
 	

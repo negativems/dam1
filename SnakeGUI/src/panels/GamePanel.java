@@ -38,6 +38,7 @@ public class GamePanel extends JPanel {
 
 			// le decimos al controlador que nos de la serpiente para pintarla...
 			snakeFrame.getSnake().print(g2d);
+			snakeFrame.printApple(g2d);
 		}
 	}
 }

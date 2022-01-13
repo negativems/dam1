@@ -31,7 +31,7 @@ public class Snake {
 	}
 
 	// Moverse. Una serpiente sabe moverse
-	public void moverse() {
+	public void move() {
 		Square nuevaCabeza;
 		Square antiguaCabeza;
 
@@ -50,7 +50,7 @@ public class Snake {
 		squareList.remove(squareList.size() - 1);
 	}
 
-	public void crecer() {
+	public void grow() {
 		Square nuevaCabeza;
 		Square antiguaCabeza;
 
@@ -128,6 +128,10 @@ public class Snake {
 	// los puntos se corresponden con el tamaño de nuestra serpiente
 	public int getPoints() {
 		return squareList.size();
+	}
+	
+	public ArrayList<Square> getSquareList() {
+		return squareList;
 	}
 
 }

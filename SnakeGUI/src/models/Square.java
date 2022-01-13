@@ -18,36 +18,43 @@ public class Square {
     private int posY;
     
     //También necesitamos el lado del cuadrado
-    private int lado;
+    private int side;
     
     //Ahora el color
-    private int colorCuadrado;
+    private Color color;
 
 
     //comportamiento
 
     //creación
-    public Square(int pX,int pY,int l, int cc) {
-        posX = pX;
-        posY = pY;
-        lado = l;
-        colorCuadrado = cc;
+    public Square(int posX,int posY,int side, int color) {
+    	this.posX = posX;
+        this.posY = posY;
+        this.side = side;
+        this.color = new Color(color);
+    }
+    
+    public Square(int posX, int posY, int side, Color color) {
+        this.posX = posX;
+        this.posY = posY;
+        this.side = side;
+        this.color = color;
     }
 
     //un cuadrado se mueve arriba, abajo, derecha e izquierda
     public void moverse(int direction) {
         switch (direction) {
             case Square.UP:
-            	posY -= lado;   // 1 es arriba
+            	posY -= side;   // 1 es arriba
                 break;
             case Square.DOWN:
-            	posY += lado;   // 2 es abajo
+            	posY += side;   // 2 es abajo
                 break;
             case Square.LEFT:
-            	posX -= lado;   // 3 es izquierda
+            	posX -= side;   // 3 es izquierda
                 break;
             case Square.RIGHT:
-            	posX += lado;   // 4 es derecha
+            	posX += side;   // 4 es derecha
             	break;
         }
     }
@@ -69,18 +76,18 @@ public class Square {
     }
     
     public int getLado() {
-    	return lado;
+    	return side;
 	}
     
-    public int getColor() {
-    	return colorCuadrado;
+    public Color getColor() {
+    	return color;
     }
 
     //Un cuadrado tiene que saber pintarse
     public void print(Graphics2D g) {
-    	g.setColor(new Color(colorCuadrado));
+    	g.setColor(color);
     	//g.drawRect(posX, posY, lado, lado);
-    	g.fillRect(posX, posY, lado, lado);
+    	g.fillRect(posX, posY, side, side);
 		//g.fillOval(posX, posY, lado, lado);
 		
     }
