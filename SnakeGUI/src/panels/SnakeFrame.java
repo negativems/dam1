@@ -52,7 +52,6 @@ public class SnakeFrame extends JFrame {
 	//Constructor
 	public SnakeFrame() {
 		snake = new Snake();
-		apple = new Apple(getHeight(), getWidth());
 		playing = false;
 		showFinal = false;
 		displayed = false;
@@ -63,13 +62,6 @@ public class SnakeFrame extends JFrame {
 	//si alguien necesita nuestra serpiente, se la proporcionamos.
 	public Snake getSnake() {
 		return snake;
-	}
-	
-	public void printApple(Graphics g) {
-		System.out.println("asd");
-		Graphics2D g2d = (Graphics2D) g;
-		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		apple.print(g2d);
 	}
 	
 	
@@ -86,7 +78,6 @@ public class SnakeFrame extends JFrame {
 		return result;
 	}
 	
-	
 	//toca crecer sólo si estamos en una partida activa y no estamos pausados...
 	public void grow() {
 		if (playing && !paused) {
@@ -94,9 +85,25 @@ public class SnakeFrame extends JFrame {
 		}
 	}
 	
+	public void createApple(int x, int y) {
+		apple = new Apple(x, y);
+	}
+	
+	public void updateAppleFrameSize(int x, int y) {
+		apple.setMaxWidth(x);
+		apple.setMaxHeight(y);
+		apple.spawn();
+	}
+	
+	public void printApple(Graphics g) {
+		Graphics2D g2d = (Graphics2D) g;
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		apple.print(g2d);
+	}
+	
 	public void checkApple() {
 		if (apple.getPosX() == snake.getSquareList().get(0).getX() && apple.getPosY() == snake.getSquareList().get(0).getY()) {
-			apple.respawn();
+			apple.spawn();
 		}
 	}
 	
@@ -112,6 +119,7 @@ public class SnakeFrame extends JFrame {
 	//han pulsado el botón de start, hay que ponerlo todo en orden.
 	public void reset() {
 		snake = new Snake();  //nueva y flamante serpiente
+		apple = new Apple(getHeight(), getWidth());
 		playing = true;           //estamos jugando a partir de ¡YA!
 		showFinal = false;     //ni estamos al final ni mucho menos
 		displayed = false;         //hemos mostrado el msg de final

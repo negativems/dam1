@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import listener.ButtonsListener;
+import models.Apple;
 import models.Controller;
 import panels.GamePanel;
 import panels.SnakeFrame;
@@ -41,6 +42,9 @@ public class MainApp {
 		// la botonera.
 		mainPanel = new JPanel(new BorderLayout());
 
+		// Creates apple
+		frame.createApple(frame.getWidth(), frame.getHeight());
+		
 		// Ahora creamos el tablero. Recordamos: no deja de ser un panel un poquito
 		// "especial"
 		tablero = new GamePanel();
@@ -114,41 +118,41 @@ public class MainApp {
 		int mapSize = (sizeSelection.equals("Normal") ? 600 : sizeSelection.equals("Grande") ? 800 : 1000);
 		
 		frame.setSize(mapSize, mapSize);
+		frame.updateAppleFrameSize(mapSize, mapSize);
 		
 		// Difficulty menu
 		String difSelection = (String) JOptionPane.showInputDialog(
-								frame,
-								"Seleccione una opción",
-								"Dificultad",
-								JOptionPane.QUESTION_MESSAGE,
-								null,
-								new Object[] {"Fácil", "Normal", "Dificil", "Imposible"},
-								"Fácil"
-						);
+				frame,
+				"Seleccione una opción",
+				"Dificultad",
+				JOptionPane.QUESTION_MESSAGE,
+				null,
+				new Object[] {"Fácil", "Normal", "Dificil", "Imposible"},
+				"Fácil"
+		);
 		
 		int difficulty = (difSelection.equals("Fácil") ? 10 : difSelection.equals("Normal") ? 5 : difSelection.equals("Dificil") ? 2 : difSelection.equals("Imposible") ? 1 : 20);
 		
-		while (true) { // por siempre jamás (hasta que nos cierren la ventana) estamos controlando el juego.
-			
-			// actualizamos el estado del juego
-			if (contador % difficulty == 0) { // cada 200ms nos movemos o crecemos...
-				if (contador == 60) { // Cada 600ms crecemos y reseteamos el contador
+		while (true) {
+			if (contador % difficulty == 0) {
+				// Cada 600ms crecemos y reseteamos el contador a los 200 y 400 ms nos movemos...
+				if (contador == 60) {
 					contador = 0;
-				} else { // a los 200 y 400 ms nos movemos...
+				} else {
 					contador++;
 					frame.move();
 				}
 				
 				// Comentando el checkStatus hacemos que la serpiente nunca muera
-				frame.checkStatus(tablero.getHeight(), tablero.getWidth()); // comprobamos si hemos muerto o no.
-			} else { // Cada vez que no hay que moverse o crecer, simplemente contamos...
+				frame.checkStatus(tablero.getHeight(), tablero.getWidth());
+			} else {
+				// Cada vez que no hay que moverse o crecer, simplemente contamos...
 				contador++;
 			}
 
 			// hemos terminado?? mostramos msg
 			if (frame.showFin()) {
-				JOptionPane.showMessageDialog(frame,
-						"Se acabo vaquero, has conseguido " + puntosNum.getText() + " puntos");
+				JOptionPane.showMessageDialog(frame, "Fin de la partida, has conseguido " + puntosNum.getText() + " puntos");
 			}
 
 			// Repintamos
@@ -156,7 +160,6 @@ public class MainApp {
 
 			// Esperamos para dar tiempo al thread de repintado a pintar.
 			Thread.sleep(10);
-
 		}
 	}
 
