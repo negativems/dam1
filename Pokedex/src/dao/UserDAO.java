@@ -23,6 +23,19 @@ public class UserDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		return false;
+	}
+	
+	public boolean register(String username, String password) {
+		try {
+			Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
+			Statement statement = connection.createStatement();
+			String query = "INSERT INTO pokedex.users (username, password) VALUES ('" + username + "', '" + password + "');";
+			return statement.executeUpdate(query) != 0;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 

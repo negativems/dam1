@@ -31,9 +31,11 @@ public class PokemonView {
 	
 	private Pokemon pokemon;
 	
-	private JPanel topPanel, pokemonTypePanel;
-	private JButton returnButton, previousPokemonButton, nextPokemonButton;
-	private JLabel returnTextLabel, pokemonNameLabel, pokemonImageLabel, errorLabel;
+	private JPanel topPanel;
+	private JButton backButton, previousPokemonButton, nextPokemonButton;
+	private JLabel returnTextLabel, pokemonNameLabel, pokemonImageLabel, errorLabel,
+					pokemonIdLabel, heightLabel, weightLabel, genderLabel, heightValueLabel,
+					specieLabel, specieValueLabel, abilityLabel, abilityValueLabel, genderValueLabel, weightValueLabel;
 
 	/**
 	 * Inicia la vista Pokedex
@@ -51,6 +53,7 @@ public class PokemonView {
 		pokemon = PokedexApp.getPokemons().get(0);
 		
 		frame = new JFrame();
+		frame.getContentPane().setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
 		frame.getContentPane().setBackground(AppUtils.BACKGROUND_COLOR);
 		frame.setBounds(100, 100, 500, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -68,13 +71,13 @@ public class PokemonView {
 		topPanel.setLayout(null);
 		
 		// Back button
-		returnButton = new JButton("");
-		returnButton.setIcon(new ImageIcon(PokemonView.class.getResource("/assets/img/return.png")));
-		returnButton.setBounds(10, 39, 32, 28);
-		returnButton.setBackground(AppUtils.TRANSPARENT_COLOR);
-		returnButton.setOpaque(false);
-		returnButton.setBorder(null);
-		topPanel.add(returnButton);
+		backButton = new JButton("");
+		backButton.setIcon(new ImageIcon(PokemonView.class.getResource("/assets/img/return.png")));
+		backButton.setBounds(10, 39, 32, 28);
+		backButton.setBackground(AppUtils.TRANSPARENT_COLOR);
+		backButton.setOpaque(false);
+		backButton.setBorder(null);
+		topPanel.add(backButton);
 		
 		// Back button text
 		returnTextLabel = new JLabel("Pokedex");
@@ -83,6 +86,13 @@ public class PokemonView {
 		returnTextLabel.setBounds(69, 33, 115, 34);
 		topPanel.add(returnTextLabel);
 		
+		// Pokemon ID label
+		pokemonIdLabel = new JLabel("# 0");
+		pokemonIdLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+		pokemonIdLabel.setForeground(Color.WHITE);
+		pokemonIdLabel.setBounds(416, 46, 46, 14);
+		topPanel.add(pokemonIdLabel);
+		
 		// Pokemon's name
 		pokemonNameLabel = new JLabel(pokemon.getName());
 		pokemonNameLabel.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 24));
@@ -90,14 +100,6 @@ public class PokemonView {
 		pokemonNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		pokemonNameLabel.setBounds(10, 300, 464, 39);
 		frame.getContentPane().add(pokemonNameLabel);
-		
-		// Panel behind pokemon
-		pokemonTypePanel = new RoundedJPanel(20, 20);
-		pokemonTypePanel.setBounds(171, 350, 154, 26);
-		pokemonTypePanel.setBackground(Color.WHITE);
-		pokemonTypePanel.setBorder(null);
-		pokemonTypePanel.setOpaque(false);
-		frame.getContentPane().add(pokemonTypePanel);
 		
 		// Pokemon image
 		pokemonImageLabel = new JLabel("");
@@ -135,6 +137,75 @@ public class PokemonView {
 		nextPokemonButton.setOpaque(false);
 		topPanel.add(nextPokemonButton);
 		
+		// Stats
+		// Height
+		heightLabel = new JLabel("Altura");
+		heightLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
+		heightLabel.setForeground(Color.WHITE);
+		heightLabel.setBounds(52, 384, 46, 14);
+		frame.getContentPane().add(heightLabel);
+		
+		heightValueLabel = new JLabel(pokemon.getHeight() + "");
+		heightValueLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
+		heightValueLabel.setForeground(Color.WHITE);
+		heightValueLabel.setBounds(113, 384, 66, 14);
+		frame.getContentPane().add(heightValueLabel);
+		
+		// Weight
+		weightLabel = new JLabel("Peso");
+		weightLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
+		weightLabel.setForeground(Color.WHITE);
+		weightLabel.setBounds(52, 409, 38, 14);
+		frame.getContentPane().add(weightLabel);
+		
+		weightValueLabel = new JLabel(pokemon.getWeight() + "");
+		weightValueLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
+		weightValueLabel.setForeground(Color.WHITE);
+		weightValueLabel.setBounds(113, 409, 66, 14);
+		frame.getContentPane().add(weightValueLabel);
+		
+		// Gender
+		genderLabel = new JLabel("Género");
+		genderLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
+		genderLabel.setForeground(Color.WHITE);
+		genderLabel.setBounds(52, 434, 59, 14);
+		frame.getContentPane().add(genderLabel);
+		
+		genderValueLabel = new JLabel(pokemon.getGender().name().toLowerCase());
+		genderValueLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
+		genderValueLabel.setForeground(Color.WHITE);
+		genderValueLabel.setBounds(113, 434, 66, 14);
+		frame.getContentPane().add(genderValueLabel);
+		
+		
+		// Specie
+		specieLabel = new JLabel(pokemon.getTypes().size() > 1 ? "Especies" : "Especie");
+		specieLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
+		specieLabel.setForeground(Color.WHITE);
+		specieLabel.setBounds(282, 384, 73, 14);
+		frame.getContentPane().add(specieLabel);
+		
+		specieValueLabel = new JLabel(pokemon.getSpecie());
+		specieValueLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
+		specieValueLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+		specieValueLabel.setForeground(Color.WHITE);
+		specieValueLabel.setBounds(365, 384, 73, 14);
+		frame.getContentPane().add(specieValueLabel);
+		
+		// Type
+		abilityLabel = new JLabel("Habilidad");
+		abilityLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
+		abilityLabel.setForeground(Color.WHITE);
+		abilityLabel.setBounds(282, 409, 73, 14);
+		frame.getContentPane().add(abilityLabel);
+		
+		abilityValueLabel = new JLabel(pokemon.getAbility());
+		abilityValueLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
+		abilityValueLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+		abilityValueLabel.setForeground(Color.WHITE);
+		abilityValueLabel.setBounds(365, 409, 73, 14);
+		frame.getContentPane().add(abilityValueLabel);
+		
 		// Error label
 		errorLabel = new JLabel("");
 		errorLabel.setForeground(Color.WHITE);
@@ -143,7 +214,7 @@ public class PokemonView {
 	}
 	
 	public void setListeners() {
-		returnButton.addActionListener(new ActionListener() {
+		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
 				new LoginView();
@@ -152,26 +223,47 @@ public class PokemonView {
 		
 		nextPokemonButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (PokedexApp.getPokemons().size() <= pokemon.getId()) {
+				if (pokemon.getId() >= PokedexApp.getPokemons().size()) {
 					errorLabel.setText("No hay más pokemons");
 					return;
 				}
-				errorLabel.setText("test");
+				
 				int nextPokemonId = pokemon.getId() + 1;
-				pokemon = PokedexApp.getPokemons().get(nextPokemonId);
+				pokemon = PokedexApp.getPokemons().get(nextPokemonId - 1);
+				updateView();
 			}
 		});
 		
 		previousPokemonButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (PokedexApp.getPokemons().size() <= pokemon.getId()) {
+				if (pokemon.getId() <= 1) {
 					errorLabel.setText("No hay más pokemons");
 					return;
 				}
-				errorLabel.setText("test");
-				int nextPokemonId = pokemon.getId() + 1;
-				pokemon = PokedexApp.getPokemons().get(nextPokemonId);
+				
+				int previousId = pokemon.getId() - 1;
+				pokemon = PokedexApp.getPokemons().get(previousId - 1);
+				updateView();
 			}
 		});
+	}
+	
+	private void updateView() {
+		pokemonIdLabel.setText("# " + pokemon.getId());
+		pokemonNameLabel.setText(pokemon.getName());
+		heightValueLabel.setText(pokemon.getHeight() + "");
+		weightValueLabel.setText(pokemon.getWeight() + "");
+		genderValueLabel.setText(pokemon.getGender().name().toLowerCase());
+		specieValueLabel.setText(pokemon.getSpecie());
+		abilityValueLabel.setText(pokemon.getAbility());
+		
+		try {
+			URL url = new URL("https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + ImageUtils.getPokemonById(pokemon.getId()));
+			BufferedImage bufferedImage = ImageIO.read(url);
+			Image image = new ImageIcon(bufferedImage).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT);
+			pokemonImageLabel.setIcon(new ImageIcon(image));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

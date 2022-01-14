@@ -15,12 +15,13 @@ import dao.UserDAO;
 import mainApp.PokedexApp;
 import models.User;
 import utils.AppUtils;
+import javax.swing.JPasswordField;
 
 public class LoginView {
 
 	private JFrame frame;
 	private JTextField usernameField;
-	private JTextField passwordField;
+	private JPasswordField passwordField;
 	private JLabel titleLabel, welcomeLabel, usernameLabel, passwordLabel;
 	private JButton registerButton, loginButton;
 	private JLabel errorLabel;
@@ -34,6 +35,7 @@ public class LoginView {
 		userDAO = new UserDAO();
 		font = AppUtils.getPokemonFont();
 		initialize();
+		setListeners();
 	}
 
 	/**
@@ -64,11 +66,6 @@ public class LoginView {
 		
 		registerButton = new JButton("Registrarme");
 		registerButton.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		registerButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new RegisterView();
-			}
-		});
 		
 		registerButton.setBounds(339, 425, 85, 25);
 		frame.getContentPane().add(registerButton);
@@ -90,25 +87,13 @@ public class LoginView {
 		passwordLabel.setBounds(108, 226, 244, 20);
 		frame.getContentPane().add(passwordLabel);
 		
-		passwordField = new JTextField();
+		passwordField = new JPasswordField();
 		passwordField.setColumns(10);
 		passwordField.setBounds(108, 257, 244, 30);
 		frame.getContentPane().add(passwordField);
 		
 		loginButton = new JButton("Iniciar Sesión");
-		loginButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String username = usernameField.getText();
-				String password = passwordField.getText();
-				if (userDAO.login(username, password)) {
-					PokedexApp.user = new User(username, password);
-					frame.setVisible(false);
-					new PokemonView();
-				} else {
-					errorLabel.setText("Usuario o contraseña incorrectos");
-				}
-			}
-		});
+
 		loginButton.setBackground(new Color(176, 196, 222));
 		loginButton.setBounds(108, 311, 244, 30);
 		frame.getContentPane().add(loginButton);
@@ -121,5 +106,14 @@ public class LoginView {
 		
 		frame.setBounds(100, 100, 450, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
+	public void setListeners() {
+		registerButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				new RegisterView();
+			}
+		});
 	}
 }

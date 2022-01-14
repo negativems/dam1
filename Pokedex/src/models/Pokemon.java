@@ -6,35 +6,41 @@ import java.util.List;
 public class Pokemon {
 
 	protected int id;
-	protected String name, description, category, ability, imageURL, soundURL;
+	protected String name, description, specie, ability, imageURL, soundURL;
+	protected Gender gender;
 	protected List<PokemonType> types;
 	protected float height, weight;
 	
 	/**
 	 * Constructor for Pokemon
-	 * @param id Identificador del pokemon
-	 * @param name Nombre del pokemon
-	 * @param description Descripción del pokemon
-	 * @param category Categoria del pokemon
-	 * @param ability Habilidad del pokemon
-	 * @param imageURL Dirección URL de la imagen del pokemon
-	 * @param height Altura del pokemon
-	 * @param weight Peso 
+	 * @param id Pokemons id
+	 * @param name Pokemons name
+	 * @param description Pokemons description
+	 * @param specie Pokemons category
+	 * @param ability Pokemons ability
+	 * @param imageURL Pokemons image URL
+	 * @param height Pokemon height
+	 * @param weight Pokemon weight
 	 */
-	public Pokemon(int id, String name, String description, String category, String ability,
-					String imageURL, float height, float weight) {
+	public Pokemon(int id, String name, String description, String specie, String ability,
+					String imageURL, float height, float weight, Gender gender) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
-		this.category = category;
+		this.specie = specie;
 		this.ability = ability;
 		this.imageURL = imageURL;
 		this.height = height;
 		this.weight = weight;
+		this.gender = gender;
 		this.types = new ArrayList<>();
 	}
 
+	public void addType(PokemonType type) {
+		types.add(type);
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -47,8 +53,8 @@ public class Pokemon {
 		return description;
 	}
 
-	public String getCategory() {
-		return category;
+	public String getSpecie() {
+		return specie;
 	}
 
 	public String getAbility() {
@@ -66,6 +72,17 @@ public class Pokemon {
 	public List<PokemonType> getTypes() {
 		return types;
 	}
+	
+	public String getFormattedTypes() {
+		if (types.isEmpty()) return "";
+		
+		String result = "";
+		for (PokemonType type : types) {
+			result = result + type + ", ";
+		}
+		
+		return result.substring(0, result.length() - 2);
+	}
 
 	public float getHeight() {
 		return height;
@@ -73,6 +90,10 @@ public class Pokemon {
 
 	public float getWeight() {
 		return weight;
+	}
+	
+	public Gender getGender() {
+		return gender;
 	}
 	
 	@Override

@@ -10,30 +10,33 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import dao.UserDAO;
+import mainApp.PokedexApp;
+import models.User;
 
 public class RegisterView {
 
 	private JFrame frame;
 	private JLabel welcomeLabel, usernameLabel;
-	private JTextField usernameField, passwordField, password2Field;
-	private JLabel passwordLabel, password2Label;
-	private JButton registerButton;
+	private JTextField usernameField;
+	private JPasswordField passwordField, password2Field;
+	private JLabel passwordLabel, password2Label, labelPickachuImage, errorLabel;
+	private JButton registerButton, backButton;
+	private UserDAO userDAO;
 	
-	/**
-	 * Create the application.
-	 */
 	public RegisterView() {
+		this.userDAO = new UserDAO();
 		initialize();
-		frame.setVisible(true);
+		setListeners();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setVisible(true);
 		frame.getContentPane().setFont(new Font("SansSerif", Font.PLAIN, 11));
 		
 		frame.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
@@ -48,7 +51,7 @@ public class RegisterView {
 		frame.getContentPane().add(welcomeLabel);
 		
 		usernameLabel = new JLabel("Usuario");
-		usernameLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+		usernameLabel.setFont(new Font("SansSerif", Font.BOLD, 12));
 		usernameLabel.setForeground(new Color(255, 255, 255));
 		usernameLabel.setBounds(107, 107, 244, 20);
 		frame.getContentPane().add(usernameLabel);
@@ -61,56 +64,87 @@ public class RegisterView {
 		registerButton = new JButton("Registrarme");
 		registerButton.setBackground(new Color(176, 196, 222));
 		registerButton.setForeground(new Color(0, 0, 0));
-		registerButton.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		registerButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new RegisterView();
-			}
-		});
+		registerButton.setFont(new Font("SansSerif", Font.PLAIN, 10));
 		registerButton.setBounds(107, 358, 244, 23);
 		frame.getContentPane().add(registerButton);
 		
 		passwordLabel = new JLabel("Contraseña");
 		passwordLabel.setForeground(Color.WHITE);
-		passwordLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
 		passwordLabel.setBounds(107, 183, 244, 20);
 		frame.getContentPane().add(passwordLabel);
 		
-		passwordField = new JTextField();
+		passwordField = new JPasswordField();
 		passwordField.setColumns(10);
 		passwordField.setBounds(107, 214, 244, 20);
 		frame.getContentPane().add(passwordField);
 		
-		password2Field = new JTextField();
+		password2Label = new JLabel("Repetir contraseña");
+		password2Label.setForeground(Color.WHITE);
+		password2Label.setBounds(107, 261, 244, 20);
+		frame.getContentPane().add(password2Label);
+		
+		password2Field = new JPasswordField();
 		password2Field.setColumns(10);
 		password2Field.setBounds(107, 292, 244, 20);
 		frame.getContentPane().add(password2Field);
 		
-		password2Label = new JLabel("Repetir contraseña");
-		password2Label.setForeground(Color.WHITE);
-		password2Label.setFont(new Font("Tahoma", Font.BOLD, 12));
-		password2Label.setBounds(107, 261, 244, 20);
-		frame.getContentPane().add(password2Label);
-		
-		JLabel labelPickachuImage = new JLabel("");
+		labelPickachuImage = new JLabel("");
 		labelPickachuImage.setIcon(new ImageIcon(RegisterView.class.getResource("/assets/img/pikachu.png")));
 		labelPickachuImage.setBounds(331, 11, 93, 93);
 		frame.getContentPane().add(labelPickachuImage);
 		
-		JButton btnNewButton = new JButton("");
-		btnNewButton.addActionListener(new ActionListener() {
+		backButton = new JButton("");
+		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
+				frame.dispose();
 				new LoginView();
 			}
 		});
-		btnNewButton.setEnabled(false);
-		btnNewButton.setOpaque(false);
-		btnNewButton.setBorder(BorderFactory.createEmptyBorder());
-		btnNewButton.setIcon(new ImageIcon(RegisterView.class.getResource("/assets/img/return.png")));
-		btnNewButton.setBounds(26, 29, 16, 16);
-		frame.getContentPane().add(btnNewButton);
+		
+		backButton.setEnabled(false);
+		backButton.setOpaque(false);
+		backButton.setBorder(BorderFactory.createEmptyBorder());
+		backButton.setIcon(new ImageIcon(RegisterView.class.getResource("/assets/img/return.png")));
+		backButton.setBounds(10, 22, 38, 33);
+		frame.getContentPane().add(backButton);
+		
+		errorLabel = new JLabel("");
+		errorLabel.setForeground(Color.RED);
+		errorLabel.setBounds(107, 420, 244, 14);
+		frame.getContentPane().add(errorLabel);
+		
 		frame.setBounds(100, 100, 450, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
+	public void setListeners() {
+		backButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				new LoginView();
+			}
+		});
+		
+		registerButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
+				String username = usernameField.getText();
+				String password = new String(passwordField.getPassword());
+				String password2 = new String(password2Field.getPassword());
+				
+				if (!password.equals(password2)) {
+					errorLabel.setText("Las contraseñas no coinciden");
+					return;
+				}
+				
+				if (userDAO.register(username, password)) {
+					frame.dispose();
+					new LoginView();
+				} else {
+					errorLabel.setText("Ha habido un error al registrarte en la base de datos");
+				}
+			}
+		});
 	}
 }
