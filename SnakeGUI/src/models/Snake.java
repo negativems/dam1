@@ -1,135 +1,140 @@
 package models;
 
 import java.awt.Graphics2D;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 public class Snake {
-	// Constantes. No hay
 
-	// ****** Atributos. Estado
-
-	// Cuerpo de la serpiente, es una lista de cuadrados
 	private ArrayList<Square> squareList;
-
-	// Dirección inicial del movimiento
 	private int direction;
 
-	// ****** Métodos -- Comportamientos
-
-	// Creación
 	public Snake() {
-		// creamos la lista de cuadrados.
 		squareList = new ArrayList<Square>();
-
-		// añadimos el primero de los cuadrados...
-		// squareList.add(new Square(60, 60, 20, (int) (Math.random() * 16000000)));
-		squareList.add(new Square(60, 60, 20, 255));
-
-		// siempre hacia abajo al principio
+		squareList.add(new Square(60, 60, 20, Color.GREEN));
 		direction = Square.DOWN;
 	}
 
-	// Moverse. Una serpiente sabe moverse
-	public void move() {
-		Square nuevaCabeza;
-		Square antiguaCabeza;
-
-		// Primero cogemos la cabeza y la duplicamos
-		antiguaCabeza = squareList.get(0);
-		nuevaCabeza = new Square(antiguaCabeza.getX(), antiguaCabeza.getY(), antiguaCabeza.getLado(),
-				antiguaCabeza.getColor());
-
-		// movemos la cabeza a su nueva posición
-		nuevaCabeza.moverse(direction);
-
-		// la añadimos a la lista
-		squareList.add(0, nuevaCabeza);
-
-		// borramos el último cuadrado por la cola (pop del basic)
-		squareList.remove(squareList.size() - 1);
-	}
-
+	
+	/**
+	 * Grow up the snake
+	 */
 	public void grow() {
-		Square nuevaCabeza;
-		Square antiguaCabeza;
-
-		// Primero cogemos la cabeza y la duplicamos
-		antiguaCabeza = squareList.get(0);
-		nuevaCabeza = new Square(antiguaCabeza.getX(), antiguaCabeza.getY(), antiguaCabeza.getLado(),
-				antiguaCabeza.getColor());
-		// movemos la cabeza a su nueva posición
-		nuevaCabeza.moverse(direction);
-
-		// la añadimos a la lista
+		Square antiguaCabeza = squareList.get(0);
+		Square nuevaCabeza = new Square(antiguaCabeza.getX(), antiguaCabeza.getY(), antiguaCabeza.getLado(), antiguaCabeza.getColor());
+		nuevaCabeza.changeDirection(direction);
 		squareList.add(0, nuevaCabeza);
-
-		// ahora no borramos la última y hemos crecido...
+	}
+	
+	
+	/**
+	 * Move the snake by growing up and removing the last square
+	 */
+	public void move(int height, int width) {
+		grow();
+		squareList.remove(squareList.size() - 1);
+		
+		if (isOut(height, width)) {
+			Square head = squareList.get(0);
+			if (head.getX() > width) {
+				head.teleport(0, head.getY());
+			} else if (head.getX() < 0) {
+				head.teleport(width, head.getY());
+			} else if (head.getY() > height - 100) {
+				System.out.println("from " + head.getX() + "," + head.getY());
+				head.teleport(head.getX(), 0);
+				System.out.println("to " + head.getX() + "," + head.getY());
+				System.out.println("height: " + height);
+			} else if (head.getY() < 0) {
+				head.teleport(head.getX(), height - 100);
+			}
+		}
 	}
 
-	// la serpiente se muere porque se toca a si misma o porque se ha salido del tablero
-	public boolean estaMuerta(int iAlto, int iAncho) {
-		boolean resultado;
-
-		resultado = (seEstaTocandoEllaMisma() || seHaSalido(iAlto, iAncho));
-
-		return resultado;
+	
+	/**
+	 * Checks if the snake is dead
+	 * @param height The height of the table
+	 * @param width The width of the table
+	 * @return true if the snake is dead by checking if is collapsing or is out the table
+	 */
+	public boolean isDead() {
+		return isCollapsing();
 	}
 
-	// la cabeza, está tocando alguna parte de su cuerpo??
-	private boolean seEstaTocandoEllaMisma() {
-		int iCont;
-		Square cabeza;
+	
+	/**
+	 * Checks if the snake is collapsing
+	 * @return true if is collapsing with itselfs
+	 */
+	private boolean isCollapsing() {
+		Square cabeza = squareList.get(0);
 
-		cabeza = squareList.get(0);
-
-		// la cabeza podrá tocar como mucho, el quinto cuadrado en adelante de su
-		// cuerpo...
-		// por eso el cuadrado 1, 2 y 3 no lo comprobamos
-		for (iCont = 4; iCont < squareList.size(); iCont++) {
-			if (squareList.get(iCont).estaEncimaDe(cabeza)) // oh oh, hemos chocado...
-				return true;
+		for (int i = 4; i < squareList.size(); i++) {
+			if (squareList.get(i).isOverOf(cabeza)) {
+				return true;				
+			}
 		}
 
 		return false;
 	}
 
-	// nos hemos salido de los límites del tablero???
-	private boolean seHaSalido(int iAlto, int iAncho) {
-		// Hacemos las comprobaciones sobre la cabeza
+	
+	/**
+	 * Checks if the snake's head is out of the table
+	 * @param height The height of the frame
+	 * @param width The width of the frame
+	 * @return true if the snake is out
+	 */
+	private boolean isOut(int height, int width) {
 		Square cabeza = squareList.get(0);
 
-		return (cabeza.getX() < 0 || cabeza.getX() > iAncho || cabeza.getY() < 0 || cabeza.getY() > iAlto);
+		return (cabeza.getX() < 0 || cabeza.getX() > width || cabeza.getY() < 0 || cabeza.getY() > height - 200);
 	}
 
-	// la serpiente también sabe pintarse
+	
+	/**
+	 * Prints all the squares from the snakes body
+	 * @param g Graphics2D object
+	 */
 	public void print(Graphics2D g) {
-		// pintamos desde el cuadrado 0 hasta el último. Cuidado, aquí con el "<"
-		// evitamos
-		// tener que poner el "-1" que poniamos en el for del BASIC
 		for (int i = 0; i < squareList.size(); i++) {
 			squareList.get(i).print(g);
 		}
 	}
 
-	// controlamos el cambio de dirección
+	
+	/**
+	 * Changes the direction of the snake
+	 * @param key The keyboard key
+	 */
 	public void changeDirection(int key) {
-		if (key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) {
+		if ((key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) && direction != Square.RIGHT) {
 			direction = Square.LEFT;
-		} else if (key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) {
+		} else if ((key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) && direction != Square.UP) {
 			direction = Square.DOWN;
-		} else if (key == KeyEvent.VK_W || key == KeyEvent.VK_UP) {
+		} else if ((key == KeyEvent.VK_W || key == KeyEvent.VK_UP) && direction != Square.DOWN) {
 			direction = Square.UP;
-		} else if (key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
+		} else if ((key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) && direction != Square.LEFT) {
 			direction = Square.RIGHT;
 		}
 	}
 
-	// los puntos se corresponden con el tamaño de nuestra serpiente
+	
+	/**
+	 * Points based on the snake's squares.
+	 * @return int
+	 */
 	public int getPoints() {
 		return squareList.size();
 	}
 	
+	
+	/**
+	 * Gets list of the squares from the snake's body
+	 * @return
+	 */
 	public ArrayList<Square> getSquareList() {
 		return squareList;
 	}

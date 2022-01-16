@@ -31,27 +31,30 @@ public class PokemonView {
 	
 	private Pokemon pokemon;
 	
-	private JPanel topPanel;
-	private JButton backButton, previousPokemonButton, nextPokemonButton;
-	private JLabel returnTextLabel, pokemonNameLabel, pokemonImageLabel, errorLabel,
-					pokemonIdLabel, heightLabel, weightLabel, genderLabel, heightValueLabel,
-					specieLabel, specieValueLabel, abilityLabel, abilityValueLabel, genderValueLabel, weightValueLabel;
+	private JPanel  topPanel;
+	private JButton backButton, previousPokemonButton, nextPokemonButton, editPokemonButton;
+	private JLabel  returnTextLabel, pokemonNameLabel, pokemonImageLabel, errorLabel,
+				    pokemonIdLabel, heightLabel, weightLabel, genderLabel, heightValueLabel,
+				    specieLabel, specieValueLabel, abilityLabel, abilityValueLabel, genderValueLabel, weightValueLabel;
 
 	/**
 	 * Inicia la vista Pokedex
 	 */
-	public PokemonView() {
+	public PokemonView(int id) {
+		this.pokemon = PokedexApp.getPokemons().get(id - 1);
 		initialize();
 		setListeners();
 		frame.setVisible(true);
+	}
+	
+	public PokemonView() {
+		this(1);
 	}
 
 	/**
 	 * Muestra el contenido de la vista
 	 */
-	private void initialize() {
-		pokemon = PokedexApp.getPokemons().get(0);
-		
+	private void initialize() {		
 		frame = new JFrame();
 		frame.getContentPane().setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
 		frame.getContentPane().setBackground(AppUtils.BACKGROUND_COLOR);
@@ -111,8 +114,8 @@ public class PokemonView {
 			BufferedImage bufferedImage = ImageIO.read(url);
 			Image image = new ImageIcon(bufferedImage).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT);
 			pokemonImageLabel.setIcon(new ImageIcon(image));
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException editPokemonButton) {
+			editPokemonButton.printStackTrace();
 		}
 		
 		topPanel.add(pokemonImageLabel);
@@ -124,6 +127,7 @@ public class PokemonView {
 		previousPokemonButton.setForeground(Color.WHITE);
 		previousPokemonButton.setBounds(10, 78, 59, 190);
 		previousPokemonButton.setBorder(null);
+		previousPokemonButton.setContentAreaFilled(false);
 		previousPokemonButton.setOpaque(false);
 		topPanel.add(previousPokemonButton);
 		
@@ -134,6 +138,7 @@ public class PokemonView {
 		nextPokemonButton.setForeground(Color.WHITE);
 		nextPokemonButton.setBounds(415, 78, 59, 190);
 		nextPokemonButton.setBorder(null);
+		nextPokemonButton.setContentAreaFilled(false);
 		nextPokemonButton.setOpaque(false);
 		topPanel.add(nextPokemonButton);
 		
@@ -192,7 +197,7 @@ public class PokemonView {
 		specieValueLabel.setBounds(365, 384, 73, 14);
 		frame.getContentPane().add(specieValueLabel);
 		
-		// Type
+		// Ability
 		abilityLabel = new JLabel("Habilidad");
 		abilityLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
 		abilityLabel.setForeground(Color.WHITE);
@@ -208,9 +213,18 @@ public class PokemonView {
 		
 		// Error label
 		errorLabel = new JLabel("");
+		errorLabel.setVerticalAlignment(SwingConstants.TOP);
+		errorLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		errorLabel.setForeground(Color.WHITE);
-		errorLabel.setBounds(10, 531, 484, 26);
+		errorLabel.setBounds(0, 493, 484, 26);
 		frame.getContentPane().add(errorLabel);
+		
+		// Edit pokemon button
+		editPokemonButton = new JButton("Editar");
+		editPokemonButton.setForeground(Color.WHITE);
+		editPokemonButton.setBounds(349, 530, 89, 23);
+		editPokemonButton.setBackground(AppUtils.ACCENT_COLOR);
+		frame.getContentPane().add(editPokemonButton);
 	}
 	
 	public void setListeners() {
@@ -244,6 +258,13 @@ public class PokemonView {
 				int previousId = pokemon.getId() - 1;
 				pokemon = PokedexApp.getPokemons().get(previousId - 1);
 				updateView();
+			}
+		});
+		
+		editPokemonButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
+				new PokemonEditorView(pokemon);
 			}
 		});
 	}

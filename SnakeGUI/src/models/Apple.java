@@ -19,8 +19,8 @@ public class Apple {
 	}
 
 	public void spawn() {
-		this.posX = (int) ((Math.random() * maxWidth) * 20 / 20);
-		this.posY = (int) ((Math.random() * maxHeight) * 20 / 20);
+		this.posX = (int) ((int) ((Math.random() * ((maxWidth - 100) / 20))) * 20) + 60;
+		this.posY = (int) ((int) ((Math.random() * ((maxHeight - 200) / 20))) * 20) + 60;
 		
 		System.out.println(posX + "," + posY);
 	}

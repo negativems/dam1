@@ -5,74 +5,84 @@ import java.awt.Graphics2D;
 
 public class Square {
 	
-	//Constantes. Son las direcciones en las que nuestro cuadrado puede moverse
     public static final int UP = 1;
     public static final int DOWN = 2;
     public static final int LEFT = 3;
     public static final int RIGHT = 4;
 
-    //Atributos -- Estado
-
-    //Necesitamos la posición del cuadrado marcado por su esquina superior izq.
-    private int posX;
-    private int posY;
-    
-    //También necesitamos el lado del cuadrado
-    private int side;
-    
-    //Ahora el color
+    private int x, y, side;
     private Color color;
 
-
-    //comportamiento
-
-    //creación
-    public Square(int posX,int posY,int side, int color) {
-    	this.posX = posX;
-        this.posY = posY;
+    public Square(int x,int y,int side, int color) {
+    	this.x = x;
+        this.y = y;
         this.side = side;
         this.color = new Color(color);
     }
     
     public Square(int posX, int posY, int side, Color color) {
-        this.posX = posX;
-        this.posY = posY;
+        this.x = posX;
+        this.y = posY;
         this.side = side;
         this.color = color;
     }
 
-    //un cuadrado se mueve arriba, abajo, derecha e izquierda
-    public void moverse(int direction) {
+    /**
+     * Change the square direction
+     * @param direction The direction of the square
+     */
+    public void changeDirection(int direction) {
         switch (direction) {
             case Square.UP:
-            	posY -= side;   // 1 es arriba
+            	y -= side;
                 break;
             case Square.DOWN:
-            	posY += side;   // 2 es abajo
+            	y += side;
                 break;
             case Square.LEFT:
-            	posX -= side;   // 3 es izquierda
+            	x -= side;
                 break;
             case Square.RIGHT:
-            	posX += side;   // 4 es derecha
+            	x += side;
             	break;
         }
     }
 
-    //un cuadrado puede estar colisionando con otro
-    public boolean estaEncimaDe(Square otroC) {
-    	//en nuestro caso, sólo comprobamos la esquina superior izq 
-    	//almacenada en las posiciones X e Y. No hay otra posibilidad.
-        return (otroC.getX() == posX && otroC.getY() == posY);
+    /**
+     * Checks if the square is over other square
+     * @param square
+     * @return true if the square is over other square
+     */
+    public boolean isOverOf(Square square) {
+        return (square.getX() == x && square.getY() == y);
+    }
+    
+    /**
+     * Teleports to a coordinates
+     * @param x position
+     * @param y position
+     */
+    public void teleport(int x, int y) {
+    	this.x = x;
+    	this.y = y;
+    }
+    
+    /**
+     * Print the square
+     * @param g Graphics2D object
+     */
+    public void print(Graphics2D g) {
+    	g.setColor(color);
+    	g.fillRect(x, y, side, side);
     }
 
-    //Métodos de obtención de datos
+    // Getters && Setters
     public int getX(){
-        return posX;
+        return x;
     }
     
     public int getY(){
-        return posY;
+        return y;
     }
     
     public int getLado() {
@@ -81,14 +91,5 @@ public class Square {
     
     public Color getColor() {
     	return color;
-    }
-
-    //Un cuadrado tiene que saber pintarse
-    public void print(Graphics2D g) {
-    	g.setColor(color);
-    	//g.drawRect(posX, posY, lado, lado);
-    	g.fillRect(posX, posY, side, side);
-		//g.fillOval(posX, posY, lado, lado);
-		
     }
 }

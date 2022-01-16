@@ -109,11 +109,27 @@ public class LoginView {
 	}
 	
 	public void setListeners() {
+		loginButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String username = usernameField.getText();
+				String password = new String(passwordField.getPassword());
+				if (userDAO.login(username, password)) {
+					frame.setVisible(false);
+					new PokemonView();
+					return;
+				}
+				
+				errorLabel.setText("Credenciales no válidas.");
+			}
+		});
+		
 		registerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
 				new RegisterView();
 			}
 		});
+		
+		
 	}
 }
