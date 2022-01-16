@@ -38,7 +38,7 @@ public class MainApp {
 		tablero = new GamePanel();
 		tablero.setBorder(BorderFactory.createLineBorder(Color.black));
 		tablero.setBackground(new java.awt.Color(100, 125, 110));
-		tablero.setSize(600, 400);
+		tablero.setSize(600, 600);
 		tablero.setSnakeFrame(frame);
 
 		pointsTextLabel = new JLabel();

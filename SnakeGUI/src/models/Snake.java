@@ -37,17 +37,17 @@ public class Snake {
 		
 		if (isOut(height, width)) {
 			Square head = squareList.get(0);
-			if (head.getX() > width) {
+			if (head.getX() >= width - 20) {
 				head.teleport(0, head.getY());
 			} else if (head.getX() < 0) {
-				head.teleport(width, head.getY());
-			} else if (head.getY() > height - 100) {
+				head.teleport(width - 20, head.getY());
+			} else if (head.getY() >= height - 80) {
 				System.out.println("from " + head.getX() + "," + head.getY());
 				head.teleport(head.getX(), 0);
 				System.out.println("to " + head.getX() + "," + head.getY());
 				System.out.println("height: " + height);
 			} else if (head.getY() < 0) {
-				head.teleport(head.getX(), height - 100);
+				head.teleport(head.getX(), height - 80);
 			}
 		}
 	}
