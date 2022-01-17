@@ -12,14 +12,12 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import mainApp.PokedexApp;
+import dao.UserDAO;
 import models.User;
 import utils.AppUtils;
 
 public class LoginView {
 
-	private final PokedexApp pokedexApp = PokedexApp.instance;
-	
 	private JFrame frame;
 	private JTextField usernameField;
 	private JPasswordField passwordField;
@@ -27,14 +25,16 @@ public class LoginView {
 	private JButton registerButton, loginButton;
 	private JLabel errorLabel;
 	private Font font;
+	private UserDAO userDAO;
 
 	/**
 	 * Create the application.
 	 */
-	public LoginView(PokedexApp pokedexApp) {
+	public LoginView() {
+		userDAO = new UserDAO();
 		font = AppUtils.getPokemonFont();
 		initialize();
-		createListeners();
+		setListeners();
 	}
 
 	/**
@@ -107,42 +107,29 @@ public class LoginView {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
-	/**
-	 * Create buttons listeners
-	 */
-	public void createListeners() {
+	public void setListeners() {
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String username = usernameField.getText();
 				String password = new String(passwordField.getPassword());
-				login(username, password);
+				User user = new User(username, password);
+				if (userDAO.login(user)) {
+					frame.setVisible(false);
+					new PokemonView();
+					return;
+				}
+				
+				errorLabel.setText("Credenciales no válidas.");
 			}
 		});
 		
 		registerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				new RegisterView(pokedexApp);
+				new RegisterView();
 			}
-		});		
+		});
+		
+		
 	}
-	
-	/**
-	 * Login user by an username and password
-	 * @param username
-	 * @param password
-	 */
-	public void login(String username, String password) {
-		for (User user : pokedexApp.getUserManager().getUsers()) {
-			if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
-				pokedexApp.getUserManager().setLoggedUser(user);
-				frame.setVisible(false);
-				new PokemonView(pokedexApp);
-				return;
-			}
-		}
-
-		errorLabel.setText("Usuario o contraseña erróneos");
-	}
-	
 }

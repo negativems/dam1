@@ -31,18 +31,17 @@ import utils.RoundedJPanel;
 
 public class PokemonEditorView {
 
-	private PokedexApp pokedexApp;
-	
 	private Pokemon pokemon;
 
 	private JFrame frame;
 	private JPanel topPanel;
 	private JButton backButton;
-	private JLabel returnTextLabel, pokemonNameLabel, pokemonImageLabel, errorLabel, heightLabel, weightLabel, genderLabel, specieLabel, abilityLabel;
+	private JLabel returnTextLabel, pokemonNameLabel, pokemonImageLabel, errorLabel, heightLabel, weightLabel, genderLabel,
+					specieLabel, abilityLabel;
 	private JButton deletePokemonButton, savePokemonButton;
 	private JTextField heightValueField, specieValueField, abilityValueField, weightValueField;
 	private JSpinner genderValueSpinner;
-	
+
 	/**
 	 * Inicia la vista Pokedex
 	 */
@@ -96,7 +95,7 @@ public class PokemonEditorView {
 		pokemonNameLabel.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 24));
 		pokemonNameLabel.setForeground(Color.WHITE);
 		pokemonNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		pokemonNameLabel.setBounds(0, 300, 484, 39);
+		pokemonNameLabel.setBounds(10, 300, 464, 39);
 		frame.getContentPane().add(pokemonNameLabel);
 		
 		// Pokemon image
@@ -124,8 +123,6 @@ public class PokemonEditorView {
 		frame.getContentPane().add(heightLabel);
 		
 		heightValueField = new JTextField(pokemon.getHeight() + "");
-		heightValueField.setForeground(Color.WHITE);
-		heightValueField.setBackground(AppUtils.BACKGROUND_COLOR);
 		heightValueField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
 		heightValueField.setBounds(113, 384, 66, 14);
 		frame.getContentPane().add(heightValueField);
@@ -138,8 +135,6 @@ public class PokemonEditorView {
 		frame.getContentPane().add(weightLabel);
 		
 		weightValueField = new JTextField(pokemon.getWeight() + "");
-		weightValueField.setForeground(Color.WHITE);
-		weightValueField.setBackground(AppUtils.BACKGROUND_COLOR);
 		weightValueField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
 		weightValueField.setBounds(113, 409, 66, 14);
 		frame.getContentPane().add(weightValueField);
@@ -151,6 +146,12 @@ public class PokemonEditorView {
 		genderLabel.setBounds(52, 434, 59, 14);
 		frame.getContentPane().add(genderLabel);
 		
+		genderValueSpinner = new JSpinner();
+		genderValueSpinner.setForeground(Color.WHITE);
+		genderValueSpinner.setBackground(AppUtils.BACKGROUND_COLOR);
+		genderValueSpinner.setModel(new SpinnerListModel(new String[] {"macho", "hembra"}));
+		genderValueSpinner.setBounds(113, 434, 66, 14);
+		frame.getContentPane().add(genderValueSpinner);
 		
 		// Specie
 		specieLabel = new JLabel(pokemon.getTypes().size() > 1 ? "Especies" : "Especie");
@@ -160,8 +161,6 @@ public class PokemonEditorView {
 		frame.getContentPane().add(specieLabel);
 		
 		specieValueField = new JTextField(pokemon.getSpecie());
-		specieValueField.setForeground(Color.WHITE);
-		specieValueField.setBackground(AppUtils.BACKGROUND_COLOR);
 		specieValueField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
 		specieValueField.setBounds(365, 384, 73, 14);
 		frame.getContentPane().add(specieValueField);
@@ -174,8 +173,6 @@ public class PokemonEditorView {
 		frame.getContentPane().add(abilityLabel);
 		
 		abilityValueField = new JTextField(pokemon.getAbility());
-		abilityValueField.setForeground(Color.WHITE);
-		abilityValueField.setBackground(AppUtils.BACKGROUND_COLOR);
 		abilityValueField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
 		abilityValueField.setBounds(365, 409, 73, 14);
 		frame.getContentPane().add(abilityValueField);
@@ -188,24 +185,17 @@ public class PokemonEditorView {
 		errorLabel.setBounds(0, 493, 484, 26);
 		frame.getContentPane().add(errorLabel);
 		
-		deletePokemonButton = new JButton("Borrar");
-		deletePokemonButton.setForeground(Color.WHITE);
-		deletePokemonButton.setBackground(Color.RED);
-		deletePokemonButton.setBounds(358, 530, 80, 23);
-		frame.getContentPane().add(deletePokemonButton);
-		
 		savePokemonButton = new JButton("Guardar");
 		savePokemonButton.setForeground(Color.WHITE);
 		savePokemonButton.setBackground(AppUtils.GREEN_COLOR);
 		savePokemonButton.setBounds(268, 530, 80, 23);
 		frame.getContentPane().add(savePokemonButton);
 		
-		genderValueSpinner = new JSpinner();
-		genderValueSpinner.setForeground(Color.WHITE);
-		genderValueSpinner.setBackground(AppUtils.BACKGROUND_COLOR);
-		genderValueSpinner.setModel(new SpinnerListModel(new String[] {"macho", "hembra"}));
-		genderValueSpinner.setBounds(113, 434, 66, 14);
-		frame.getContentPane().add(genderValueSpinner);
+		deletePokemonButton = new JButton("Borrar");
+		deletePokemonButton.setForeground(Color.WHITE);
+		deletePokemonButton.setBackground(Color.RED);
+		deletePokemonButton.setBounds(358, 530, 80, 23);
+		frame.getContentPane().add(deletePokemonButton);
 	}
 	
 	private void updateView() {
@@ -230,14 +220,14 @@ public class PokemonEditorView {
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				new PokemonView(pokedexApp, pokemon.getId());
+				new PokemonView(pokemon.getId());
 			}
 		});
 		
 		savePokemonButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				int index = pokedexApp.getPokemonManager().getPokemons().indexOf(pokemon);
+				int index = PokedexApp.getPokemons().indexOf(pokemon);
 
 				pokemon.setName(pokemonNameLabel.getText());
 				pokemon.setHeight(Float.parseFloat(heightValueField.getText()));
@@ -246,22 +236,23 @@ public class PokemonEditorView {
 				pokemon.setSpecie(specieValueField.getText());
 				pokemon.setAbility(abilityValueField.getText());
 				
-				pokedexApp.getPokemonManager().getPokemons().set(index, pokemon);
-				new PokemonView(pokedexApp, pokemon.getId());
+				PokedexApp.getPokemons().set(index, pokemon);
+				new PokemonView(pokemon.getId());
 			}
 		});
 		
 		deletePokemonButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				pokedexApp.getPokemonManager().getPokemons().remove(pokemon.getId() - 1);
-				if (pokemon.getId() - 1 == pokedexApp.getPokemonManager().getPokemons().size()) {
-					pokemon = pokedexApp.getPokemonManager().getPokemons().get(pokemon.getId() - 2);
+				PokedexApp.getPokemons().remove(pokemon.getId() - 1);
+				if (pokemon.getId() - 1 == PokedexApp.getPokemons().size()) {
+					pokemon = PokedexApp.getPokemons().get(pokemon.getId() - 2);
 				} else {
-					pokemon = pokedexApp.getPokemonManager().getPokemons().get(pokemon.getId() - 1);
+					pokemon = PokedexApp.getPokemons().get(pokemon.getId() - 1);
 				}
 				
 				updateView();
 			}
 		});
 	}
+
 }
