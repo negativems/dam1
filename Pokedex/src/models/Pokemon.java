@@ -5,8 +5,48 @@ import java.util.List;
 
 public class Pokemon {
 
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setSpecie(String specie) {
+		this.specie = specie;
+	}
+
+	public void setAbility(String ability) {
+		this.ability = ability;
+	}
+
+	public void setImageURL(String imageURL) {
+		this.imageURL = imageURL;
+	}
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
+
+	public void setTypes(List<PokemonType> types) {
+		this.types = types;
+	}
+
+	public void setHeight(float height) {
+		this.height = height;
+	}
+
+	public void setWeight(float weight) {
+		this.weight = weight;
+	}
+
 	protected int id;
-	protected String name, description, specie, ability, imageURL, soundURL;
+	protected String name, description, specie, ability, imageURL;
 	protected Gender gender;
 	protected List<PokemonType> types;
 	protected float height, weight;
@@ -63,10 +103,6 @@ public class Pokemon {
 
 	public String getImageURL() {
 		return imageURL;
-	}
-
-	public String getSoundURL() {
-		return soundURL;
 	}
 
 	public List<PokemonType> getTypes() {

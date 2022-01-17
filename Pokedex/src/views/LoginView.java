@@ -8,14 +8,13 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import dao.UserDAO;
 import mainApp.PokedexApp;
 import models.User;
 import utils.AppUtils;
-import javax.swing.JPasswordField;
 
 public class LoginView {
 
@@ -26,13 +25,11 @@ public class LoginView {
 	private JButton registerButton, loginButton;
 	private JLabel errorLabel;
 	private Font font;
-	private UserDAO userDAO;
 
 	/**
 	 * Create the application.
 	 */
 	public LoginView() {
-		userDAO = new UserDAO();
 		font = AppUtils.getPokemonFont();
 		initialize();
 		setListeners();
@@ -113,13 +110,7 @@ public class LoginView {
 			public void actionPerformed(ActionEvent e) {
 				String username = usernameField.getText();
 				String password = new String(passwordField.getPassword());
-				if (userDAO.login(username, password)) {
-					frame.setVisible(false);
-					new PokemonView();
-					return;
-				}
-				
-				errorLabel.setText("Credenciales no válidas.");
+				login(username, password);
 			}
 		});
 		
@@ -132,4 +123,18 @@ public class LoginView {
 		
 		
 	}
+	
+	public void login(String username, String password) {
+		for (User user : PokedexApp.getUsersList()) {
+			if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+				PokedexApp.user = user;
+				frame.setVisible(false);
+				new PokemonView();
+				return;
+			}
+		}
+
+		errorLabel.setText("Usuario o contraseña erróneos");
+	}
+	
 }

@@ -14,7 +14,6 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import dao.UserDAO;
 import mainApp.PokedexApp;
 import models.User;
 
@@ -26,10 +25,8 @@ public class RegisterView {
 	private JPasswordField passwordField, password2Field;
 	private JLabel passwordLabel, password2Label, labelPickachuImage, errorLabel;
 	private JButton registerButton, backButton;
-	private UserDAO userDAO;
 	
 	public RegisterView() {
-		this.userDAO = new UserDAO();
 		initialize();
 		setListeners();
 	}
@@ -138,13 +135,13 @@ public class RegisterView {
 					return;
 				}
 				
-				if (userDAO.register(username, password)) {
-					frame.dispose();
-					new LoginView();
-				} else {
-					errorLabel.setText("Ha habido un error al registrarte en la base de datos");
-				}
+				register(username, password);
+				new LoginView();
 			}
 		});
+	}
+	
+	public void register(String username, String password) {
+		PokedexApp.getUsersList().add(new User(username, password));
 	}
 }

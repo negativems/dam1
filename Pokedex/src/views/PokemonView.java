@@ -41,7 +41,10 @@ public class PokemonView {
 	 * Inicia la vista Pokedex
 	 */
 	public PokemonView(int id) {
-		this.pokemon = PokedexApp.getPokemons().get(id - 1);
+		for (Pokemon pokemon : PokedexApp.getPokemons()) {
+			if (pokemon.getId() == id) this.pokemon = pokemon;
+		}
+		
 		initialize();
 		setListeners();
 		frame.setVisible(true);
@@ -237,26 +240,26 @@ public class PokemonView {
 		
 		nextPokemonButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (pokemon.getId() >= PokedexApp.getPokemons().size()) {
+				int i = 0;
+				while (PokedexApp.getPokemons().get(i) != pokemon) i++;
+				if (i >= PokedexApp.getPokemons().size() - 1) {
 					errorLabel.setText("No hay más pokemons");
 					return;
 				}
-				
-				int nextPokemonId = pokemon.getId() + 1;
-				pokemon = PokedexApp.getPokemons().get(nextPokemonId - 1);
+				pokemon = PokedexApp.getPokemons().get(i + 1);
 				updateView();
 			}
 		});
 		
 		previousPokemonButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (pokemon.getId() <= 1) {
+				int i = 0;
+				while (PokedexApp.getPokemons().get(i) != pokemon) i++;
+				if (i == 0) {
 					errorLabel.setText("No hay más pokemons");
 					return;
 				}
-				
-				int previousId = pokemon.getId() - 1;
-				pokemon = PokedexApp.getPokemons().get(previousId - 1);
+				pokemon = PokedexApp.getPokemons().get(i - 1);
 				updateView();
 			}
 		});
