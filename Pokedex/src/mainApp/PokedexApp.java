@@ -6,7 +6,7 @@ import views.LoginView;
 
 public class PokedexApp {
 	
-	public static PokedexApp instance;
+	private static PokedexApp instance;
 	
 	private PokemonManager pokemonManager;
 	private UserManager userManager;
@@ -27,5 +27,9 @@ public class PokedexApp {
 
 	public UserManager getUserManager() {
 		return userManager;
+	}
+	
+	public static PokedexApp getInstance() {
+		return instance;
 	}
 }
