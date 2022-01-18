@@ -29,29 +29,29 @@ import utils.AppUtils;
 import utils.ImageUtils;
 import utils.RoundedJPanel;
 
-public class PokemonEditorView {
+public class PokemonCreateView {
 
 	private final PokedexApp pokedexApp;
 
-	private Pokemon pokemon;
-
+	private final int pokemonId;
+	
 	private JFrame frame;
 	private JPanel topPanel;
 	private JButton backButton;
-	private JLabel returnTextLabel, pokemonNameLabel, pokemonImageLabel, errorLabel, heightLabel, weightLabel,
+	private JLabel returnTextLabel, pokemonImageLabel, errorLabel, heightLabel, weightLabel,
 			genderLabel, specieLabel, abilityLabel;
-	private JButton deletePokemonButton, savePokemonButton;
-	private JTextField heightValueField, specieValueField, abilityValueField, weightValueField, imageURLField;
+	private JButton cancelButton, savePokemonButton;
+	private JTextField pokemonNameField, heightValueField, specieValueField, abilityValueField, weightValueField;
 	private JSpinner genderValueSpinner;
 
 	/**
 	 * Constructor
 	 */
-	public PokemonEditorView(PokedexApp pokedexApp, Pokemon pokemon) {
+	public PokemonCreateView(PokedexApp pokedexApp) {
 		this.pokedexApp = pokedexApp;
-		this.pokemon = pokemon;
+		this.pokemonId = pokedexApp.getPokemonManager().getPokemons().size();
 		initialize();
-		createListeners();
+		setListeners();
 		frame.setVisible(true);
 	}
 
@@ -79,7 +79,7 @@ public class PokemonEditorView {
 
 		// Back button
 		backButton = new JButton("");
-		backButton.setIcon(new ImageIcon(PokemonEditorView.class.getResource("/assets/img/return.png")));
+		backButton.setIcon(new ImageIcon(PokemonCreateView.class.getResource("/assets/img/return.png")));
 		backButton.setBounds(10, 39, 32, 28);
 		backButton.setBackground(AppUtils.TRANSPARENT_COLOR);
 		backButton.setOpaque(false);
@@ -87,19 +87,19 @@ public class PokemonEditorView {
 		topPanel.add(backButton);
 
 		// Back button text
-		returnTextLabel = new JLabel("Pokedex > Editor");
+		returnTextLabel = new JLabel("Pokedex > Crear");
 		returnTextLabel.setForeground(Color.WHITE);
 		returnTextLabel.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 18));
 		returnTextLabel.setBounds(69, 33, 190, 34);
 		topPanel.add(returnTextLabel);
 
 		// Pokemon's name
-		pokemonNameLabel = new JLabel(pokemon.getName());
-		pokemonNameLabel.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 24));
-		pokemonNameLabel.setForeground(Color.WHITE);
-		pokemonNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		pokemonNameLabel.setBounds(0, 300, 484, 39);
-		frame.getContentPane().add(pokemonNameLabel);
+		pokemonNameField = new JTextField("Nombre Pokemon");
+		pokemonNameField.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 24));
+		pokemonNameField.setForeground(Color.WHITE);
+		pokemonNameField.setHorizontalAlignment(SwingConstants.CENTER);
+		pokemonNameField.setBounds(0, 300, 484, 39);
+		frame.getContentPane().add(pokemonNameField);
 
 		// Pokemon image
 		pokemonImageLabel = new JLabel("");
@@ -107,8 +107,7 @@ public class PokemonEditorView {
 		pokemonImageLabel.setBounds(79, 78, 316, 190);
 
 		try {
-			URL url = new URL("https://assets.pokemon.com/assets/cms2/img/pokedex/full/"
-					+ ImageUtils.getPokemonById(pokemon.getId()));
+			URL url = new URL("https://assets.pokemon.com/assets/cms2/img/pokedex/full/");
 			BufferedImage bufferedImage = ImageIO.read(url);
 			Image image = new ImageIcon(bufferedImage).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT);
 			pokemonImageLabel.setIcon(new ImageIcon(image));
@@ -126,7 +125,7 @@ public class PokemonEditorView {
 		heightLabel.setBounds(52, 384, 46, 14);
 		frame.getContentPane().add(heightLabel);
 
-		heightValueField = new JTextField(pokemon.getHeight() + "");
+		heightValueField = new JTextField("1.0");
 		heightValueField.setForeground(Color.WHITE);
 		heightValueField.setBackground(AppUtils.BACKGROUND_COLOR);
 		heightValueField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
@@ -140,7 +139,7 @@ public class PokemonEditorView {
 		weightLabel.setBounds(52, 409, 38, 14);
 		frame.getContentPane().add(weightLabel);
 
-		weightValueField = new JTextField(pokemon.getWeight() + "");
+		weightValueField = new JTextField("1.0");
 		weightValueField.setForeground(Color.WHITE);
 		weightValueField.setBackground(AppUtils.BACKGROUND_COLOR);
 		weightValueField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
@@ -155,13 +154,13 @@ public class PokemonEditorView {
 		frame.getContentPane().add(genderLabel);
 
 		// Specie
-		specieLabel = new JLabel(pokemon.getTypes().size() > 1 ? "Especies" : "Especie");
+		specieLabel = new JLabel("Especie");
 		specieLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
 		specieLabel.setForeground(Color.WHITE);
 		specieLabel.setBounds(282, 384, 73, 14);
 		frame.getContentPane().add(specieLabel);
 
-		specieValueField = new JTextField(pokemon.getSpecie());
+		specieValueField = new JTextField("Planta");
 		specieValueField.setForeground(Color.WHITE);
 		specieValueField.setBackground(AppUtils.BACKGROUND_COLOR);
 		specieValueField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
@@ -175,7 +174,7 @@ public class PokemonEditorView {
 		abilityLabel.setBounds(282, 409, 73, 14);
 		frame.getContentPane().add(abilityLabel);
 
-		abilityValueField = new JTextField(pokemon.getAbility());
+		abilityValueField = new JTextField("Habilidad");
 		abilityValueField.setForeground(Color.WHITE);
 		abilityValueField.setBackground(AppUtils.BACKGROUND_COLOR);
 		abilityValueField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
@@ -190,11 +189,11 @@ public class PokemonEditorView {
 		errorLabel.setBounds(0, 493, 484, 26);
 		frame.getContentPane().add(errorLabel);
 
-		deletePokemonButton = new JButton("Borrar");
-		deletePokemonButton.setForeground(Color.WHITE);
-		deletePokemonButton.setBackground(Color.RED);
-		deletePokemonButton.setBounds(358, 530, 80, 23);
-		frame.getContentPane().add(deletePokemonButton);
+		cancelButton = new JButton("Cancelar");
+		cancelButton.setForeground(Color.WHITE);
+		cancelButton.setBackground(Color.RED);
+		cancelButton.setBounds(358, 530, 80, 23);
+		frame.getContentPane().add(cancelButton);
 
 		savePokemonButton = new JButton("Guardar");
 		savePokemonButton.setForeground(Color.WHITE);
@@ -210,44 +209,20 @@ public class PokemonEditorView {
 		frame.getContentPane().add(genderValueSpinner);
 	}
 
-	/**
-	 * Update all the view fields
-	 */
-	private void updateView() {
-		pokemonNameLabel.setText(pokemon.getName());
-		heightValueField.setText(pokemon.getHeight() + "");
-		weightValueField.setText(pokemon.getWeight() + "");
-		genderValueSpinner.setValue(pokemon.getGender().name().toLowerCase());
-		specieValueField.setText(pokemon.getSpecie());
-		abilityValueField.setText(pokemon.getAbility());
-
-		try {
-			URL url = new URL("https://assets.pokemon.com/assets/cms2/img/pokedex/full/"
-					+ ImageUtils.getPokemonById(pokemon.getId()));
-			BufferedImage bufferedImage = ImageIO.read(url);
-			Image image = new ImageIcon(bufferedImage).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT);
-			pokemonImageLabel.setIcon(new ImageIcon(image));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Creates the buttons listener
-	 */
-	public void createListeners() {
+	public void setListeners() {
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				new PokemonView(pokedexApp, pokemon.getId());
+				new PokemonView(pokedexApp);
 			}
 		});
 
 		savePokemonButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				int index = pokedexApp.getPokemonManager().getPokemons().indexOf(pokemon);
+				int index = pokedexApp.getPokemonManager().getPokemons().size();
 
+				Pokemon pokemon = new Pokemon(pokemonId, pokemonName);
 				pokemon.setName(pokemonNameLabel.getText());
 				pokemon.setHeight(Float.parseFloat(heightValueField.getText()));
 				pokemon.setWeight(Float.parseFloat(weightValueField.getText()));
@@ -260,7 +235,7 @@ public class PokemonEditorView {
 			}
 		});
 
-		deletePokemonButton.addActionListener(new ActionListener() {
+		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				pokedexApp.getPokemonManager().getPokemons().remove(pokemon.getId() - 1);
 				if (pokemon.getId() - 1 == pokedexApp.getPokemonManager().getPokemons().size()) {

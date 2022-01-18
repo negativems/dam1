@@ -34,7 +34,7 @@ public class PokemonView {
 		
 	private JFrame frame;
 	private JPanel  topPanel;
-	private JButton backButton, previousPokemonButton, nextPokemonButton, editPokemonButton;
+	private JButton backButton, previousPokemonButton, nextPokemonButton, editPokemonButton, createPokemonButton;
 	private JLabel  returnTextLabel, pokemonNameLabel, pokemonImageLabel, errorLabel, pokemonIdLabel, heightLabel, weightLabel, genderLabel,
 					heightValueLabel, specieLabel, specieValueLabel, abilityLabel, abilityValueLabel, genderValueLabel, weightValueLabel;
 
@@ -50,18 +50,24 @@ public class PokemonView {
 		}
 		
 		initialize();
-		setListeners();
+		createListeners();
 		frame.setVisible(true);
 	}
 	
 	public PokemonView(PokedexApp pokedexApp) {
 		this(pokedexApp, 1);
 	}
+	
+	public PokemonView() {
+		this.pokedexApp = new PokedexApp();
+		
+	}
+	
 
 	/**
 	 * Setup and show view
 	 */
-	private void initialize() {		
+	private void initialize() {
 		frame = new JFrame();
 		frame.getContentPane().setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
 		frame.getContentPane().setBackground(AppUtils.BACKGROUND_COLOR);
@@ -232,9 +238,16 @@ public class PokemonView {
 		editPokemonButton.setBounds(349, 530, 89, 23);
 		editPokemonButton.setBackground(AppUtils.ACCENT_COLOR);
 		frame.getContentPane().add(editPokemonButton);
+		
+		// Create pokemon button
+		createPokemonButton = new JButton("Crear");
+		createPokemonButton.setForeground(Color.WHITE);
+		createPokemonButton.setBounds(250, 530, 89, 23);
+		createPokemonButton.setBackground(AppUtils.ACCENT_COLOR);
+		frame.getContentPane().add(createPokemonButton);
 	}
 	
-	public void setListeners() {
+	public void createListeners() {
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
@@ -273,6 +286,13 @@ public class PokemonView {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
 				new PokemonEditorView(pokedexApp, pokemon);
+			}
+		});
+		
+		createPokemonButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
+				new PokemonCreateView(pokedexApp);
 			}
 		});
 	}
