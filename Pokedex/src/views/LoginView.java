@@ -18,7 +18,7 @@ import utils.AppUtils;
 
 public class LoginView {
 
-	private final PokedexApp pokedexApp = PokedexApp.instance;
+	private final PokedexApp pokedexApp;
 	
 	private JFrame frame;
 	private JTextField usernameField;
@@ -32,6 +32,7 @@ public class LoginView {
 	 * Create the application.
 	 */
 	public LoginView(PokedexApp pokedexApp) {
+		this.pokedexApp = pokedexApp;
 		font = AppUtils.getPokemonFont();
 		initialize();
 		createListeners();

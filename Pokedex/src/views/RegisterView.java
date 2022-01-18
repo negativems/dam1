@@ -19,7 +19,7 @@ import models.User;
 
 public class RegisterView {
 
-	private PokedexApp pokedexApp;
+	private final PokedexApp pokedexApp;
 	
 	private JFrame frame;
 	private JLabel welcomeLabel, usernameLabel;
@@ -29,6 +29,7 @@ public class RegisterView {
 	private JButton registerButton, backButton;
 	
 	public RegisterView(PokedexApp pokedexApp) {
+		this.pokedexApp = pokedexApp;
 		initialize();
 		setListeners();
 	}
@@ -121,7 +122,7 @@ public class RegisterView {
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				new LoginView();
+				new LoginView(pokedexApp);
 			}
 		});
 		
@@ -138,12 +139,12 @@ public class RegisterView {
 				}
 				
 				register(username, password);
-				new LoginView();
+				new LoginView(pokedexApp);
 			}
 		});
 	}
 	
 	public void register(String username, String password) {
-		PokedexApp.getUsersList().add(new User(username, password));
+		pokedexApp.getUserManager().addUser(new User(username, password));
 	}
 }
