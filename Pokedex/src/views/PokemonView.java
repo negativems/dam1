@@ -28,7 +28,7 @@ import utils.RoundedJPanel;
 
 public class PokemonView {
 
-	private PokedexApp pokedexApp;
+	private final PokedexApp pokedexApp;
 	
 	private Pokemon pokemon;
 		
@@ -97,7 +97,7 @@ public class PokemonView {
 		topPanel.add(returnTextLabel);
 		
 		// Pokemon ID label
-		pokemonIdLabel = new JLabel("# 0");
+		pokemonIdLabel = new JLabel("# " + pokemon.getId());
 		pokemonIdLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		pokemonIdLabel.setForeground(Color.WHITE);
 		pokemonIdLabel.setBounds(416, 46, 46, 14);
@@ -272,7 +272,7 @@ public class PokemonView {
 		editPokemonButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
-				new PokemonEditorView(pokemon);
+				new PokemonEditorView(pokedexApp, pokemon);
 			}
 		});
 	}
