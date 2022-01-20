@@ -27,6 +27,7 @@ import models.Gender;
 import models.Pokemon;
 import utils.AppUtils;
 import utils.ImageUtils;
+import utils.JavaUtils;
 import utils.RoundedJPanel;
 
 public class PokemonCreateView {
@@ -38,11 +39,10 @@ public class PokemonCreateView {
 	private JFrame frame;
 	private JPanel topPanel;
 	private JButton backButton;
-	private JLabel returnTextLabel, pokemonImageLabel, errorLabel, heightLabel, weightLabel,
-			genderLabel, specieLabel, abilityLabel;
 	private JButton cancelButton, savePokemonButton;
-	private JTextField pokemonNameField, heightValueField, specieValueField, abilityValueField, weightValueField;
 	private JSpinner genderValueSpinner;
+	private JLabel returnTextLabel, pokemonImageLabel, errorLabel, heightLabel, weightLabel, genderLabel, specieLabel, abilityLabel;
+	private JTextField nameField, heightField, specieField, abilityField, weightField, URLField, descriptionField;
 
 	/**
 	 * Constructor
@@ -94,12 +94,13 @@ public class PokemonCreateView {
 		topPanel.add(returnTextLabel);
 
 		// Pokemon's name
-		pokemonNameField = new JTextField("Nombre Pokemon");
-		pokemonNameField.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 24));
-		pokemonNameField.setForeground(Color.WHITE);
-		pokemonNameField.setHorizontalAlignment(SwingConstants.CENTER);
-		pokemonNameField.setBounds(0, 300, 484, 39);
-		frame.getContentPane().add(pokemonNameField);
+		nameField = new JTextField("Nombre Pokémon");
+		nameField.setBackground(AppUtils.TRANSPARENT_COLOR);
+		nameField.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 16));
+		nameField.setForeground(Color.WHITE);
+		nameField.setHorizontalAlignment(SwingConstants.CENTER);
+		nameField.setBounds(140, 299, 220, 26);
+		frame.getContentPane().add(nameField);
 
 		// Pokemon image
 		pokemonImageLabel = new JLabel("");
@@ -116,70 +117,77 @@ public class PokemonCreateView {
 		}
 
 		topPanel.add(pokemonImageLabel);
+		
+		descriptionField = new JTextField("\"Descripción\"");
+		descriptionField.setFont(new Font("Franklin Gothic Medium", Font.ITALIC, 16));
+		descriptionField.setForeground(Color.WHITE);
+		descriptionField.setHorizontalAlignment(SwingConstants.CENTER);
+		descriptionField.setBounds(10, 198, 464, 55);
+		topPanel.add(descriptionField);
 
 		// Stats
 		// Height
 		heightLabel = new JLabel("Altura");
 		heightLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
 		heightLabel.setForeground(Color.WHITE);
-		heightLabel.setBounds(52, 384, 46, 14);
+		heightLabel.setBounds(52, 372, 46, 26);
 		frame.getContentPane().add(heightLabel);
 
-		heightValueField = new JTextField("1.0");
-		heightValueField.setForeground(Color.WHITE);
-		heightValueField.setBackground(AppUtils.BACKGROUND_COLOR);
-		heightValueField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
-		heightValueField.setBounds(113, 384, 66, 14);
-		frame.getContentPane().add(heightValueField);
+		heightField = new JTextField("1.0");
+		heightField.setForeground(Color.WHITE);
+		heightField.setBackground(AppUtils.BACKGROUND_COLOR);
+		heightField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
+		heightField.setBounds(113, 372, 66, 25);
+		frame.getContentPane().add(heightField);
 
 		// Weight
 		weightLabel = new JLabel("Peso");
 		weightLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
 		weightLabel.setForeground(Color.WHITE);
-		weightLabel.setBounds(52, 409, 38, 14);
+		weightLabel.setBounds(52, 409, 38, 25);
 		frame.getContentPane().add(weightLabel);
 
-		weightValueField = new JTextField("1.0");
-		weightValueField.setForeground(Color.WHITE);
-		weightValueField.setBackground(AppUtils.BACKGROUND_COLOR);
-		weightValueField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
-		weightValueField.setBounds(113, 409, 66, 14);
-		frame.getContentPane().add(weightValueField);
+		weightField = new JTextField("1.0");
+		weightField.setForeground(Color.WHITE);
+		weightField.setBackground(AppUtils.BACKGROUND_COLOR);
+		weightField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
+		weightField.setBounds(113, 409, 66, 25);
+		frame.getContentPane().add(weightField);
 
 		// Gender
 		genderLabel = new JLabel("Género");
 		genderLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
 		genderLabel.setForeground(Color.WHITE);
-		genderLabel.setBounds(52, 434, 59, 14);
+		genderLabel.setBounds(52, 445, 59, 25);
 		frame.getContentPane().add(genderLabel);
 
 		// Specie
 		specieLabel = new JLabel("Especie");
 		specieLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
 		specieLabel.setForeground(Color.WHITE);
-		specieLabel.setBounds(282, 384, 73, 14);
+		specieLabel.setBounds(282, 372, 73, 25);
 		frame.getContentPane().add(specieLabel);
 
-		specieValueField = new JTextField("Planta");
-		specieValueField.setForeground(Color.WHITE);
-		specieValueField.setBackground(AppUtils.BACKGROUND_COLOR);
-		specieValueField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
-		specieValueField.setBounds(365, 384, 73, 14);
-		frame.getContentPane().add(specieValueField);
+		specieField = new JTextField("Planta");
+		specieField.setForeground(Color.WHITE);
+		specieField.setBackground(AppUtils.BACKGROUND_COLOR);
+		specieField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
+		specieField.setBounds(365, 372, 73, 25);
+		frame.getContentPane().add(specieField);
 
 		// Type
 		abilityLabel = new JLabel("Habilidad");
 		abilityLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
 		abilityLabel.setForeground(Color.WHITE);
-		abilityLabel.setBounds(282, 409, 73, 14);
+		abilityLabel.setBounds(282, 409, 73, 25);
 		frame.getContentPane().add(abilityLabel);
 
-		abilityValueField = new JTextField("Habilidad");
-		abilityValueField.setForeground(Color.WHITE);
-		abilityValueField.setBackground(AppUtils.BACKGROUND_COLOR);
-		abilityValueField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
-		abilityValueField.setBounds(365, 409, 73, 14);
-		frame.getContentPane().add(abilityValueField);
+		abilityField = new JTextField("Habilidad");
+		abilityField.setForeground(Color.WHITE);
+		abilityField.setBackground(AppUtils.BACKGROUND_COLOR);
+		abilityField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
+		abilityField.setBounds(365, 409, 73, 25);
+		frame.getContentPane().add(abilityField);
 
 		// Error label
 		errorLabel = new JLabel("");
@@ -205,8 +213,12 @@ public class PokemonCreateView {
 		genderValueSpinner.setForeground(Color.WHITE);
 		genderValueSpinner.setBackground(AppUtils.BACKGROUND_COLOR);
 		genderValueSpinner.setModel(new SpinnerListModel(new String[] { "macho", "hembra" }));
-		genderValueSpinner.setBounds(113, 434, 66, 14);
+		genderValueSpinner.setBounds(113, 445, 66, 25);
 		frame.getContentPane().add(genderValueSpinner);
+		
+		URLField = new JTextField("https://assets.pokemon.com/assets/cms2/img/pokedex/full/");
+		URLField.setBounds(52, 530, 206, 23);
+		frame.getContentPane().add(URLField);
 	}
 
 	public void setListeners() {
@@ -220,31 +232,37 @@ public class PokemonCreateView {
 		savePokemonButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				int index = pokedexApp.getPokemonManager().getPokemons().size();
+				int pokedexListSize = pokedexApp.getPokemonManager().getPokemons().size();
 
-				Pokemon pokemon = new Pokemon(pokemonId, pokemonName);
-				pokemon.setName(pokemonNameLabel.getText());
-				pokemon.setHeight(Float.parseFloat(heightValueField.getText()));
-				pokemon.setWeight(Float.parseFloat(weightValueField.getText()));
-				pokemon.setGender(Gender.valueOf(genderValueSpinner.getValue().toString().toUpperCase()));
-				pokemon.setSpecie(specieValueField.getText());
-				pokemon.setAbility(abilityValueField.getText());
+				String name = nameField.getText();
+				String description = descriptionField.getText();
+				String specie = specieField.getText();
+				String ability = abilityField.getText();
+				String URL = URLField.getText();
+				String heightString = heightField.getText();
+				String weightString = weightField.getText();
+				Object genderObject = genderValueSpinner.getValue();
+				
+				if (!JavaUtils.isFloat(heightString) || !JavaUtils.isFloat(weightString) || !JavaUtils.isString(genderObject)) {
+					errorLabel.setText("Datos erróneos, comprueba la altura, peso o género");
+					return;
+				}
+				
+				float height = Float.parseFloat(heightString);				
+				float weight = Float.parseFloat(weightString);				
+				String gender = String.valueOf(genderObject);			
+				
+				Pokemon pokemon = new Pokemon(pokedexListSize, name, description, specie, ability, URL, weight, height, Gender.valueOf(gender));
 
-				pokedexApp.getPokemonManager().getPokemons().set(index, pokemon);
+				pokedexApp.getPokemonManager().getPokemons().set(pokedexListSize, pokemon);
 				new PokemonView(pokedexApp, pokemon.getId());
 			}
 		});
 
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				pokedexApp.getPokemonManager().getPokemons().remove(pokemon.getId() - 1);
-				if (pokemon.getId() - 1 == pokedexApp.getPokemonManager().getPokemons().size()) {
-					pokemon = pokedexApp.getPokemonManager().getPokemons().get(pokemon.getId() - 2);
-				} else {
-					pokemon = pokedexApp.getPokemonManager().getPokemons().get(pokemon.getId() - 1);
-				}
-
-				updateView();
+				frame.dispose();
+				new PokemonView(pokedexApp);
 			}
 		});
 	}
