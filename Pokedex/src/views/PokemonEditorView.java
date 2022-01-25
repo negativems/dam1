@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -38,11 +39,10 @@ public class PokemonEditorView {
 	private JFrame frame;
 	private JPanel topPanel;
 	private JButton backButton;
-	private JLabel returnTextLabel, pokemonNameLabel, pokemonImageLabel, errorLabel, heightLabel, weightLabel,
-			genderLabel, specieLabel, abilityLabel;
 	private JButton deletePokemonButton, savePokemonButton;
-	private JTextField heightValueField, specieValueField, abilityValueField, weightValueField, imageURLField;
-	private JSpinner genderValueSpinner;
+	private JLabel returnLabel, nameLabel, imageLabel, errorLabel, heightLabel, weightLabel, genderLabel, specieLabel, abilityLabel, URLIdLabel;
+	private JTextField heightField, specieField, abilityField, weightField, URLField;
+	private JSpinner genderSpinner;
 
 	/**
 	 * Constructor
@@ -79,7 +79,7 @@ public class PokemonEditorView {
 
 		// Back button
 		backButton = new JButton("");
-		backButton.setIcon(new ImageIcon(PokemonEditorView.class.getResource("/assets/img/return.png")));
+		backButton.setIcon(new ImageIcon(PokemonEditorView.class.getResource("/return.png")));
 		backButton.setBounds(10, 39, 32, 28);
 		backButton.setBackground(AppUtils.TRANSPARENT_COLOR);
 		backButton.setOpaque(false);
@@ -87,100 +87,112 @@ public class PokemonEditorView {
 		topPanel.add(backButton);
 
 		// Back button text
-		returnTextLabel = new JLabel("Pokedex > Editor");
-		returnTextLabel.setForeground(Color.WHITE);
-		returnTextLabel.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 18));
-		returnTextLabel.setBounds(69, 33, 190, 34);
-		topPanel.add(returnTextLabel);
+		returnLabel = new JLabel("Pokedex > Editor");
+		returnLabel.setForeground(Color.WHITE);
+		returnLabel.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 18));
+		returnLabel.setBounds(69, 33, 190, 34);
+		topPanel.add(returnLabel);
 
 		// Pokemon's name
-		pokemonNameLabel = new JLabel(pokemon.getName());
-		pokemonNameLabel.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 24));
-		pokemonNameLabel.setForeground(Color.WHITE);
-		pokemonNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		pokemonNameLabel.setBounds(0, 300, 484, 39);
-		frame.getContentPane().add(pokemonNameLabel);
+		nameLabel = new JLabel(pokemon.getName());
+		nameLabel.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 24));
+		nameLabel.setForeground(Color.WHITE);
+		nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		nameLabel.setBounds(0, 300, 484, 39);
+		frame.getContentPane().add(nameLabel);
 
 		// Pokemon image
-		pokemonImageLabel = new JLabel("");
-		pokemonImageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		pokemonImageLabel.setBounds(79, 78, 316, 190);
+		imageLabel = new JLabel("");
+		imageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		imageLabel.setBounds(79, 78, 316, 190);
 
 		try {
 			URL url = new URL("https://assets.pokemon.com/assets/cms2/img/pokedex/full/"
 					+ ImageUtils.getPokemonById(pokemon.getId()));
 			BufferedImage bufferedImage = ImageIO.read(url);
 			Image image = new ImageIcon(bufferedImage).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT);
-			pokemonImageLabel.setIcon(new ImageIcon(image));
+			imageLabel.setIcon(new ImageIcon(image));
 		} catch (IOException editPokemonButton) {
 			editPokemonButton.printStackTrace();
 		}
 
-		topPanel.add(pokemonImageLabel);
+		topPanel.add(imageLabel);
 
 		// Stats
 		// Height
 		heightLabel = new JLabel("Altura");
 		heightLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
 		heightLabel.setForeground(Color.WHITE);
-		heightLabel.setBounds(52, 384, 46, 14);
+		heightLabel.setBounds(52, 372, 46, 26);
 		frame.getContentPane().add(heightLabel);
 
-		heightValueField = new JTextField(pokemon.getHeight() + "");
-		heightValueField.setForeground(Color.WHITE);
-		heightValueField.setBackground(AppUtils.BACKGROUND_COLOR);
-		heightValueField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
-		heightValueField.setBounds(113, 384, 66, 14);
-		frame.getContentPane().add(heightValueField);
+		heightField = new JTextField("1.0");
+		heightField.setForeground(Color.WHITE);
+		heightField.setBackground(AppUtils.BACKGROUND_COLOR);
+		heightField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
+		heightField.setBounds(113, 372, 66, 25);
+		heightField.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE));
+		frame.getContentPane().add(heightField);
 
 		// Weight
 		weightLabel = new JLabel("Peso");
 		weightLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
 		weightLabel.setForeground(Color.WHITE);
-		weightLabel.setBounds(52, 409, 38, 14);
+		weightLabel.setBounds(52, 409, 38, 25);
 		frame.getContentPane().add(weightLabel);
 
-		weightValueField = new JTextField(pokemon.getWeight() + "");
-		weightValueField.setForeground(Color.WHITE);
-		weightValueField.setBackground(AppUtils.BACKGROUND_COLOR);
-		weightValueField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
-		weightValueField.setBounds(113, 409, 66, 14);
-		frame.getContentPane().add(weightValueField);
+		weightField = new JTextField("1.0");
+		weightField.setForeground(Color.WHITE);
+		weightField.setBackground(AppUtils.BACKGROUND_COLOR);
+		weightField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
+		weightField.setBounds(113, 409, 66, 25);
+		weightField.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE));
+		frame.getContentPane().add(weightField);
 
 		// Gender
 		genderLabel = new JLabel("Género");
 		genderLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
 		genderLabel.setForeground(Color.WHITE);
-		genderLabel.setBounds(52, 434, 59, 14);
+		genderLabel.setBounds(52, 445, 59, 25);
 		frame.getContentPane().add(genderLabel);
+		
+		genderSpinner = new JSpinner();
+		genderSpinner.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
+		genderSpinner.setForeground(Color.WHITE);
+		genderSpinner.setBackground(AppUtils.BACKGROUND_COLOR);
+		genderSpinner.setModel(new SpinnerListModel(new String[] { "macho", "hembra" }));
+		genderSpinner.setBounds(113, 445, 66, 25);
+		frame.getContentPane().add(genderSpinner);
 
 		// Specie
-		specieLabel = new JLabel(pokemon.getTypes().size() > 1 ? "Especies" : "Especie");
+		specieLabel = new JLabel("Especie");
 		specieLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
 		specieLabel.setForeground(Color.WHITE);
-		specieLabel.setBounds(282, 384, 73, 14);
+		specieLabel.setBounds(282, 382, 73, 25);
 		frame.getContentPane().add(specieLabel);
 
-		specieValueField = new JTextField(pokemon.getSpecie());
-		specieValueField.setForeground(Color.WHITE);
-		specieValueField.setBackground(AppUtils.BACKGROUND_COLOR);
-		specieValueField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
-		specieValueField.setBounds(365, 384, 73, 14);
-		frame.getContentPane().add(specieValueField);
+		specieField = new JTextField("Planta");
+		specieField.setForeground(Color.WHITE);
+		specieField.setBackground(AppUtils.BACKGROUND_COLOR);
+		specieField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
+		specieField.setBounds(365, 372, 73, 46);
+		specieField.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE));
+		frame.getContentPane().add(specieField);
 
-		// Type
+		// Ability
 		abilityLabel = new JLabel("Habilidad");
 		abilityLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
 		abilityLabel.setForeground(Color.WHITE);
-		abilityLabel.setBounds(282, 409, 73, 14);
+		abilityLabel.setBounds(287, 437, 73, 25);
 		frame.getContentPane().add(abilityLabel);
 
-		abilityValueField = new JTextField(pokemon.getAbility());
-		abilityValueField.setForeground(Color.WHITE);
-		abilityValueField.setBackground(AppUtils.BACKGROUND_COLOR);
-		abilityValueField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
-		abilityValueField.setBounds(365, 409, 73, 14);
-		frame.getContentPane().add(abilityValueField);
+		abilityField = new JTextField("");
+		abilityField.setForeground(Color.WHITE);
+		abilityField.setBackground(AppUtils.BACKGROUND_COLOR);
+		abilityField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
+		abilityField.setBounds(365, 429, 73, 41);
+		abilityField.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE));
+		frame.getContentPane().add(abilityField);
 
 		// Error label
 		errorLabel = new JLabel("");
@@ -190,43 +202,54 @@ public class PokemonEditorView {
 		errorLabel.setBounds(0, 493, 484, 26);
 		frame.getContentPane().add(errorLabel);
 
+		// Delete Button
 		deletePokemonButton = new JButton("Borrar");
 		deletePokemonButton.setForeground(Color.WHITE);
 		deletePokemonButton.setBackground(Color.RED);
 		deletePokemonButton.setBounds(358, 530, 80, 23);
 		frame.getContentPane().add(deletePokemonButton);
 
+		// Save Button
 		savePokemonButton = new JButton("Guardar");
 		savePokemonButton.setForeground(Color.WHITE);
 		savePokemonButton.setBackground(AppUtils.GREEN_COLOR);
 		savePokemonButton.setBounds(268, 530, 80, 23);
 		frame.getContentPane().add(savePokemonButton);
 
-		genderValueSpinner = new JSpinner();
-		genderValueSpinner.setForeground(Color.WHITE);
-		genderValueSpinner.setBackground(AppUtils.BACKGROUND_COLOR);
-		genderValueSpinner.setModel(new SpinnerListModel(new String[] { "macho", "hembra" }));
-		genderValueSpinner.setBounds(113, 434, 66, 14);
-		frame.getContentPane().add(genderValueSpinner);
+		// Gender Spinner
+		genderSpinner = new JSpinner();
+		genderSpinner.setForeground(Color.WHITE);
+		genderSpinner.setBackground(AppUtils.BACKGROUND_COLOR);
+		genderSpinner.setModel(new SpinnerListModel(new String[] { "macho", "hembra" }));
+		genderSpinner.setBounds(113, 434, 66, 14);
+		frame.getContentPane().add(genderSpinner);
+		
+		// URL
+		URLIdLabel = new JLabel("ID");
+		URLIdLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		URLIdLabel.setForeground(Color.WHITE);
+		URLIdLabel.setBounds(52, 530, 46, 23);
+		frame.getContentPane().add(URLIdLabel);
+		
+		String currentURL = pokemon.getImageURL();
+		URLField = new JTextField(currentURL.substring(currentURL.indexOf("full/") + 5, currentURL.length() - 4));
+		URLField.setBounds(80, 530, 178, 23);
+		frame.getContentPane().add(URLField);
 	}
 
 	/**
 	 * Update all the view fields
 	 */
 	private void updateView() {
-		pokemonNameLabel.setText(pokemon.getName());
-		heightValueField.setText(pokemon.getHeight() + "");
-		weightValueField.setText(pokemon.getWeight() + "");
-		genderValueSpinner.setValue(pokemon.getGender().name().toLowerCase());
-		specieValueField.setText(pokemon.getSpecie());
-		abilityValueField.setText(pokemon.getAbility());
+		nameLabel.setText(pokemon.getName());
+		heightField.setText(pokemon.getHeight() + "");
+		weightField.setText(pokemon.getWeight() + "");
+		genderSpinner.setValue(pokemon.getGender().name().toLowerCase());
+		specieField.setText(pokemon.getSpecie());
+		abilityField.setText(pokemon.getAbility());
 
 		try {
-			URL url = new URL("https://assets.pokemon.com/assets/cms2/img/pokedex/full/"
-					+ ImageUtils.getPokemonById(pokemon.getId()));
-			BufferedImage bufferedImage = ImageIO.read(url);
-			Image image = new ImageIcon(bufferedImage).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT);
-			pokemonImageLabel.setIcon(new ImageIcon(image));
+			new URL("https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + URLField.getText() + ".png");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -248,12 +271,13 @@ public class PokemonEditorView {
 				frame.dispose();
 				int index = pokedexApp.getPokemonManager().getPokemons().indexOf(pokemon);
 
-				pokemon.setName(pokemonNameLabel.getText());
-				pokemon.setHeight(Float.parseFloat(heightValueField.getText()));
-				pokemon.setWeight(Float.parseFloat(weightValueField.getText()));
-				pokemon.setGender(Gender.valueOf(genderValueSpinner.getValue().toString().toUpperCase()));
-				pokemon.setSpecie(specieValueField.getText());
-				pokemon.setAbility(abilityValueField.getText());
+				pokemon.setName(nameLabel.getText());
+				pokemon.setImageURL("https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + URLField.getText() + ".png");
+				pokemon.setHeight(Float.parseFloat(heightField.getText()));
+				pokemon.setWeight(Float.parseFloat(weightField.getText()));
+				pokemon.setGender(Gender.valueOf(genderSpinner.getValue().toString().toUpperCase()));
+				pokemon.setSpecie(specieField.getText());
+				pokemon.setAbility(abilityField.getText());
 
 				pokedexApp.getPokemonManager().getPokemons().set(index, pokemon);
 				new PokemonView(pokedexApp, pokemon.getId());

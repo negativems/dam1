@@ -1,4 +1,4 @@
-package pk_SuperBuscaMinas;
+package mainApp;
 
 public class Util {
 	/**

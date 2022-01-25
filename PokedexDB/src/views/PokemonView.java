@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -27,34 +28,46 @@ import utils.RoundedJPanel;
 
 public class PokemonView {
 
-	private JFrame frame;
+	private final PokedexApp pokedexApp;
 	
 	private Pokemon pokemon;
-	
+		
+	private JFrame frame;
 	private JPanel  topPanel;
-	private JButton backButton, previousPokemonButton, nextPokemonButton, editPokemonButton;
-	private JLabel  returnTextLabel, pokemonNameLabel, pokemonImageLabel, errorLabel,
-				    pokemonIdLabel, heightLabel, weightLabel, genderLabel, heightValueLabel,
-				    specieLabel, specieValueLabel, abilityLabel, abilityValueLabel, genderValueLabel, weightValueLabel;
+	private JButton backButton, previousPokemonButton, nextPokemonButton, editPokemonButton, createPokemonButton;
+	private JLabel  returnTextLabel, pokemonNameLabel, pokemonImageLabel, errorLabel, pokemonIdLabel, heightLabel, weightLabel, genderLabel,
+					heightValueLabel, specieLabel, specieValueLabel, abilityLabel, abilityValueLabel, genderValueLabel, weightValueLabel;
 
 	/**
-	 * Inicia la vista Pokedex
+	 * Constructor, initialize view
 	 */
-	public PokemonView(int id) {
-		this.pokemon = PokedexApp.getPokemons().get(id - 1);
+	public PokemonView(PokedexApp pokedexApp, int id) {
+		this.pokedexApp = pokedexApp;
+		
+		List<Pokemon> pokemons = pokedexApp.getPokemonManager().getPokemons();
+		for (Pokemon pokemon : pokemons) {
+			if (pokemon.getId() == id) this.pokemon = pokemon;
+		}
+		
 		initialize();
-		setListeners();
+		createListeners();
 		frame.setVisible(true);
 	}
 	
-	public PokemonView() {
-		this(1);
+	public PokemonView(PokedexApp pokedexApp) {
+		this(pokedexApp, 1);
 	}
+	
+	public PokemonView() {
+		this.pokedexApp = new PokedexApp();
+		
+	}
+	
 
 	/**
-	 * Muestra el contenido de la vista
+	 * Setup and show view
 	 */
-	private void initialize() {		
+	private void initialize() {
 		frame = new JFrame();
 		frame.getContentPane().setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
 		frame.getContentPane().setBackground(AppUtils.BACKGROUND_COLOR);
@@ -66,7 +79,8 @@ public class PokemonView {
 		
 		// Top rounded panel
 		topPanel = new RoundedJPanel(40, 40);
-		topPanel.setBounds(0, -22, screen.width, 298);
+		System.out.println(frame.getWidth());
+		topPanel.setBounds(0, -22, 800, 300);
 		topPanel.setBackground(AppUtils.ACCENT_COLOR);
 		topPanel.setBorder(null);
 		topPanel.setOpaque(false);
@@ -75,7 +89,7 @@ public class PokemonView {
 		
 		// Back button
 		backButton = new JButton("");
-		backButton.setIcon(new ImageIcon(PokemonView.class.getResource("/assets/img/return.png")));
+		backButton.setIcon(new ImageIcon(PokemonView.class.getResource("/return.png")));
 		backButton.setBounds(10, 39, 32, 28);
 		backButton.setBackground(AppUtils.TRANSPARENT_COLOR);
 		backButton.setOpaque(false);
@@ -90,7 +104,7 @@ public class PokemonView {
 		topPanel.add(returnTextLabel);
 		
 		// Pokemon ID label
-		pokemonIdLabel = new JLabel("# 0");
+		pokemonIdLabel = new JLabel("# " + pokemon.getId());
 		pokemonIdLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		pokemonIdLabel.setForeground(Color.WHITE);
 		pokemonIdLabel.setBounds(416, 46, 46, 14);
@@ -225,38 +239,46 @@ public class PokemonView {
 		editPokemonButton.setBounds(349, 530, 89, 23);
 		editPokemonButton.setBackground(AppUtils.ACCENT_COLOR);
 		frame.getContentPane().add(editPokemonButton);
+		
+		// Create pokemon button
+		createPokemonButton = new JButton("Crear");
+		createPokemonButton.setForeground(Color.WHITE);
+		createPokemonButton.setBounds(250, 530, 89, 23);
+		createPokemonButton.setBackground(AppUtils.ACCENT_COLOR);
+		frame.getContentPane().add(createPokemonButton);
 	}
 	
-	public void setListeners() {
+	public void createListeners() {
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				new LoginView();
+				new LoginView(pokedexApp);
 			}
 		});
 		
 		nextPokemonButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (pokemon.getId() >= PokedexApp.getPokemons().size()) {
+				int i = 0;
+				while (pokedexApp.getPokemonManager().getPokemons().get(i) != pokemon) i++;
+				if (i >= pokedexApp.getPokemonManager().getPokemons().size() - 1) {
 					errorLabel.setText("No hay más pokemons");
 					return;
 				}
 				
-				int nextPokemonId = pokemon.getId() + 1;
-				pokemon = PokedexApp.getPokemons().get(nextPokemonId - 1);
+				pokemon = pokedexApp.getPokemonManager().getPokemons().get(i + 1);
 				updateView();
 			}
 		});
 		
 		previousPokemonButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (pokemon.getId() <= 1) {
+				int i = 0;
+				while (pokedexApp.getPokemonManager().getPokemons().get(i) != pokemon) i++;
+				if (i == 0) {
 					errorLabel.setText("No hay más pokemons");
 					return;
 				}
-				
-				int previousId = pokemon.getId() - 1;
-				pokemon = PokedexApp.getPokemons().get(previousId - 1);
+				pokemon = pokedexApp.getPokemonManager().getPokemons().get(i - 1);
 				updateView();
 			}
 		});
@@ -264,7 +286,14 @@ public class PokemonView {
 		editPokemonButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
-				new PokemonEditorView(pokemon);
+				new PokemonEditorView(pokedexApp, pokemon);
+			}
+		});
+		
+		createPokemonButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
+				new PokemonCreateView(pokedexApp);
 			}
 		});
 	}

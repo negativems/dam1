@@ -1,4 +1,4 @@
-package pk_SuperBuscaMinas;
+package mainApp;
 
 import java.awt.FlowLayout;
 import java.awt.Font;

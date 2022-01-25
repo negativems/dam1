@@ -5,12 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.Test;
 
-import pk_SuperBuscaMinas.BotonMina;
-import pk_SuperBuscaMinas.BotonMina.Estado;
-import pk_SuperBuscaMinas.BotonMina.Valor;
-import pk_SuperBuscaMinas.Coordenadas;
-import pk_SuperBuscaMinas.MatrizBotones;
-import pk_SuperBuscaMinas.Util.Posicion;
+import mainApp.BotonMina;
+import mainApp.Coordenadas;
+import mainApp.MatrizBotones;
+import mainApp.BotonMina.Estado;
+import mainApp.BotonMina.Valor;
+import mainApp.Util.Posicion;
 
 public class JUnitTest {
 	
@@ -50,21 +50,34 @@ public class JUnitTest {
 			BotonMina boton = matriz.getBoton(matrizPrueba[i][0], matrizPrueba[i][1]);
 			boton.setValor(Valor.MINA);
 			
-			// Comprueba el método testHayBoton
-			assertTrue(matriz.hayBoton(boton, Posicion.DER));
-			assertTrue(matriz.hayBoton(boton, Posicion.INF));
-			assertTrue(matriz.hayBoton(boton, Posicion.INF_DER));
+			boolean lateralSuperior = boton.getY() == 0;
+			boolean lateralIzquierdo = boton.getX() == 0;
+			boolean lateralInferior = boton.getY() == matriz.getSize() - 1;
+			boolean lateralDerecho = boton.getX() == matriz.getSize() - 1;
 			
-			// Los siguientes asserts deben de dar error en los botones que
-			// tengan botones en la adyacente correspondiente ya que comprueba
-			// lo contrario
-			assertTrue(!matriz.hayBoton(boton, Posicion.INF_IZQ));
-			assertTrue(!matriz.hayBoton(boton, Posicion.IZQ));
-			assertTrue(!matriz.hayBoton(boton, Posicion.SUP));
-			assertTrue(!matriz.hayBoton(boton, Posicion.SUP_DER));
-			assertTrue(!matriz.hayBoton(boton, Posicion.SUP_IZQ));
-
-			// 
+			if (lateralSuperior) {
+				assertTrue(matriz.hayBoton(boton, Posicion.INF));
+			}
+			
+			if (lateralInferior) {
+				assertTrue(matriz.hayBoton(boton, Posicion.SUP));
+			}
+			
+			if (lateralIzquierdo) {
+				assertTrue(matriz.hayBoton(boton, Posicion.DER));
+			}
+			
+			if (lateralDerecho) {
+				assertTrue(matriz.hayBoton(boton, Posicion.IZQ));
+			}
+			
+			if (!lateralSuperior && !lateralDerecho && !lateralInferior && !lateralIzquierdo) {
+				assertTrue(matriz.hayBoton(boton, Posicion.SUP));
+				assertTrue(matriz.hayBoton(boton, Posicion.DER));
+				assertTrue(matriz.hayBoton(boton, Posicion.INF));
+				assertTrue(matriz.hayBoton(boton, Posicion.IZQ));
+			}
+			
 		}
 		
 	}

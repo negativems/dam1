@@ -1,4 +1,4 @@
-package pk_SuperBuscaMinas;
+package mainApp;
 
 /**
  * Clase para almacenar pares de coordenadas

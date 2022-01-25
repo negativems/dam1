@@ -18,12 +18,18 @@ public class AppUtils {
 	
 	public static Font getPokemonFont() {
 		try {
-			Font font = Font.createFont(Font.TRUETYPE_FONT, PokedexApp.class.getResourceAsStream("/assets/fonts/Pokemon Solid.ttf"));
+			Font font = Font.createFont(Font.TRUETYPE_FONT, PokedexApp.class.getResourceAsStream("/Pokemon Solid.ttf"));
 			return font;
 		} catch (IOException | FontFormatException e) {
 			// ignore
 			e.printStackTrace();
 			return new Font("Rubik", Font.BOLD, 22);
 		}
+	}
+	
+	public static String getFormattedPokemonId(int id) {
+		if (id < 10) return "00" + id;
+		else if (id < 100) return "0" + id;
+		else return "" + id;
 	}
 }

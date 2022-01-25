@@ -1,4 +1,4 @@
-package pk_SuperBuscaMinas;
+package mainApp;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -9,8 +9,8 @@ import javax.sound.sampled.Clip;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import pk_SuperBuscaMinas.BotonMina.Estado;
-import pk_SuperBuscaMinas.BotonMina.Valor;
+import mainApp.BotonMina.Estado;
+import mainApp.BotonMina.Valor;
 
 /**
  * Clase que controla la disposición de paneles y botones, así como los eventos del juego.

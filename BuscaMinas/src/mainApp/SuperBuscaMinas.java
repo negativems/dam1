@@ -1,4 +1,4 @@
-package pk_SuperBuscaMinas;
+package mainApp;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;

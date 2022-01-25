@@ -22,7 +22,7 @@ public class RoundedJPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
        super.paintComponent(g);
-       Dimension arcs = new Dimension(cornerWidth, cornerHeight); //Border corners arcs {width,height}, change this to whatever you want
+       Dimension arcs = new Dimension(cornerWidth, cornerHeight);
        int width = getWidth();
        int height = getHeight();
        Graphics2D graphics = (Graphics2D) g;
@@ -31,9 +31,14 @@ public class RoundedJPanel extends JPanel {
 
        //Draws the rounded panel with borders.
        graphics.setColor(getBackground());
-       graphics.fillRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);//paint background
+       
+       //paint background
+       System.out.println(this.getWidth());
+       graphics.fillRoundRect(0, 0, width-400, height-1, arcs.width, arcs.height);
        graphics.setColor(getForeground());
-       graphics.drawRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);//paint border
+       
+       //paint border
+       graphics.drawRoundRect(0, 0, width-400, height-1, arcs.width, arcs.height);
     }
 	
 }

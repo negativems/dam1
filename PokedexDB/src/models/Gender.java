@@ -2,6 +2,7 @@ package models;
 
 public enum Gender {
 	
-	MACHO, HEMBRA;
+	MACHO,
+	HEMBRA;
 	
 }

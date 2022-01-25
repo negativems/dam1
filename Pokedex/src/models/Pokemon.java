@@ -3,6 +3,8 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
+import utils.AppUtils;
+
 public class Pokemon {
 
 	protected final int id;
@@ -53,6 +55,9 @@ public class Pokemon {
 		return result.substring(0, result.length() - 2);
 	}
 
+	public String getFormattedId() {
+		return AppUtils.getFormattedPokemonId(id);
+	}
 	
 	// Getters & Setters
 	public int getId() {

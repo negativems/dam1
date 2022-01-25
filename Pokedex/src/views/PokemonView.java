@@ -79,7 +79,8 @@ public class PokemonView {
 		
 		// Top rounded panel
 		topPanel = new RoundedJPanel(40, 40);
-		topPanel.setBounds(0, -22, screen.width, 298);
+		System.out.println(frame.getWidth());
+		topPanel.setBounds(0, -22, 800, 300);
 		topPanel.setBackground(AppUtils.ACCENT_COLOR);
 		topPanel.setBorder(null);
 		topPanel.setOpaque(false);
@@ -88,7 +89,7 @@ public class PokemonView {
 		
 		// Back button
 		backButton = new JButton("");
-		backButton.setIcon(new ImageIcon(PokemonView.class.getResource("/assets/img/return.png")));
+		backButton.setIcon(new ImageIcon(PokemonView.class.getResource("/return.png")));
 		backButton.setBounds(10, 39, 32, 28);
 		backButton.setBackground(AppUtils.TRANSPARENT_COLOR);
 		backButton.setOpaque(false);

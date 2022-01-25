@@ -1,10 +1,10 @@
-package pk_SuperBuscaMinas;
+package mainApp;
 
 import java.util.ArrayList;
 
-import pk_SuperBuscaMinas.BotonMina.Estado;
-import pk_SuperBuscaMinas.BotonMina.Valor;
-import pk_SuperBuscaMinas.Util.Posicion;
+import mainApp.BotonMina.Estado;
+import mainApp.BotonMina.Valor;
+import mainApp.Util.Posicion;
 
 /**
  * Clase que gestiona una matriz de botones BotonMina
