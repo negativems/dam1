@@ -8,5 +8,4 @@ public class MainApp {
 		new LoginView();
 	}
 
-	
 }

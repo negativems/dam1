@@ -9,11 +9,8 @@ import java.util.ArrayList;
 
 import models.Student;
 
-public class StudentDAO {
+public class StudentDAO extends AbstractDAO {
 
-	final String DB_URL = "jdbc:mysql://localhost/prog_alumnos";
-	final String USER = "root";
-	final String PASS = "root";	
 	private TeacherDAO profeDAO;
 	
 	public StudentDAO() {
