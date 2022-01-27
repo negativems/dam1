@@ -211,7 +211,7 @@ public class MatrizBotones {
 		for (Coordenadas coord: listaPosicionMinas) {
 			BotonMina boton = this.getBoton(coord);
 			boton.cambiarAspecto(Estado.MINA);
-		}		
+		}
 	}	
 	
 	/**
@@ -228,7 +228,7 @@ public class MatrizBotones {
 				if (boton_a_destapar.getValor().equals(Valor.NUMERO)) {
 					boton_a_destapar.cambiarAspecto(Estado.NUMERO);
 					botonesNoMinaSinPulsar--;
-				}  
+				}
 				// Si es valor VACIO cambia aspecto a PULSADO
 				else if (boton_a_destapar.getValor().equals(Valor.VACIO)) {
 					boton_a_destapar.cambiarAspecto(Estado.PULSADO);
@@ -244,7 +244,7 @@ public class MatrizBotones {
 	 */
 	public void recursivoDestapaBotonesAdyacentes(BotonMina boton) {
 		botonesNoMinaSinPulsar--;
-				
+		
 		for(Posicion posicion: Posicion.values()) {
 			destapaBoton(boton, posicion);
 		}
