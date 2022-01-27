@@ -8,11 +8,7 @@ import java.sql.Statement;
 
 import models.User;
 
-public class UserDAO {
-
-	private final String DB_URL = "jdbc:mysql://localhost/pokedex";
-	private final String USER = "root";
-	private final String PASS = "root";
+public class UserDAO extends AbstractDAO {
 
 	public boolean login(User user) {
 		try {
