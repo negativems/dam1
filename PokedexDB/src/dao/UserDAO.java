@@ -1,22 +1,22 @@
 package dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import models.User;
 
 public class UserDAO extends AbstractDAO {
+	
+	public UserDAO() {
+		super("users");
+	}
 
 	public boolean login(User user) {
+		String columns = "username, password";
+		String where = "username = " + user.getUsername() + " AND password = " + user.getPassword();
+		ResultSet rs = getFirst(columns, where);
+		
 		try {
-			Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
-			Statement statement = connection.createStatement();
-			String query = "SELECT username, password FROM users WHERE (username = '" + user.getUsername() + "' AND password = '" + user.getPassword() + "');";
-			ResultSet rs = statement.executeQuery(query);
-			
 			return rs.next();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -26,15 +26,8 @@ public class UserDAO extends AbstractDAO {
 	}
 	
 	public boolean register(User user) {
-		try {
-			Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
-			Statement statement = connection.createStatement();
-			String query = "INSERT INTO pokedex.users (username, password) VALUES ('" + user.getUsername() + "', '" + user.getPassword() + "');";
-			return statement.executeUpdate(query) != 0;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return false;
+		String[] values = new String[] {user.getUsername(), user.getPassword()};
+		return insertOne("username, password", values);
 	}
 
 }
