@@ -18,8 +18,7 @@ public class StudentDAO extends AbstractDAO {
 	}
 
 	public Student first() {
-		final String query = "SELECT nombre, apellidos, ciclo, calificacionmedia  "
-				+ "FROM alumnos limit 1";
+		final String query = "SELECT nombre, apellidos, ciclo, calificacionmedia FROM alumnos limit 1";
 		try {
 			Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 			Statement stmt = conn.createStatement();
@@ -40,9 +39,7 @@ public class StudentDAO extends AbstractDAO {
 	}
 	
 	public ArrayList<Student> getAll() {
-		final String query = "SELECT id, nombre, apellidos, ciclo, calificacionmedia"
-				+ ",idprofe1, idprofe2  "
-				+ "FROM alumnos";
+		final String query = "SELECT id, nombre, apellidos, ciclo, calificacionmedia, idprofe1, idprofe2 FROM alumnos";
 		var alumnos = new ArrayList<Student>();
 		try {
 			Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
