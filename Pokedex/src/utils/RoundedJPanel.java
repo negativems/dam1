@@ -34,11 +34,11 @@ public class RoundedJPanel extends JPanel {
        
        //paint background
        System.out.println(this.getWidth());
-       graphics.fillRoundRect(0, 0, width-400, height-1, arcs.width, arcs.height);
+       graphics.fillRoundRect(0, 0, width, height-1, arcs.width, arcs.height);
        graphics.setColor(getForeground());
        
        //paint border
-       graphics.drawRoundRect(0, 0, width-400, height-1, arcs.width, arcs.height);
+       graphics.drawRoundRect(0, 0, width, height-1, arcs.width, arcs.height);
     }
 	
 }

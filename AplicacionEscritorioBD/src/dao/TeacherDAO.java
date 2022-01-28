@@ -9,11 +9,7 @@ import java.util.ArrayList;
 
 import models.Teacher;
 
-public class TeacherDAO {
-
-	final String DB_URL = "jdbc:mysql://localhost/prog_alumnos";
-	final String USER = "root";
-	final String PASS = "root";
+public class TeacherDAO extends AbstractDAO {
 	
 	public ArrayList<Teacher> getAll() {
 		final String QUERY = "SELECT id, nombre FROM profesores";

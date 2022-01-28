@@ -10,11 +10,7 @@ import java.sql.Statement;
 import models.Usuario;
 import utils.EmailUtils;
 
-public class UserDAO {
-	final String DB_URL = "jdbc:mysql://localhost/prog_alumnos";
-	final String USER = "root";
-	final String PASS = "root";
-	
+public class UserDAO extends AbstractDAO {	
 
 	public void consulta() {
 		final String QUERY = "SELECT username, password FROM users";

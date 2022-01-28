@@ -116,7 +116,14 @@ public class LoginView {
 			public void actionPerformed(ActionEvent e) {
 				String username = usernameField.getText();
 				String password = new String(passwordField.getPassword());
-				login(username, password);
+				
+				if (!pokedexApp.getUserManager().login(username, password)) {
+					errorLabel.setText("Usuario o contraseña erróneos");
+					return;
+				}
+
+				frame.setVisible(false);
+				new PokemonView(pokedexApp);
 			}
 		});
 		
@@ -126,24 +133,5 @@ public class LoginView {
 				new RegisterView(pokedexApp);
 			}
 		});		
-	}
-	
-	/**
-	 * Login user by an username and password
-	 * @param username
-	 * @param password
-	 */
-	public void login(String username, String password) {
-		for (User user : pokedexApp.getUserManager().getUsers()) {
-			if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
-				pokedexApp.getUserManager().setSession(user);
-				frame.setVisible(false);
-				new PokemonView(pokedexApp);
-				return;
-			}
-		}
-
-		errorLabel.setText("Usuario o contraseña erróneos");
-	}
-	
+	}	
 }

@@ -9,11 +9,8 @@ import java.util.ArrayList;
 
 import models.Student;
 
-public class StudentDAO {
+public class StudentDAO extends AbstractDAO {
 
-	final String DB_URL = "jdbc:mysql://localhost/prog_alumnos";
-	final String USER = "root";
-	final String PASS = "root";	
 	private TeacherDAO profeDAO;
 	
 	public StudentDAO() {
@@ -21,8 +18,7 @@ public class StudentDAO {
 	}
 
 	public Student first() {
-		final String query = "SELECT nombre, apellidos, ciclo, calificacionmedia  "
-				+ "FROM alumnos limit 1";
+		final String query = "SELECT nombre, apellidos, ciclo, calificacionmedia FROM alumnos limit 1";
 		try {
 			Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 			Statement stmt = conn.createStatement();
@@ -43,9 +39,7 @@ public class StudentDAO {
 	}
 	
 	public ArrayList<Student> getAll() {
-		final String query = "SELECT id, nombre, apellidos, ciclo, calificacionmedia"
-				+ ",idprofe1, idprofe2  "
-				+ "FROM alumnos";
+		final String query = "SELECT id, nombre, apellidos, ciclo, calificacionmedia, idprofe1, idprofe2 FROM alumnos";
 		var alumnos = new ArrayList<Student>();
 		try {
 			Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);

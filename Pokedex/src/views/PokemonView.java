@@ -79,7 +79,6 @@ public class PokemonView {
 		
 		// Top rounded panel
 		topPanel = new RoundedJPanel(40, 40);
-		System.out.println(frame.getWidth());
 		topPanel.setBounds(0, -22, 800, 300);
 		topPanel.setBackground(AppUtils.ACCENT_COLOR);
 		topPanel.setBorder(null);
