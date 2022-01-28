@@ -145,6 +145,6 @@ public class RegisterView {
 	}
 	
 	public void register(String username, String password) {
-		pokedexApp.getUserManager().addUser(new User(username, password));
+		pokedexApp.getUserManager().registerUser(new User(username, password));
 	}
 }

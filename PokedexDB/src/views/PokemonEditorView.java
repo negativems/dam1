@@ -215,14 +215,6 @@ public class PokemonEditorView {
 		savePokemonButton.setBackground(AppUtils.GREEN_COLOR);
 		savePokemonButton.setBounds(268, 530, 80, 23);
 		frame.getContentPane().add(savePokemonButton);
-
-		// Gender Spinner
-		genderSpinner = new JSpinner();
-		genderSpinner.setForeground(Color.WHITE);
-		genderSpinner.setBackground(AppUtils.BACKGROUND_COLOR);
-		genderSpinner.setModel(new SpinnerListModel(new String[] { "macho", "hembra" }));
-		genderSpinner.setBounds(113, 434, 66, 14);
-		frame.getContentPane().add(genderSpinner);
 		
 		// URL
 		URLIdLabel = new JLabel("ID");
@@ -232,7 +224,7 @@ public class PokemonEditorView {
 		frame.getContentPane().add(URLIdLabel);
 		
 		String currentURL = pokemon.getImageURL();
-		URLField = new JTextField(currentURL.substring(currentURL.indexOf("full/") + 5, currentURL.length() - 4));
+		URLField = new JTextField("");
 		URLField.setBounds(80, 530, 178, 23);
 		frame.getContentPane().add(URLField);
 	}

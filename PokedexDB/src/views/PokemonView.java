@@ -34,7 +34,7 @@ public class PokemonView {
 		
 	private JFrame frame;
 	private JPanel  topPanel;
-	private JButton backButton, previousPokemonButton, nextPokemonButton, editPokemonButton, createPokemonButton;
+	private JButton backButton, previousPokemonButton, nextPokemonButton, editButton, createButton, saveButton;
 	private JLabel  returnTextLabel, pokemonNameLabel, pokemonImageLabel, errorLabel, pokemonIdLabel, heightLabel, weightLabel, genderLabel,
 					heightValueLabel, specieLabel, specieValueLabel, abilityLabel, abilityValueLabel, genderValueLabel, weightValueLabel;
 
@@ -54,20 +54,18 @@ public class PokemonView {
 		frame.setVisible(true);
 	}
 	
+	/**
+	 * @wbp.parser.constructor
+	 */
 	public PokemonView(PokedexApp pokedexApp) {
 		this(pokedexApp, 1);
-	}
-	
-	public PokemonView() {
-		this.pokedexApp = new PokedexApp();
-		
 	}
 	
 
 	/**
 	 * Setup and show view
 	 */
-	private void initialize() {
+	private void initialize() {	
 		frame = new JFrame();
 		frame.getContentPane().setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
 		frame.getContentPane().setBackground(AppUtils.BACKGROUND_COLOR);
@@ -75,11 +73,9 @@ public class PokemonView {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 		
 		// Top rounded panel
 		topPanel = new RoundedJPanel(40, 40);
-		System.out.println(frame.getWidth());
 		topPanel.setBounds(0, -22, 800, 300);
 		topPanel.setBackground(AppUtils.ACCENT_COLOR);
 		topPanel.setBorder(null);
@@ -233,19 +229,26 @@ public class PokemonView {
 		errorLabel.setBounds(0, 493, 484, 26);
 		frame.getContentPane().add(errorLabel);
 		
+		// Saves pokemon button
+		saveButton = new JButton("Guardar");
+		saveButton.setForeground(Color.WHITE);
+		saveButton.setBounds(150, 530, 89, 23);
+		saveButton.setBackground(AppUtils.GREEN_COLOR);
+		frame.getContentPane().add(saveButton);
+		
 		// Edit pokemon button
-		editPokemonButton = new JButton("Editar");
-		editPokemonButton.setForeground(Color.WHITE);
-		editPokemonButton.setBounds(349, 530, 89, 23);
-		editPokemonButton.setBackground(AppUtils.ACCENT_COLOR);
-		frame.getContentPane().add(editPokemonButton);
+		editButton = new JButton("Editar");
+		editButton.setForeground(Color.WHITE);
+		editButton.setBounds(250, 530, 89, 23);
+		editButton.setBackground(AppUtils.ACCENT_COLOR);
+		frame.getContentPane().add(editButton);
 		
 		// Create pokemon button
-		createPokemonButton = new JButton("Crear");
-		createPokemonButton.setForeground(Color.WHITE);
-		createPokemonButton.setBounds(250, 530, 89, 23);
-		createPokemonButton.setBackground(AppUtils.ACCENT_COLOR);
-		frame.getContentPane().add(createPokemonButton);
+		createButton = new JButton("Crear");
+		createButton.setForeground(Color.WHITE);
+		createButton.setBounds(350, 530, 89, 23);
+		createButton.setBackground(AppUtils.ACCENT_COLOR);
+		frame.getContentPane().add(createButton);
 	}
 	
 	public void createListeners() {
@@ -283,17 +286,26 @@ public class PokemonView {
 			}
 		});
 		
-		editPokemonButton.addActionListener(new ActionListener() {
+		editButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
 				new PokemonEditorView(pokedexApp, pokemon);
 			}
 		});
 		
-		createPokemonButton.addActionListener(new ActionListener() {
+		createButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
 				new PokemonCreateView(pokedexApp);
+			}
+		});
+		
+		saveButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				pokedexApp.getPokemonManager().savePokemons();
+				errorLabel.setForeground(AppUtils.GREEN_COLOR);
+				errorLabel.setText("Pokemons guardados correctamente");
+				errorLabel.setForeground(Color.WHITE);
 			}
 		});
 	}

@@ -1,3 +1,7 @@
-*/.classpath
-*/bin/
-*/.project
+**/bin
+**/target
+**/.settings
+**/.classpath
+**/.project
+**/*.jar
+**/*.class
