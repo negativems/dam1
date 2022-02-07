@@ -1,16 +1,11 @@
 package junit.tests;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import mainApp.BotonMina;
-import mainApp.Coordenadas;
-import mainApp.MatrizBotones;
 import mainApp.BotonMina.Estado;
-import mainApp.BotonMina.Valor;
-import mainApp.Util.Posicion;
 
 public class BotonMinaTest {
 	
