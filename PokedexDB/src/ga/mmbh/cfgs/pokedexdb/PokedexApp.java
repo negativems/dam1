@@ -1,8 +1,8 @@
-package mainApp;
+package ga.mmbh.cfgs.pokedexdb;
 
-import managers.PokemonManager;
-import managers.UserManager;
-import views.LoginView;
+import ga.mmbh.cfgs.pokedexdb.managers.PokemonManager;
+import ga.mmbh.cfgs.pokedexdb.managers.UserManager;
+import ga.mmbh.cfgs.pokedexdb.views.LoginView;
 
 public class PokedexApp {
 	

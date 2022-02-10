@@ -1,12 +1,12 @@
-package dao;
+package ga.mmbh.cfgs.pokedexdb.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import models.Gender;
-import models.Pokemon;
+import ga.mmbh.cfgs.pokedexdb.models.Gender;
+import ga.mmbh.cfgs.pokedexdb.models.Pokemon;
 
 public class PokemonDAO extends AbstractDAO {
 	
@@ -24,16 +24,16 @@ public class PokemonDAO extends AbstractDAO {
     @Deprecated
 	public List<Pokemon> getAllFromDatabase() {
     	List<Pokemon> result = new ArrayList();
-		ResultSet rs = getAll("PokemonID, Name, Description, Specie, Ability, ImageURL, Height, Weight, Gender");
+		ResultSet rs = getAll("pokemon_id, name, description, specie, ability, image_url, height, weight, gender");
 		
 		try {
 			while (rs.next()) {
-				int id = rs.getInt("PokemonID");
-				String name = rs.getString("Name");
-				String description = rs.getString("Description");
-				String specie = rs.getString("Specie");
+				int id = rs.getInt("pokemon_id");
+				String name = rs.getString("name");
+				String description = rs.getString("description");
+				String specie = rs.getString("specie");
 				String ability = rs.getString("ability");
-				String imageURL = rs.getString("ImageURL");
+				String imageURL = rs.getString("image_url");
 				float height = rs.getFloat("height");
 				float weight = rs.getFloat("weight");
 				boolean gender = rs.getBoolean("gender");

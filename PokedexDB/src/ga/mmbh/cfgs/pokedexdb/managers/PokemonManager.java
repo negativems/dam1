@@ -1,11 +1,11 @@
-package managers;
+package ga.mmbh.cfgs.pokedexdb.managers;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import dao.PokemonDAO;
-import models.Gender;
-import models.Pokemon;
+import ga.mmbh.cfgs.pokedexdb.dao.PokemonDAO;
+import ga.mmbh.cfgs.pokedexdb.models.Gender;
+import ga.mmbh.cfgs.pokedexdb.models.Pokemon;
 
 public class PokemonManager {
 
@@ -38,8 +38,8 @@ public class PokemonManager {
 			values.add(valuesArray);
 		}
 		
-		pokemonDAO.delete("DELETE cFROM " + pokemonDAO.getTable());
-		pokemonDAO.insert("PokemonID, Name, Description, Specie, Ability, ImageURL, Height, Weight, Gender", values);
+		pokemonDAO.delete("DELETE FROM " + pokemonDAO.getTable());
+		pokemonDAO.insert("pokemon_id, name, description, specie, ability, image_url, height, weight, gender", values);
 	}
 	
 	// Getters & Setters

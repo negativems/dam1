@@ -1,4 +1,4 @@
-package utils;
+package ga.mmbh.cfgs.pokedexdb.utils;
 
 public class ImageUtils {
 

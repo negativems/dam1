@@ -1,4 +1,4 @@
-package views;
+package ga.mmbh.cfgs.pokedexdb.views;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -23,12 +23,12 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerListModel;
 import javax.swing.SwingConstants;
 
-import mainApp.PokedexApp;
-import models.Gender;
-import models.Pokemon;
-import utils.AppUtils;
-import utils.ImageUtils;
-import utils.RoundedJPanel;
+import ga.mmbh.cfgs.pokedexdb.PokedexApp;
+import ga.mmbh.cfgs.pokedexdb.models.Gender;
+import ga.mmbh.cfgs.pokedexdb.models.Pokemon;
+import ga.mmbh.cfgs.pokedexdb.utils.AppUtils;
+import ga.mmbh.cfgs.pokedexdb.utils.ImageUtils;
+import ga.mmbh.cfgs.pokedexdb.utils.RoundedJPanel;
 
 public class PokemonEditorView {
 

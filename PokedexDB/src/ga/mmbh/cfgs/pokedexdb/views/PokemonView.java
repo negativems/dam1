@@ -1,4 +1,4 @@
-package views;
+package ga.mmbh.cfgs.pokedexdb.views;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -20,11 +20,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import mainApp.PokedexApp;
-import models.Pokemon;
-import utils.AppUtils;
-import utils.ImageUtils;
-import utils.RoundedJPanel;
+import ga.mmbh.cfgs.pokedexdb.PokedexApp;
+import ga.mmbh.cfgs.pokedexdb.models.Pokemon;
+import ga.mmbh.cfgs.pokedexdb.utils.AppUtils;
+import ga.mmbh.cfgs.pokedexdb.utils.ImageUtils;
+import ga.mmbh.cfgs.pokedexdb.utils.RoundedJPanel;
 
 public class PokemonView {
 
@@ -44,10 +44,8 @@ public class PokemonView {
 	public PokemonView(PokedexApp pokedexApp, int id) {
 		this.pokedexApp = pokedexApp;
 		
-		List<Pokemon> pokemons = pokedexApp.getPokemonManager().getPokemons();
-		for (Pokemon pokemon : pokemons) {
-			if (pokemon.getId() == id) this.pokemon = pokemon;
-		}
+		List<Pokemon> pokemons = pokedexApp.getPokemonManager().getPokemons();		
+		this.pokemon = pokemons.stream().filter(pokemon -> pokemon.getId() == id).findFirst().get();
 		
 		initialize();
 		createListeners();

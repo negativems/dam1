@@ -1,4 +1,4 @@
-package dao;
+package ga.mmbh.cfgs.pokedexdb.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

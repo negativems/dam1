@@ -1,11 +1,11 @@
-package managers;
+package ga.mmbh.cfgs.pokedexdb.managers;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dao.UserDAO;
-import models.User;
+import ga.mmbh.cfgs.pokedexdb.dao.UserDAO;
+import ga.mmbh.cfgs.pokedexdb.models.User;
 
 public class UserManager {
 
