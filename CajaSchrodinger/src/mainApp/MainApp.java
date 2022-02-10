@@ -1,13 +1,13 @@
-package mainApp;
+package ga.mmbh.cfgs.pokedexdb;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import models.Animal;
-import models.CajaSchrodinger;
-import models.impl.Cerdo;
-import models.impl.Gato;
-import models.impl.Toro;
+import ga.mmbh.cfgs.pokedexdb.models.Animal;
+import ga.mmbh.cfgs.pokedexdb.models.CajaSchrodinger;
+import ga.mmbh.cfgs.pokedexdb.models.impl.Cerdo;
+import ga.mmbh.cfgs.pokedexdb.models.impl.Gato;
+import ga.mmbh.cfgs.pokedexdb.models.impl.Toro;
 
 public class MainApp {
 

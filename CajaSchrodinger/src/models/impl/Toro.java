@@ -1,6 +1,6 @@
-package models.impl;
+package ga.mmbh.cfgs.pokedexdb.models.impl;
 
-import models.Animal;
+import ga.mmbh.cfgs.pokedexdb.models.Animal;
 
 public class Toro extends Animal {
 
