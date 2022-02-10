@@ -8,12 +8,12 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import mainApp.BotonMina;
-import mainApp.BotonMina.Estado;
-import mainApp.BotonMina.Valor;
-import mainApp.Coordenadas;
-import mainApp.MatrizBotones;
-import mainApp.Util.Posicion;
+import ga.mmbh.cfgs.pokedexdb.BotonMina;
+import ga.mmbh.cfgs.pokedexdb.BotonMina.Estado;
+import ga.mmbh.cfgs.pokedexdb.BotonMina.Valor;
+import ga.mmbh.cfgs.pokedexdb.Coordenadas;
+import ga.mmbh.cfgs.pokedexdb.MatrizBotones;
+import ga.mmbh.cfgs.pokedexdb.Util.Posicion;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class MatrizBotonesTest {

@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import mainApp.BotonMina;
-import mainApp.BotonMina.Estado;
+import ga.mmbh.cfgs.pokedexdb.BotonMina;
+import ga.mmbh.cfgs.pokedexdb.BotonMina.Estado;
 
 public class BotonMinaTest {
 	

@@ -1,4 +1,4 @@
-package mainApp;
+package ga.mmbh.cfgs.pokedexdb;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -9,8 +9,8 @@ import javax.sound.sampled.Clip;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import mainApp.BotonMina.Estado;
-import mainApp.BotonMina.Valor;
+import ga.mmbh.cfgs.pokedexdb.BotonMina.Estado;
+import ga.mmbh.cfgs.pokedexdb.BotonMina.Valor;
 
 /**
  * Clase que controla la disposición de paneles y botones, así como los eventos del juego.

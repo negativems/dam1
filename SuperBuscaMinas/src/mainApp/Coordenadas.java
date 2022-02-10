@@ -1,4 +1,4 @@
-package mainApp;
+package ga.mmbh.cfgs.pokedexdb;
 
 /**
  * Clase para almacenar pares de coordenadas

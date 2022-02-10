@@ -1,4 +1,4 @@
-package mainApp;
+package ga.mmbh.cfgs.pokedexdb;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
