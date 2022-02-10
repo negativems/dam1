@@ -1,11 +1,11 @@
-package mainApp;
+package ga.mmbh.cfgs.pokedexdb;
 
 import java.util.TreeSet;
 
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
 
-import models.CorredorDeFondo;
+import ga.mmbh.cfgs.pokedexdb.models.CorredorDeFondo;
 
 public class MainApp {
 
