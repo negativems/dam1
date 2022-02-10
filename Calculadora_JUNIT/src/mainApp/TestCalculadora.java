@@ -1,4 +1,4 @@
-package mainApp;
+package ga.mmbh.cfgs.pokedexdb;
 
 import static org.junit.jupiter.api.Assertions.*;
 
