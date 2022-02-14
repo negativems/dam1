@@ -1,4 +1,4 @@
-package ga.mmbh.cfgs.pokedexdb;
+package ga.mmbh.cfgs.models;
 
 import java.awt.FlowLayout;
 import java.awt.Font;

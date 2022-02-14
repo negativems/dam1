@@ -1,11 +1,11 @@
-package junit.tests;
+package ga.mmbh.cfgs.junit.tests;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import ga.mmbh.cfgs.pokedexdb.BotonMina;
-import ga.mmbh.cfgs.pokedexdb.BotonMina.Estado;
+import ga.mmbh.cfgs.models.BotonMina;
+import ga.mmbh.cfgs.models.BotonMina.Estado;
 
 public class BotonMinaTest {
 	

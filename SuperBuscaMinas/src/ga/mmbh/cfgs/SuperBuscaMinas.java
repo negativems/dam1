@@ -1,7 +1,10 @@
-package ga.mmbh.cfgs.pokedexdb;
+package ga.mmbh.cfgs;
+
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
+
+import ga.mmbh.cfgs.models.Tablero;
 
 /**
  * Clase para controlar la ventana principal del juego

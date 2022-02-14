@@ -1,10 +1,10 @@
-package ga.mmbh.cfgs.pokedexdb;
+package ga.mmbh.cfgs.models;
 
 import java.util.ArrayList;
 
-import ga.mmbh.cfgs.pokedexdb.BotonMina.Estado;
-import ga.mmbh.cfgs.pokedexdb.BotonMina.Valor;
-import ga.mmbh.cfgs.pokedexdb.Util.Posicion;
+import ga.mmbh.cfgs.models.BotonMina.Estado;
+import ga.mmbh.cfgs.models.BotonMina.Valor;
+import ga.mmbh.cfgs.models.Util.Posicion;
 
 /**
  * Clase que gestiona una matriz de botones BotonMina

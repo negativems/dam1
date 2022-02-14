@@ -1,4 +1,4 @@
-package junit.tests;
+package ga.mmbh.cfgs.junit.tests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -8,12 +8,12 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import ga.mmbh.cfgs.pokedexdb.BotonMina;
-import ga.mmbh.cfgs.pokedexdb.BotonMina.Estado;
-import ga.mmbh.cfgs.pokedexdb.BotonMina.Valor;
-import ga.mmbh.cfgs.pokedexdb.Coordenadas;
-import ga.mmbh.cfgs.pokedexdb.MatrizBotones;
-import ga.mmbh.cfgs.pokedexdb.Util.Posicion;
+import ga.mmbh.cfgs.models.BotonMina;
+import ga.mmbh.cfgs.models.BotonMina.Estado;
+import ga.mmbh.cfgs.models.BotonMina.Valor;
+import ga.mmbh.cfgs.models.Coordenadas;
+import ga.mmbh.cfgs.models.MatrizBotones;
+import ga.mmbh.cfgs.models.Util.Posicion;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class MatrizBotonesTest {
