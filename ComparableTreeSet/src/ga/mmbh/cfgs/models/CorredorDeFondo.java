@@ -1,4 +1,4 @@
-package ga.mmbh.cfgs.pokedexdb.models;
+package ga.mmbh.cfgs.models;
 
 import org.joda.time.Interval;
 
