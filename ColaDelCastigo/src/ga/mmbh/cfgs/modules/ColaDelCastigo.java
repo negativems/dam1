@@ -12,7 +12,7 @@ import ga.mmbh.cfgs.exceptions.LlevateTuNullDeAquiException;
 public class ColaDelCastigo<T> implements Comparator<T>{
 
 	private final TreeSet<T> list;
-	private final Comparator<T> comparator;
+	private final Comparator<? super T> comparator;
 	
 	public ColaDelCastigo(Comparator<T> comparator) {
 		this.comparator = comparator;
@@ -21,7 +21,7 @@ public class ColaDelCastigo<T> implements Comparator<T>{
 	
 	public ColaDelCastigo() {
 		this.list = new TreeSet<T>();
-		this.comparator = (Comparator<T>) list.comparator();
+		this.comparator = list.comparator();
 	}
 
 
