@@ -1,8 +1,10 @@
-package ga.mmbh.cfgs.pokedexdb;
+package ga.mmbh.cfgs.junit;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
+
+import ga.mmbh.cfgs.Calculadora;
 
 class TestCalculadora {
 

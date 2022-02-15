@@ -1,6 +1,4 @@
-package ga.mmbh.cfgs.pokedexdb.models;
-
-import java.util.List;
+package ga.mmbh.cfgs.models;
 
 public class CajaSchrodinger<T extends Animal> {
 
