@@ -1,11 +1,6 @@
 package ga.mmbh.cfgs.utils;
 
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.io.IOException;
-
-import ga.mmbh.cfgs.pokedexdb.PokedexApp;
 
 public class AppUtils {
 
