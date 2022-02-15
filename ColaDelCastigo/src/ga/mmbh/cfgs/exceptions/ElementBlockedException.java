@@ -12,6 +12,6 @@ public class ElementBlockedException extends Exception {
 	}
 	
 	public ElementBlockedException() {
-		super("You can not have less than 1 element on ColaDelCastigo queue");
+		super("You can not have less than one element in a queue");
 	}
 }

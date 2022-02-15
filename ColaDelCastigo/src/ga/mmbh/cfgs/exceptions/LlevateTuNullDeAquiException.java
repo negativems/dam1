@@ -12,6 +12,6 @@ public class LlevateTuNullDeAquiException extends Exception {
 	}
 	
 	public LlevateTuNullDeAquiException() {
-		super("You can not add more null values on a ColaDelCastigo queue");
+		super("You can not add null values in a queue");
 	}
 }

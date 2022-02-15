@@ -12,6 +12,6 @@ public class ColaExceededSizeException extends Exception {
 	}
 	
 	public ColaExceededSizeException() {
-		super("You can not add more than ten elements on a ColaDelCastigo queue");
+		super("You can not add more than ten elements in a queue");
 	}
 }
