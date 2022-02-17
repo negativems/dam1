@@ -7,14 +7,14 @@ public class Movie {
 	private final long duration;
 	private Genre genre;
 
-	public Movie(int ID, String name, int minAge, String director, String genre, long duration, String imageURL) {
+	public Movie(int ID, String name, int minAge, String director, Genre genre, long duration, String imageURL) {
 		this.ID = ID;
 		this.name = name;
 		this.minAge = minAge;
 		this.director = director;
 		this.duration = duration;
 		this.imageURL = imageURL;
-		checkGenre(genre);
+		this.genre = genre;
 	}
 	
 	private boolean checkGenre(String genre) {

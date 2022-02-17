@@ -2,9 +2,15 @@ package ga.mmbh.cfgs.views;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -49,18 +55,26 @@ public class LoginView {
 		frame.getContentPane().setBackground(AppUtils.BACKGROUND_COLOR);
 		frame.getContentPane().setLayout(null);
 		
-		titleLabel = new JLabel("NETFLIX");
+		titleLabel = new JLabel("");
 		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		titleLabel.setForeground(new Color(69, 174, 255));
-		titleLabel.setFont(font.deriveFont(Font.BOLD, 30F));
-		titleLabel.setBounds(108, 11, 244, 58);
+		titleLabel.setBounds(0, 0, 434, 112);
+		
+		try {
+			URL url = new URL("https://1000marcas.net/wp-content/uploads/2020/01/Logo-Netflix.png");
+		    BufferedImage bufferedImage = ImageIO.read(url);
+		    Image image = new ImageIcon(bufferedImage).getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT);
+		    titleLabel.setIcon(new ImageIcon(image));
+		} catch (IOException editPokemonButton) {
+			editPokemonButton.printStackTrace();
+		}
+		
 		frame.getContentPane().add(titleLabel);
 		
 		welcomeLabel = new JLabel("Bienvenido, inicia sesión");
 		welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		welcomeLabel.setForeground(new Color(255, 255, 255));
 		welcomeLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
-		welcomeLabel.setBounds(108, 94, 244, 30);
+		welcomeLabel.setBounds(108, 109, 244, 30);
 		frame.getContentPane().add(welcomeLabel);
 		
 		registerButton = new JButton("Registrarme");
@@ -120,7 +134,7 @@ public class LoginView {
 					errorLabel.setText("Usuario o contraseña erróneos");
 					return;
 				}
-
+				
 				frame.setVisible(false);
 				new MainView(netflixApp);
 			}

@@ -21,6 +21,7 @@ import javax.swing.SwingConstants;
 import ga.mmbh.cfgs.NetflixApp;
 import ga.mmbh.cfgs.models.Movie;
 import ga.mmbh.cfgs.utils.AppUtils;
+import ga.mmbh.cfgs.utils.RoundedJPanel;
 
 public class MainView {
 
@@ -30,10 +31,10 @@ public class MainView {
 
    private JFrame frame;
    private JPanel topPanel;
-   private JButton backButton, previousPokemonButton, nextPokemonButton, editButton, createButton, saveButton;
-   private JLabel returnTextLabel, pokemonNameLabel, pokemonImageLabel, errorLabel, movieIdLabel, heightLabel,
-         weightLabel, genderLabel, heightValueLabel, specieLabel, specieValueLabel, abilityLabel, abilityValueLabel,
-         genderValueLabel, weightValueLabel;
+   private JButton backButton, previousMovieButton, nextMovieButton, createButton, saveButton;
+   private JLabel backButtonLabel, movieNameLabel, movieImageLabel, errorLabel, movieIdLabel, durationLabel,
+         minAgeLabel, genreLabel, durationValueLabel, specieLabel, directorValueLabel,
+         genreValueLabel, minAgeValueLabel;
 
    /**
     * Constructor, initialize view
@@ -43,8 +44,9 @@ public class MainView {
 
       List<Movie> movies = netflixApp.getMovieManager().getMovies();
       for (Movie movie : movies) {
-         if (movie.getId() == id)
-            this.movie = movie;
+         if (movie.getId() == id) {
+        	 this.movie = movie;
+         }
       }
 
       initialize();
@@ -53,10 +55,10 @@ public class MainView {
    }
 
    /**
-    * @wbp.parser.constructor
-    */
-   public MainView(NetflixApp pokedexApp) {
-      this(pokedexApp, 1);
+	 * @wbp.parser.constructor
+	 */
+   public MainView(NetflixApp netflixApp) {
+      this(netflixApp, 1);
    }
 
    /**
@@ -72,7 +74,7 @@ public class MainView {
 
       // Top rounded panel
       topPanel = new RoundedJPanel(40, 40);
-      topPanel.setBounds(0, -22, 800, 300);
+      topPanel.setBounds(0, -22, 484, 300);
       topPanel.setBackground(AppUtils.ACCENT_COLOR);
       topPanel.setBorder(null);
       topPanel.setOpaque(false);
@@ -89,132 +91,121 @@ public class MainView {
       topPanel.add(backButton);
 
       // Back button text
-      returnTextLabel = new JLabel("Pokedex");
-      returnTextLabel.setForeground(Color.WHITE);
-      returnTextLabel.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 18));
-      returnTextLabel.setBounds(69, 33, 115, 34);
-      topPanel.add(returnTextLabel);
+      backButtonLabel = new JLabel("Cerrar sesión");
+      backButtonLabel.setForeground(Color.WHITE);
+      backButtonLabel.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 18));
+      backButtonLabel.setBounds(69, 33, 115, 34);
+      topPanel.add(backButtonLabel);
 
-      // Pokemon ID label
+      // Movie ID label
       movieIdLabel = new JLabel("# " + movie.getId());
       movieIdLabel.setHorizontalAlignment(SwingConstants.RIGHT);
       movieIdLabel.setForeground(Color.WHITE);
       movieIdLabel.setBounds(416, 46, 46, 14);
       topPanel.add(movieIdLabel);
 
-      // Pokemon's name
-      pokemonNameLabel = new JLabel(movie.getName());
-      pokemonNameLabel.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 24));
-      pokemonNameLabel.setForeground(Color.WHITE);
-      pokemonNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
-      pokemonNameLabel.setBounds(10, 300, 464, 39);
-      frame.getContentPane().add(pokemonNameLabel);
+      // Movie's name
+      movieNameLabel = new JLabel(movie.getName());
+      movieNameLabel.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 24));
+      movieNameLabel.setForeground(Color.WHITE);
+      movieNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+      movieNameLabel.setBounds(10, 300, 464, 39);
+      frame.getContentPane().add(movieNameLabel);
 
-      // Pokemon image
-      pokemonImageLabel = new JLabel("");
-      pokemonImageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-      pokemonImageLabel.setBounds(79, 78, 316, 190);
+      // Netflix image
+      movieImageLabel = new JLabel("");
+      movieImageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+      movieImageLabel.setBounds(79, 78, 316, 190);
 
-      // try {
-      //    URL url = new URL("https://assets.movie.com/assets/cms2/img/pokedex/full/" + ImageUtils.getPokemonById(movie.getId()));
-      //    BufferedImage bufferedImage = ImageIO.read(url);
-      //    Image image = new ImageIcon(bufferedImage).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT);
-      //    pokemonImageLabel.setIcon(new ImageIcon(image));
-      // } catch (IOException editPokemonButton) {
-      //    editPokemonButton.printStackTrace();
-      // }
+      try {
+    	  URL url = new URL("https://pics.filmaffinity.com/Scary_Movie-943532513-large.jpg");
+          BufferedImage bufferedImage = ImageIO.read(url);
+          Image image = new ImageIcon(bufferedImage).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT);
+          movieImageLabel.setIcon(new ImageIcon(image));
+      } catch (IOException editPokemonButton) {
+    	  editPokemonButton.printStackTrace();
+      }
 
-      topPanel.add(pokemonImageLabel);
+      topPanel.add(movieImageLabel);
 
-      // Previous pokemon button
-      previousPokemonButton = new JButton("<");
-      previousPokemonButton.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 24));
-      previousPokemonButton.setBackground(AppUtils.TRANSPARENT_COLOR);
-      previousPokemonButton.setForeground(Color.WHITE);
-      previousPokemonButton.setBounds(10, 78, 59, 190);
-      previousPokemonButton.setBorder(null);
-      previousPokemonButton.setContentAreaFilled(false);
-      previousPokemonButton.setOpaque(false);
-      topPanel.add(previousPokemonButton);
+      // Previous movie button
+      previousMovieButton = new JButton("<");
+      previousMovieButton.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 24));
+      previousMovieButton.setBackground(AppUtils.TRANSPARENT_COLOR);
+      previousMovieButton.setForeground(Color.WHITE);
+      previousMovieButton.setBounds(10, 78, 59, 190);
+      previousMovieButton.setBorder(null);
+      previousMovieButton.setContentAreaFilled(false);
+      previousMovieButton.setOpaque(false);
+      topPanel.add(previousMovieButton);
 
-      // Next pokemon button
-      nextPokemonButton = new JButton(">");
-      nextPokemonButton.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 24));
-      nextPokemonButton.setBackground(AppUtils.TRANSPARENT_COLOR);
-      nextPokemonButton.setForeground(Color.WHITE);
-      nextPokemonButton.setBounds(415, 78, 59, 190);
-      nextPokemonButton.setBorder(null);
-      nextPokemonButton.setContentAreaFilled(false);
-      nextPokemonButton.setOpaque(false);
-      topPanel.add(nextPokemonButton);
+      // Next movie button
+      nextMovieButton = new JButton(">");
+      nextMovieButton.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 24));
+      nextMovieButton.setBackground(AppUtils.TRANSPARENT_COLOR);
+      nextMovieButton.setForeground(Color.WHITE);
+      nextMovieButton.setBounds(415, 78, 59, 190);
+      nextMovieButton.setBorder(null);
+      nextMovieButton.setContentAreaFilled(false);
+      nextMovieButton.setOpaque(false);
+      topPanel.add(nextMovieButton);
 
       // Stats
       // Height
-      heightLabel = new JLabel("Altura");
-      heightLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
-      heightLabel.setForeground(Color.WHITE);
-      heightLabel.setBounds(52, 384, 46, 14);
-      frame.getContentPane().add(heightLabel);
+      durationLabel = new JLabel("Duración");
+      durationLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
+      durationLabel.setForeground(Color.WHITE);
+      durationLabel.setBounds(52, 384, 120, 14);
+      frame.getContentPane().add(durationLabel);
 
-      heightValueLabel = new JLabel(movie.getHeight() + "");
-      heightValueLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
-      heightValueLabel.setForeground(Color.WHITE);
-      heightValueLabel.setBounds(113, 384, 66, 14);
-      frame.getContentPane().add(heightValueLabel);
+      durationValueLabel = new JLabel(movie.getMinAge() + "");
+      durationValueLabel.setHorizontalAlignment(SwingConstants.LEFT);
+      durationValueLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
+      durationValueLabel.setForeground(Color.WHITE);
+      durationValueLabel.setBounds(182, 384, 158, 14);
+      frame.getContentPane().add(durationValueLabel);
 
-      // Weight
-      weightLabel = new JLabel("Peso");
-      weightLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
-      weightLabel.setForeground(Color.WHITE);
-      weightLabel.setBounds(52, 409, 38, 14);
-      frame.getContentPane().add(weightLabel);
+      // Edad recomendada
+      minAgeLabel = new JLabel("Edad recomendada");
+      minAgeLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
+      minAgeLabel.setForeground(Color.WHITE);
+      minAgeLabel.setBounds(52, 409, 120, 14);
+      frame.getContentPane().add(minAgeLabel);
 
-      weightValueLabel = new JLabel(movie.getWeight() + "");
-      weightValueLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
-      weightValueLabel.setForeground(Color.WHITE);
-      weightValueLabel.setBounds(113, 409, 66, 14);
-      frame.getContentPane().add(weightValueLabel);
+      minAgeValueLabel = new JLabel(movie.getMinAge() + "");
+      minAgeValueLabel.setHorizontalAlignment(SwingConstants.LEFT);
+      minAgeValueLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
+      minAgeValueLabel.setForeground(Color.WHITE);
+      minAgeValueLabel.setBounds(182, 409, 158, 14);
+      frame.getContentPane().add(minAgeValueLabel);
 
-      // Gender
-      genderLabel = new JLabel("Género");
-      genderLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
-      genderLabel.setForeground(Color.WHITE);
-      genderLabel.setBounds(52, 434, 59, 14);
-      frame.getContentPane().add(genderLabel);
+      // Genre
+      genreLabel = new JLabel("Género");
+      genreLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
+      genreLabel.setForeground(Color.WHITE);
+      genreLabel.setBounds(52, 434, 120, 14);
+      frame.getContentPane().add(genreLabel);
 
-      genderValueLabel = new JLabel(movie.getGender().name().toLowerCase());
-      genderValueLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
-      genderValueLabel.setForeground(Color.WHITE);
-      genderValueLabel.setBounds(113, 434, 66, 14);
-      frame.getContentPane().add(genderValueLabel);
+      genreValueLabel = new JLabel(movie.getGenre().name().toLowerCase());
+      genreValueLabel.setHorizontalAlignment(SwingConstants.LEFT);
+      genreValueLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
+      genreValueLabel.setForeground(Color.WHITE);
+      genreValueLabel.setBounds(182, 434, 158, 14);
+      frame.getContentPane().add(genreValueLabel);
 
       // Specie
-      specieLabel = new JLabel(movie.getTypes().size() > 1 ? "Especies" : "Especie");
-      specieLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
+      specieLabel = new JLabel("Director");
+      specieLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
       specieLabel.setForeground(Color.WHITE);
-      specieLabel.setBounds(282, 384, 73, 14);
+      specieLabel.setBounds(52, 459, 120, 14);
       frame.getContentPane().add(specieLabel);
 
-      specieValueLabel = new JLabel(movie.getSpecie());
-      specieValueLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
-      specieValueLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-      specieValueLabel.setForeground(Color.WHITE);
-      specieValueLabel.setBounds(365, 384, 73, 14);
-      frame.getContentPane().add(specieValueLabel);
-
-      // Ability
-      abilityLabel = new JLabel("Habilidad");
-      abilityLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
-      abilityLabel.setForeground(Color.WHITE);
-      abilityLabel.setBounds(282, 409, 73, 14);
-      frame.getContentPane().add(abilityLabel);
-
-      abilityValueLabel = new JLabel(movie.getAbility());
-      abilityValueLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
-      abilityValueLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-      abilityValueLabel.setForeground(Color.WHITE);
-      abilityValueLabel.setBounds(365, 409, 73, 14);
-      frame.getContentPane().add(abilityValueLabel);
+      directorValueLabel = new JLabel(movie.getDirector());
+      directorValueLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
+      directorValueLabel.setHorizontalAlignment(SwingConstants.LEFT);
+      directorValueLabel.setForeground(Color.WHITE);
+      directorValueLabel.setBounds(182, 459, 158, 14);
+      frame.getContentPane().add(directorValueLabel);
 
       // Error label
       errorLabel = new JLabel("");
@@ -224,82 +215,73 @@ public class MainView {
       errorLabel.setBounds(0, 493, 484, 26);
       frame.getContentPane().add(errorLabel);
 
-      // Saves pokemon button
+      // Saves movie button
       saveButton = new JButton("Guardar");
       saveButton.setForeground(Color.WHITE);
-      saveButton.setBounds(150, 530, 89, 23);
+      saveButton.setBounds(251, 530, 89, 23);
       saveButton.setBackground(AppUtils.GREEN_COLOR);
       frame.getContentPane().add(saveButton);
 
-      // Edit pokemon button
-      editButton = new JButton("Editar");
-      editButton.setForeground(Color.WHITE);
-      editButton.setBounds(250, 530, 89, 23);
-      editButton.setBackground(AppUtils.ACCENT_COLOR);
-      frame.getContentPane().add(editButton);
-
-      // Create pokemon button
+      // Create movie button
       createButton = new JButton("Crear");
       createButton.setForeground(Color.WHITE);
       createButton.setBounds(350, 530, 89, 23);
       createButton.setBackground(AppUtils.ACCENT_COLOR);
       frame.getContentPane().add(createButton);
+      
+      JLabel imageLabel = new JLabel("");
+      imageLabel.setBounds(52, 11, 390, 278);
+      frame.getContentPane().add(imageLabel);
    }
 
    public void createListeners() {
       backButton.addActionListener(new ActionListener() {
          public void actionPerformed(ActionEvent e) {
             frame.dispose();
-            new LoginView(pokedexApp);
+            new LoginView(netflixApp);
          }
       });
 
-      nextPokemonButton.addActionListener(new ActionListener() {
+      nextMovieButton.addActionListener(new ActionListener() {
          public void actionPerformed(ActionEvent e) {
             int i = 0;
-            while (pokedexApp.getPokemonManager().getPokemons().get(i) != pokemon)
-               i++;
-            if (i >= pokedexApp.getPokemonManager().getPokemons().size() - 1) {
-               errorLabel.setText("No hay más pokemons");
+            while (netflixApp.getMovieManager().getMovies().get(i) != movie) {
+            	i++;
+            }
+            if (i >= netflixApp.getMovieManager().getMovies().size() - 1) {
+               errorLabel.setText("No hay más películas");
                return;
             }
 
-            pokemon = pokedexApp.getPokemonManager().getPokemons().get(i + 1);
+            movie = netflixApp.getMovieManager().getMovies().get(i + 1);
             updateView();
          }
       });
 
-      previousPokemonButton.addActionListener(new ActionListener() {
+      previousMovieButton.addActionListener(new ActionListener() {
          public void actionPerformed(ActionEvent e) {
             int i = 0;
-            while (pokedexApp.getPokemonManager().getPokemons().get(i) != pokemon)
-               i++;
+            while (netflixApp.getMovieManager().getMovies().get(i) != movie) {
+            	i++;
+            }
             if (i == 0) {
-               errorLabel.setText("No hay más pokemons");
+               errorLabel.setText("No hay más películas");
                return;
             }
-            pokemon = pokedexApp.getPokemonManager().getPokemons().get(i - 1);
+            movie = netflixApp.getMovieManager().getMovies().get(i - 1);
             updateView();
          }
       });
-
-      editButton.addActionListener(new ActionListener() {
-         public void actionPerformed(ActionEvent e) {
-            frame.setVisible(false);
-            new MovieEditorView(pokedexApp, pokemon);
-         }
-      });
-
+      
       createButton.addActionListener(new ActionListener() {
          public void actionPerformed(ActionEvent e) {
             frame.setVisible(false);
-            new MovieCreateView(pokedexApp);
+            new MovieCreateView(netflixApp);
          }
       });
 
       saveButton.addActionListener(new ActionListener() {
          public void actionPerformed(ActionEvent e) {
-            pokedexApp.getPokemonManager().savePokemons();
             errorLabel.setForeground(AppUtils.GREEN_COLOR);
             errorLabel.setText("Pokemons guardados correctamente");
             errorLabel.setForeground(Color.WHITE);
@@ -309,21 +291,21 @@ public class MainView {
 
    private void updateView() {
       movieIdLabel.setText("# " + movie.getId());
-      pokemonNameLabel.setText(movie.getName());
-      heightValueLabel.setText(movie.getHeight() + "");
-      weightValueLabel.setText(movie.getWeight() + "");
-      genderValueLabel.setText(movie.getGender().name().toLowerCase());
-      specieValueLabel.setText(movie.getSpecie());
-      abilityValueLabel.setText(movie.getAbility());
+      movieNameLabel.setText(movie.getName());
+      durationValueLabel.setText(movie.getMinAge() + "");
+      minAgeValueLabel.setText(movie.getDirector() + "");
+      genreValueLabel.setText(movie.getImageURL());
+      directorValueLabel.setText(movie.getDuration() + "");
+      genreValueLabel.setText(movie.getGenre().name().toLowerCase().replaceAll("_", " "));
 
-      try {
+      /*try {
          URL url = new URL(
                "https://assets.movie.com/assets/cms2/img/pokedex/full/" + ImageUtils.getPokemonById(movie.getId()));
          BufferedImage bufferedImage = ImageIO.read(url);
          Image image = new ImageIcon(bufferedImage).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT);
-         pokemonImageLabel.setIcon(new ImageIcon(image));
+         movieImageLabel.setIcon(new ImageIcon(image));
       } catch (IOException e) {
          e.printStackTrace();
-      }
+      }*/
    }
 }
