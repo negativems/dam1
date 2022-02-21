@@ -4,15 +4,15 @@ public class Movie {
 
 	private final int ID, minAge;
 	private final String name, director, imageURL;
-	private final long duration;
+	private final long durationMins;
 	private Genre genre;
 
-	public Movie(int ID, String name, int minAge, String director, Genre genre, long duration, String imageURL) {
+	public Movie(int ID, String name, int minAge, String director, Genre genre, int durationMins, String imageURL) {
 		this.ID = ID;
 		this.name = name;
 		this.minAge = minAge;
 		this.director = director;
-		this.duration = duration;
+		this.durationMins = durationMins;
 		this.imageURL = imageURL;
 		this.genre = genre;
 	}
@@ -50,7 +50,7 @@ public class Movie {
 	}
 
 	public long getDuration() {
-		return duration;
+		return durationMins;
 	}
 
 	public Genre getGenre() {

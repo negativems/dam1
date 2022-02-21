@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import ga.mmbh.cfgs.NetflixApp;
-import ga.mmbh.cfgs.pokedexdb.models.User;
+import ga.mmbh.cfgs.models.User;
 
 public class RegisterView {
 

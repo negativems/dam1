@@ -24,6 +24,8 @@ import javax.swing.SpinnerListModel;
 import javax.swing.SwingConstants;
 
 import ga.mmbh.cfgs.NetflixApp;
+import ga.mmbh.cfgs.models.Genre;
+import ga.mmbh.cfgs.models.Movie;
 import ga.mmbh.cfgs.utils.AppUtils;
 import ga.mmbh.cfgs.utils.JavaUtils;
 import ga.mmbh.cfgs.utils.RoundedJPanel;
@@ -31,21 +33,22 @@ import ga.mmbh.cfgs.utils.RoundedJPanel;
 public class MovieCreateView {
 
 	private final NetflixApp netflixApp;
+	private final int id;
 	
 	private JFrame frame;
 	private JPanel topPanel;
 	private JButton backButton, cancelButton, saveMovieButton;
 	private JSpinner genreValueSpinner;
-	private JLabel returnTextLabel, movieImageLabel, errorLabel, durationLabel, minAgeLabel, genreLabel, directorLabel, URLLabel;
-	private JTextField nameField, heightField, specieField, weightField, URLField;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JLabel returnTextLabel, movieImageLabel, idLabel, errorLabel, durationLabel, minAgeLabel, genreLabel, directorLabel, URLLabel;
+	private JSpinner genderValueSpinner;
+	private JTextField nameField, directorField, URLField, minAgeField, durationField;
 
 	/**
 	 * Constructor
 	 */
 	public MovieCreateView(NetflixApp netflixApp) {
 		this.netflixApp = netflixApp;
+		this.id = netflixApp.getMovieManager().getMovies().size();
 		initialize();
 		setListeners();
 		frame.setVisible(true);
@@ -66,7 +69,7 @@ public class MovieCreateView {
 
 		// Top rounded panel
 		topPanel = new RoundedJPanel(40, 40);
-		topPanel.setBounds(0, -22, screen.width, 298);
+		topPanel.setBounds(0, -22, 484, 298);
 		topPanel.setBackground(AppUtils.ACCENT_COLOR);
 		topPanel.setBorder(null);
 		topPanel.setOpaque(false);
@@ -89,9 +92,16 @@ public class MovieCreateView {
 		returnTextLabel.setBounds(69, 33, 243, 34);
 		topPanel.add(returnTextLabel);
 
-		// Pokemon's name
+		// Movie's ID
+		idLabel = new JLabel("#" + id);
+		idLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		idLabel.setForeground(Color.WHITE);
+		idLabel.setBounds(415, 39, 59, 28);
+		topPanel.add(idLabel);
+		
+		// Movie's name
 		nameField = new JTextField("Nombre");
-		nameField.setBounds(10, 242, 465, 26);
+		nameField.setBounds(10, 240, 465, 26);
 		nameField.setBackground(AppUtils.ACCENT_COLOR);
 		nameField.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 16));
 		nameField.setForeground(Color.WHITE);
@@ -99,72 +109,63 @@ public class MovieCreateView {
 		nameField.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE));
 		topPanel.add(nameField);
 		
-		// Pokemon image
+		// Movie's image
 		movieImageLabel = new JLabel("");
 		movieImageLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		movieImageLabel.setBounds(79, 78, 316, 190);
 		topPanel.add(movieImageLabel);
 		
-				heightField = new JTextField("1.0");
-				heightField.setBounds(370, 245, 66, 25);
-				topPanel.add(heightField);
-				heightField.setForeground(Color.WHITE);
-				heightField.setBackground(AppUtils.BACKGROUND_COLOR);
-				heightField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
-				heightField.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE));
-				
-						weightField = new JTextField("1.0");
-						weightField.setBounds(370, 282, 66, 25);
-						topPanel.add(weightField);
-						weightField.setForeground(Color.WHITE);
-						weightField.setBackground(AppUtils.BACKGROUND_COLOR);
-						weightField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
-						weightField.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE));
-						
-						genreValueSpinner = new JSpinner();
-						genreValueSpinner.setBounds(370, 318, 66, 25);
-						topPanel.add(genreValueSpinner);
-						genreValueSpinner.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
-						genreValueSpinner.setForeground(Color.WHITE);
-						genreValueSpinner.setBackground(AppUtils.BACKGROUND_COLOR);
-						genreValueSpinner.setModel(new SpinnerListModel(new String[] { "macho", "hembra" }));
+		// Genre
+		genreLabel = new JLabel("Género");
+		genreLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
+		genreLabel.setForeground(Color.WHITE);
+		genreLabel.setBounds(101, 440, 140, 25);
+		frame.getContentPane().add(genreLabel);
+		
+		genreValueSpinner = new JSpinner();
+		genreValueSpinner.setBounds(370, 318, 66, 25);
+		genreValueSpinner.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
+		genreValueSpinner.setForeground(Color.WHITE);
+		genreValueSpinner.setBackground(AppUtils.BACKGROUND_COLOR);
+		genreValueSpinner.setModel(new SpinnerListModel(Genre.values()));
+		topPanel.add(genreValueSpinner);
 
-		// Stats
-		// Height
+		// Duration
 		durationLabel = new JLabel("Duración");
 		durationLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
 		durationLabel.setForeground(Color.WHITE);
-		durationLabel.setBounds(52, 309, 140, 26);
+		durationLabel.setBounds(101, 320, 140, 25);
 		frame.getContentPane().add(durationLabel);
+		
+		durationField = new JTextField("120");
+		durationField.setForeground(Color.WHITE);
+		durationField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
+		durationField.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE));
+		durationField.setBackground(new Color(39, 45, 54));
+		durationField.setBounds(251, 320, 140, 25);
+		frame.getContentPane().add(durationField);
 
 		// Weight
 		minAgeLabel = new JLabel("Edad recomendada");
 		minAgeLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
 		minAgeLabel.setForeground(Color.WHITE);
-		minAgeLabel.setBounds(52, 346, 140, 25);
+		minAgeLabel.setBounds(101, 360, 140, 25);
 		frame.getContentPane().add(minAgeLabel);
 
-		// Gender
-		genreLabel = new JLabel("Género");
-		genreLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
-		genreLabel.setForeground(Color.WHITE);
-		genreLabel.setBounds(52, 382, 140, 25);
-		frame.getContentPane().add(genreLabel);
-
 		// Specie
-		directorLabel = new JLabel("Especie");
+		directorLabel = new JLabel("Director");
 		directorLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
 		directorLabel.setForeground(Color.WHITE);
-		directorLabel.setBounds(52, 426, 140, 25);
+		directorLabel.setBounds(101, 400, 140, 25);
 		frame.getContentPane().add(directorLabel);
 
-		specieField = new JTextField("Planta");
-		specieField.setForeground(Color.WHITE);
-		specieField.setBackground(AppUtils.BACKGROUND_COLOR);
-		specieField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
-		specieField.setBounds(202, 427, 73, 25);
-		specieField.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE));
-		frame.getContentPane().add(specieField);
+		directorField = new JTextField("Christopher Nolan");
+		directorField.setForeground(Color.WHITE);
+		directorField.setBackground(AppUtils.BACKGROUND_COLOR);
+		directorField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
+		directorField.setBounds(251, 400, 140, 25);
+		directorField.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE));
+		frame.getContentPane().add(directorField);
 
 		// Cancel button
 		cancelButton = new JButton("Cancelar");
@@ -199,28 +200,20 @@ public class MovieCreateView {
 		errorLabel.setBounds(0, 493, 484, 26);
 		frame.getContentPane().add(errorLabel);
 		
-		JSpinner genderValueSpinner = new JSpinner();
+		genderValueSpinner = new JSpinner();
 		genderValueSpinner.setForeground(Color.WHITE);
 		genderValueSpinner.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
 		genderValueSpinner.setBackground(new Color(39, 45, 54));
-		genderValueSpinner.setBounds(202, 382, 66, 25);
+		genderValueSpinner.setBounds(251, 440, 140, 25);
 		frame.getContentPane().add(genderValueSpinner);
 		
-		textField = new JTextField("Planta");
-		textField.setForeground(Color.WHITE);
-		textField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
-		textField.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE));
-		textField.setBackground(new Color(39, 45, 54));
-		textField.setBounds(202, 346, 73, 25);
-		frame.getContentPane().add(textField);
-		
-		textField_1 = new JTextField("Planta");
-		textField_1.setForeground(Color.WHITE);
-		textField_1.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
-		textField_1.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE));
-		textField_1.setBackground(new Color(39, 45, 54));
-		textField_1.setBounds(202, 313, 73, 25);
-		frame.getContentPane().add(textField_1);
+		minAgeField = new JTextField("14");
+		minAgeField.setForeground(Color.WHITE);
+		minAgeField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
+		minAgeField.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE));
+		minAgeField.setBackground(new Color(39, 45, 54));
+		minAgeField.setBounds(251, 360, 140, 25);
+		frame.getContentPane().add(minAgeField);
 	}
 
 	public void setListeners() {
@@ -233,42 +226,41 @@ public class MovieCreateView {
 
 		saveMovieButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				String name = nameField.getText();
-				String description = descriptionField.getText();
-				String specie = specieField.getText();
-				String ability = abilityField.getText();
-				String URLId = URLField.getText();
-				String URLPath = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + URLId + ".png";
-				String heightString = heightField.getText();
-				String weightString = weightField.getText();
-				Object genderObject = genreValueSpinner.getValue();
-				
-				if (!JavaUtils.isFloat(heightString) || !JavaUtils.isFloat(weightString) || !JavaUtils.isString(genderObject) || !JavaUtils.isInteger(URLId)) {
-					errorLabel.setText("Datos erróneos, comprueba la altura, peso, género o el id");
+				if (!JavaUtils.isInteger(durationField.getText()) || !JavaUtils.isInteger(durationField.getText())) {
+					errorLabel.setText("Datos erróneos, la duración debe ser un entero");
 					return;
 				}
 				
-				int pokemonId = Integer.parseInt(URLId);
-				float height = Float.parseFloat(heightString);
-				float weight = Float.parseFloat(weightString);
-				String gender = String.valueOf(genderObject).toUpperCase();
+				if (!JavaUtils.isInteger(minAgeField.getText()) || !JavaUtils.isInteger(minAgeField.getText())) {
+					errorLabel.setText("Datos erróneos, la edad mínima debe de ser un entero");
+					return;
+				}
 				
 				try {
-					URL URL = new URL(URLPath);
+					URL URL = new URL(URLField.getText());
 					BufferedImage bufferedImage = ImageIO.read(URL);
 					Image image = new ImageIcon(bufferedImage).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT);
 					movieImageLabel.setIcon(new ImageIcon(image));
 				} catch (IOException e) {
-					errorLabel.setText("No se ha encontrado el pokemon con ese ID");
+					errorLabel.setText("Error en el campo URL");
 					return;
 				}		
 				
-				frame.dispose();
+				String name = nameField.getText();
+				int minAge = Integer.parseInt(minAgeField.getText());
+				String director = directorField.getText();
 				
-				URLPath = AppUtils.getFormattedPokemonId(pokemonId);
-				Pokemon pokemon = new Pokemon(pokemonId, name, description, specie, ability, URLPath, weight, height, Gender.valueOf(gender));
-				netflixApp.getPokemonManager().getPokemons().add(pokemon);
-				new MainView(netflixApp, pokemon.getId());
+				Object genreObject = genreValueSpinner.getValue();
+				String genre = String.valueOf(genreObject).toUpperCase();
+
+				String imageURL = URLField.getText();
+				int duration = Integer.parseInt(durationField.getText());
+				
+				Movie movie = new Movie(id, name, minAge, director, Genre.valueOf(genre.toUpperCase()), duration, imageURL);
+				netflixApp.getMovieManager().addMovie(movie);
+				
+				frame.dispose();
+				new MainView(netflixApp, id);
 			}
 		});
 
