@@ -7,25 +7,24 @@ public class Trees {
 
 	public static void main(String[] args) {
 		
-		// HOJAS
-		Node C = new Node("C");
-		Node E = new Node("E");
-		Node H = new Node("H");
-		Node A = new Node("A");
-
-		Node D = new Node("D", C, E);
-		Node I = new Node("I", H, null);
-
-		Node B = new Node("B", A, D);
-		Node G = new Node("G", null, I);
-
-		Node F = new Node("F", B, G);
-
-		Tree arbol = new Tree(F);
+		// HOJAS		
+		Node seis = new Node("seis");
+		Node cinco = new Node("cinco", seis);
+		Node dos = new Node("dos", cinco);
+		Node uno = new Node("uno");
 		
-		// arbol.postOrder();
+		Node cuatro = new Node("cuatro");
 		
-		System.out.println(arbol.buscar("D"));
+		Node tres = new Node("tres");
+		
+		Node ternera = new Node("ternera", cuatro);
+		Node cerdo = new Node("cerdo", tres);
+		Node pollo = new Node("pollo", uno, dos);
+
+		Node raiz = new Node("raiz", pollo, cerdo, ternera);
+		Tree arbol = new Tree(raiz);
+		
+		System.out.println(arbol.buscar("cuatro"));
 	}
 
 }

@@ -9,15 +9,11 @@ public class Tree {
 	}
 	
 	public Node buscar(String value) {
-		return root.searchInOrder(root, value);
+		return root.searchPreOrder(root, value);
 	}
 	
 	public void preOrden() {
 		this.root.preOrder(root);
-	}
-	
-	public void inOrder() {
-		this.root.inOrder(root);
 	}
 	
 	public void postOrder() {
