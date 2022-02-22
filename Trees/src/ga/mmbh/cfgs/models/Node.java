@@ -79,6 +79,10 @@ public class Node {
 		node.nodeList.add(node);
 		return node;
 	}
+	
+	public String getValue() {
+		return value;
+	}
 
 	@Override
 	public String toString() {

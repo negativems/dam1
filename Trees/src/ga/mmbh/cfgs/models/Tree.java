@@ -12,12 +12,14 @@ public class Tree {
 		return root.searchNode(root, value);
 	}
 	
-	public void preOrden() {
+	public void preOrder() {
+		System.out.println(root.getValue());
 		this.root.preOrder(root);
 	}
 	
 	public void postOrder() {
 		this.root.postOrder(root);
+		System.out.println(root.getValue());
 	}
 	
 	public void insertNode(Node parent, String value) {

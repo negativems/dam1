@@ -25,7 +25,7 @@ public class Trees {
 		Tree arbol = new Tree(raiz);
 		
 		// System.out.println(arbol.buscar("cuatro"));
-		arbol.insertNode(pollo, "hola");
+		// arbol.insertNode(pollo, "hola");
 		arbol.postOrder();
 	}
 
