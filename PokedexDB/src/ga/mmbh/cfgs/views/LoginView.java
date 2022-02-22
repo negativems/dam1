@@ -1,4 +1,4 @@
-package ga.mmbh.cfgs.pokedexdb.views;
+package ga.mmbh.cfgs.views;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -12,12 +12,12 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import ga.mmbh.cfgs.pokedexdb.PokedexApp;
-import ga.mmbh.cfgs.pokedexdb.utils.AppUtils;
+import ga.mmbh.cfgs.PokedexDB;
+import ga.mmbh.cfgs.utils.AppUtils;
 
 public class LoginView {
 
-	private final PokedexApp pokedexApp;
+	private final PokedexDB pokedexApp;
 	
 	private JFrame frame;
 	private JTextField usernameField;
@@ -30,7 +30,7 @@ public class LoginView {
 	/**
 	 * Create the application.
 	 */
-	public LoginView(PokedexApp pokedexApp) {
+	public LoginView(PokedexDB pokedexApp) {
 		this.pokedexApp = pokedexApp;
 		font = AppUtils.getPokemonFont();
 		initialize();

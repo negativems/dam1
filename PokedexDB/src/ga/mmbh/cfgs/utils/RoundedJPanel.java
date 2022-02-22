@@ -1,4 +1,4 @@
-package ga.mmbh.cfgs.pokedexdb.utils;
+package ga.mmbh.cfgs.utils;
 
 import java.awt.Dimension;
 import java.awt.Graphics;

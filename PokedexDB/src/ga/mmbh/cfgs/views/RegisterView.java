@@ -1,4 +1,4 @@
-package ga.mmbh.cfgs.pokedexdb.views;
+package ga.mmbh.cfgs.views;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -14,12 +14,12 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import ga.mmbh.cfgs.pokedexdb.PokedexApp;
-import ga.mmbh.cfgs.pokedexdb.models.User;
+import ga.mmbh.cfgs.PokedexDB;
+import ga.mmbh.cfgs.models.User;
 
 public class RegisterView {
 
-	private final PokedexApp pokedexApp;
+	private final PokedexDB pokedexApp;
 	
 	private JFrame frame;
 	private JLabel welcomeLabel, usernameLabel;
@@ -28,7 +28,7 @@ public class RegisterView {
 	private JLabel passwordLabel, password2Label, labelPickachuImage, errorLabel;
 	private JButton registerButton, backButton;
 	
-	public RegisterView(PokedexApp pokedexApp) {
+	public RegisterView(PokedexDB pokedexApp) {
 		this.pokedexApp = pokedexApp;
 		initialize();
 		setListeners();

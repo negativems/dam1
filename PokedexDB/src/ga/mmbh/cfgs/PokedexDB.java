@@ -1,17 +1,17 @@
-package ga.mmbh.cfgs.pokedexdb;
+package ga.mmbh.cfgs;
 
-import ga.mmbh.cfgs.pokedexdb.managers.PokemonManager;
-import ga.mmbh.cfgs.pokedexdb.managers.UserManager;
-import ga.mmbh.cfgs.pokedexdb.views.LoginView;
+import ga.mmbh.cfgs.managers.PokemonManager;
+import ga.mmbh.cfgs.managers.UserManager;
+import ga.mmbh.cfgs.views.LoginView;
 
-public class PokedexApp {
+public class PokedexDB {
 	
-	private static PokedexApp instance;
+	private static PokedexDB instance;
 	
 	private PokemonManager pokemonManager;
 	private UserManager userManager;
 	
-	public PokedexApp() {
+	public PokedexDB() {
 		instance = this;
 		
 		pokemonManager = new PokemonManager();
@@ -29,7 +29,7 @@ public class PokedexApp {
 		return userManager;
 	}
 	
-	public static PokedexApp getInstance() {
+	public static PokedexDB getInstance() {
 		return instance;
 	}
 }

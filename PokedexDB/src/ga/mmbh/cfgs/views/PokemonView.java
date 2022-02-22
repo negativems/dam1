@@ -1,4 +1,4 @@
-package ga.mmbh.cfgs.pokedexdb.views;
+package ga.mmbh.cfgs.views;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -20,15 +20,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import ga.mmbh.cfgs.pokedexdb.PokedexApp;
-import ga.mmbh.cfgs.pokedexdb.models.Pokemon;
-import ga.mmbh.cfgs.pokedexdb.utils.AppUtils;
-import ga.mmbh.cfgs.pokedexdb.utils.ImageUtils;
-import ga.mmbh.cfgs.pokedexdb.utils.RoundedJPanel;
+import ga.mmbh.cfgs.PokedexDB;
+import ga.mmbh.cfgs.models.Pokemon;
+import ga.mmbh.cfgs.utils.AppUtils;
+import ga.mmbh.cfgs.utils.ImageUtils;
+import ga.mmbh.cfgs.utils.RoundedJPanel;
 
 public class PokemonView {
 
-	private final PokedexApp pokedexApp;
+	private final PokedexDB pokedexApp;
 	
 	private Pokemon pokemon;
 		
@@ -41,7 +41,7 @@ public class PokemonView {
 	/**
 	 * Constructor, initialize view
 	 */
-	public PokemonView(PokedexApp pokedexApp, int id) {
+	public PokemonView(PokedexDB pokedexApp, int id) {
 		this.pokedexApp = pokedexApp;
 		
 		List<Pokemon> pokemons = pokedexApp.getPokemonManager().getPokemons();		
@@ -55,7 +55,7 @@ public class PokemonView {
 	/**
 	 * @wbp.parser.constructor
 	 */
-	public PokemonView(PokedexApp pokedexApp) {
+	public PokemonView(PokedexDB pokedexApp) {
 		this(pokedexApp, 1);
 	}
 	

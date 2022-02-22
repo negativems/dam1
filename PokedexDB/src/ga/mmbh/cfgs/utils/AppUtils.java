@@ -1,11 +1,11 @@
-package ga.mmbh.cfgs.pokedexdb.utils;
+package ga.mmbh.cfgs.utils;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.io.IOException;
 
-import ga.mmbh.cfgs.pokedexdb.PokedexApp;
+import ga.mmbh.cfgs.PokedexDB;
 
 public class AppUtils {
 
@@ -18,7 +18,7 @@ public class AppUtils {
 	
 	public static Font getPokemonFont() {
 		try {
-			Font font = Font.createFont(Font.TRUETYPE_FONT, PokedexApp.class.getResourceAsStream("/Pokemon Solid.ttf"));
+			Font font = Font.createFont(Font.TRUETYPE_FONT, PokedexDB.class.getResourceAsStream("/Pokemon Solid.ttf"));
 			return font;
 		} catch (IOException | FontFormatException e) {
 			e.printStackTrace();

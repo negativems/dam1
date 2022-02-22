@@ -1,11 +1,11 @@
-package ga.mmbh.cfgs.pokedexdb.managers;
+package ga.mmbh.cfgs.managers;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ga.mmbh.cfgs.pokedexdb.dao.PokemonDAO;
-import ga.mmbh.cfgs.pokedexdb.models.Gender;
-import ga.mmbh.cfgs.pokedexdb.models.Pokemon;
+import ga.mmbh.cfgs.dao.PokemonDAO;
+import ga.mmbh.cfgs.models.Gender;
+import ga.mmbh.cfgs.models.Pokemon;
 
 public class PokemonManager {
 
