@@ -1,26 +1,24 @@
 package ga.mmbh.cfgs.views;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
 import javax.swing.JTextField;
-import javax.swing.SpinnerListModel;
 import javax.swing.SwingConstants;
 
 import ga.mmbh.cfgs.NetflixApp;
@@ -29,6 +27,7 @@ import ga.mmbh.cfgs.models.Movie;
 import ga.mmbh.cfgs.utils.AppUtils;
 import ga.mmbh.cfgs.utils.JavaUtils;
 import ga.mmbh.cfgs.utils.RoundedJPanel;
+import javax.swing.DefaultComboBoxModel;
 
 public class MovieCreateView {
 
@@ -38,13 +37,14 @@ public class MovieCreateView {
 	private JFrame frame;
 	private JPanel topPanel;
 	private JButton backButton, cancelButton, saveMovieButton;
-	private JSpinner genreValueSpinner;
 	private JLabel returnTextLabel, movieImageLabel, idLabel, errorLabel, durationLabel, minAgeLabel, genreLabel, directorLabel, URLLabel;
-	private JSpinner genderValueSpinner;
+	private JComboBox<String> genreValueComboBox;
 	private JTextField nameField, directorField, URLField, minAgeField, durationField;
 
 	/**
 	 * Constructor
+	 * @wbp.parser.constructor
+	 *
 	 */
 	public MovieCreateView(NetflixApp netflixApp) {
 		this.netflixApp = netflixApp;
@@ -64,8 +64,6 @@ public class MovieCreateView {
 		frame.setBounds(100, 100, 500, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-
-		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 
 		// Top rounded panel
 		topPanel = new RoundedJPanel(40, 40);
@@ -122,13 +120,14 @@ public class MovieCreateView {
 		genreLabel.setBounds(101, 440, 140, 25);
 		frame.getContentPane().add(genreLabel);
 		
-		genreValueSpinner = new JSpinner();
-		genreValueSpinner.setBounds(370, 318, 66, 25);
-		genreValueSpinner.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
-		genreValueSpinner.setForeground(Color.WHITE);
-		genreValueSpinner.setBackground(AppUtils.BACKGROUND_COLOR);
-		genreValueSpinner.setModel(new SpinnerListModel(Genre.values()));
-		topPanel.add(genreValueSpinner);
+		// String[] genreList = Arrays.asList(Genre.values()).stream().map(Genre::name).toArray(String[]::new);
+		genreValueComboBox = new JComboBox<String>();
+		genreValueComboBox.setModel(new DefaultComboBoxModel(Genre.values()));
+		genreValueComboBox.setBounds(251, 440, 66, 25);
+		genreValueComboBox.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
+		genreValueComboBox.setForeground(Color.WHITE);
+		genreValueComboBox.setBackground(AppUtils.BACKGROUND_COLOR);
+		frame.getContentPane().add(genreValueComboBox);
 
 		// Duration
 		durationLabel = new JLabel("Duración");
@@ -196,16 +195,9 @@ public class MovieCreateView {
 		errorLabel = new JLabel("");
 		errorLabel.setVerticalAlignment(SwingConstants.TOP);
 		errorLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		errorLabel.setForeground(Color.WHITE);
+		errorLabel.setForeground(AppUtils.ERROR_COLOR);
 		errorLabel.setBounds(0, 493, 484, 26);
 		frame.getContentPane().add(errorLabel);
-		
-		genderValueSpinner = new JSpinner();
-		genderValueSpinner.setForeground(Color.WHITE);
-		genderValueSpinner.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
-		genderValueSpinner.setBackground(new Color(39, 45, 54));
-		genderValueSpinner.setBounds(251, 440, 140, 25);
-		frame.getContentPane().add(genderValueSpinner);
 		
 		minAgeField = new JTextField("14");
 		minAgeField.setForeground(Color.WHITE);
@@ -249,14 +241,11 @@ public class MovieCreateView {
 				String name = nameField.getText();
 				int minAge = Integer.parseInt(minAgeField.getText());
 				String director = directorField.getText();
-				
-				Object genreObject = genreValueSpinner.getValue();
-				String genre = String.valueOf(genreObject).toUpperCase();
-
+				Genre genre = (Genre) genreValueComboBox.getSelectedItem();
 				String imageURL = URLField.getText();
 				int duration = Integer.parseInt(durationField.getText());
 				
-				Movie movie = new Movie(id, name, minAge, director, Genre.valueOf(genre.toUpperCase()), duration, imageURL);
+				Movie movie = new Movie(id, name, minAge, director, genre, duration, imageURL);
 				netflixApp.getMovieManager().addMovie(movie);
 				
 				frame.dispose();

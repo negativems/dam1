@@ -31,7 +31,7 @@ public class MainView {
 
 	private JFrame frame;
 	private JPanel topPanel;
-	private JButton backButton, previousMovieButton, nextMovieButton, createButton, saveButton;
+	private JButton backButton, previousMovieButton, nextMovieButton, createButton, deleteButton;
 	private JLabel backButtonLabel, movieNameLabel, movieImageLabel, errorLabel, movieIdLabel, durationLabel,
 			minAgeLabel, genreLabel, durationValueLabel, directorLabel, directorValueLabel, genreValueLabel,
 			minAgeValueLabel;
@@ -103,22 +103,6 @@ public class MainView {
 		movieIdLabel.setBounds(416, 46, 46, 14);
 		topPanel.add(movieIdLabel);
 
-		movieImageLabel = new JLabel("");
-		movieImageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		movieImageLabel.setBounds(0, 78, 484, 153);
-		try {
-			URL url = new URL("https://pics.filmaffinity.com/Scary_Movie-943532513-large.jpg");
-			BufferedImage bufferedImage = ImageIO.read(url);
-			Image image = new ImageIcon(bufferedImage).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT);
-			movieImageLabel.setIcon(new ImageIcon(image));
-		} catch (IOException editMovieButton) {
-			editMovieButton.printStackTrace();
-		}
-		topPanel.add(movieImageLabel);
-		
-		// Movie image
-
-
 		// Next and previous buttons
 		previousMovieButton = new JButton("<");
 		previousMovieButton.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 24));
@@ -148,6 +132,20 @@ public class MainView {
 		movieNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		topPanel.add(movieNameLabel);
 
+		// Movie's image
+		movieImageLabel = new JLabel("");
+		movieImageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		movieImageLabel.setBounds(0, 78, 484, 153);
+		try {
+			URL url = new URL(movie.getImageURL());
+			BufferedImage bufferedImage = ImageIO.read(url);
+			Image image = new ImageIcon(bufferedImage).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT);
+			movieImageLabel.setIcon(new ImageIcon(image));
+		} catch (IOException editMovieButton) {
+			editMovieButton.printStackTrace();
+		}
+		topPanel.add(movieImageLabel);
+
 		// Duration
 		durationLabel = new JLabel("Duración");
 		durationLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
@@ -155,7 +153,7 @@ public class MainView {
 		durationLabel.setBounds(120, 310, 120, 25);
 		frame.getContentPane().add(durationLabel);
 
-		durationValueLabel = new JLabel(movie.getMinAge() + "");
+		durationValueLabel = new JLabel(movie.getDuration() + "");
 		durationValueLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		durationValueLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
 		durationValueLabel.setForeground(Color.WHITE);
@@ -212,23 +210,18 @@ public class MainView {
 		errorLabel.setBounds(0, 493, 484, 26);
 		frame.getContentPane().add(errorLabel);
 
-		// Saves movie button
-		saveButton = new JButton("Guardar");
-		saveButton.setForeground(Color.WHITE);
-		saveButton.setBounds(251, 530, 89, 23);
-		saveButton.setBackground(AppUtils.GREEN_COLOR);
-		frame.getContentPane().add(saveButton);
-
 		// Create movie button
 		createButton = new JButton("Crear");
-		createButton.setForeground(Color.WHITE);
-		createButton.setBounds(350, 530, 89, 23);
-		createButton.setBackground(AppUtils.ACCENT_COLOR);
+		createButton.setBackground(AppUtils.GREEN_COLOR);
+		createButton.setForeground(AppUtils.BACKGROUND_COLOR);
+		createButton.setBounds(353, 530, 89, 23);
 		frame.getContentPane().add(createButton);
 
-		JLabel imageLabel = new JLabel("");
-		imageLabel.setBounds(52, 11, 390, 278);
-		frame.getContentPane().add(imageLabel);
+		deleteButton = new JButton("Eliminar");
+		deleteButton.setForeground(AppUtils.BACKGROUND_COLOR);
+		deleteButton.setBackground(AppUtils.GREEN_COLOR);
+		deleteButton.setBounds(254, 530, 89, 23);
+		frame.getContentPane().add(deleteButton);
 	}
 
 	public void createListeners() {
@@ -277,11 +270,17 @@ public class MainView {
 			}
 		});
 
-		saveButton.addActionListener(new ActionListener() {
+		deleteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				errorLabel.setForeground(AppUtils.GREEN_COLOR);
-				errorLabel.setText("Pokemons guardados correctamente");
-				errorLabel.setForeground(Color.WHITE);
+				if (netflixApp.getMovieManager().getMovies().size() == 1) {
+					errorLabel.setText("No puedes eliminar la única película que existe");
+					return;
+				}
+
+				int id = movie.getId();
+				netflixApp.getMovieManager().getMovies().remove(movie.getId());
+				movie = netflixApp.getMovieManager().getMovies().get(movie.getId() == 0 ? 0 : id - 1);
+				updateView();
 			}
 		});
 	}
@@ -295,14 +294,14 @@ public class MainView {
 		directorValueLabel.setText(movie.getDuration() + "");
 		genreValueLabel.setText(movie.getGenre().name().toLowerCase().replaceAll("_", " "));
 
-		/*
-		 * try { URL url = new URL(
-		 * "https://assets.movie.com/assets/cms2/img/pokedex/full/" +
-		 * ImageUtils.getPokemonById(movie.getId())); BufferedImage bufferedImage =
-		 * ImageIO.read(url); Image image = new
-		 * ImageIcon(bufferedImage).getImage().getScaledInstance(150, 150,
-		 * Image.SCALE_DEFAULT); movieImageLabel.setIcon(new ImageIcon(image)); } catch
-		 * (IOException e) { e.printStackTrace(); }
-		 */
+		try {
+			URL url = new URL(movie.getImageURL());
+			BufferedImage bufferedImage = ImageIO.read(url);
+			Image image = new ImageIcon(bufferedImage).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT);
+			movieImageLabel.setIcon(new ImageIcon(image));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 }
