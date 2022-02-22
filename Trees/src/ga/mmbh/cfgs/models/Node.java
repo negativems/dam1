@@ -33,18 +33,28 @@ public class Node {
 	}
 
 	public void preOrder(Node node) {
-		
+		if (hasChild(node)) {
+			for (Node child : node.nodeList) {
+				System.out.println(child.value);
+				preOrder(child);
+			}
+		}
 	}
 
 	public void postOrder(Node node) {
-
+		if (hasChild(node)) {
+			for (Node child : node.nodeList) {
+				postOrder(child);
+				System.out.println(child.value);
+			}
+		}
 	}
 
-	public Node searchPreOrder(Node node, String value) {
+	public Node searchNode(Node node, String value) {
 		if (!node.value.equals(value)) {
 			if (hasChild(node)) {
 				for (Node child : node.nodeList) {
-					Node nieto = searchPreOrder(child, value);
+					Node nieto = searchNode(child, value);
 					if (nieto != null) return nieto;
 				}
 			}
@@ -54,38 +64,21 @@ public class Node {
 
 		return node;
 	}
-
-//	public Node searchPreOrder(Node node, String search) {
-//		if (!node.value.equals(search)) {
-//			if (hasLeftChild(node)) {
-//				if (node.left != null) {
-//					Node leftNode = searchPreOrder(node.left, search);
-//					if (leftNode != null)
-//						return leftNode;
-//				}
-//			}
-//
-//			if (hasCenterChild(node)) {
-//				if (node.center != null) {
-//					Node centerNode = searchPreOrder(node.center, search);
-//					if (centerNode != null)
-//						return centerNode;
-//				}
-//			}
-//
-//			if (hasRightChild(node)) {
-//				if (node.right != null) {
-//					Node rightNode = searchPreOrder(node.right, search);
-//					if (rightNode != null)
-//						return rightNode;
-//				}
-//			}
-//
-//			return null;
-//		}
-//
-//		return node;
-//	}
+	
+	public Node insertNode(Node node, String value) {
+		if (!node.value.equals(value)) {
+			if (hasChild(node)) {
+				for (Node child : nodeList) {
+					Node nieto = insertNode(child, value);
+					if (nieto != null) return nieto;
+				}
+			}
+			return null;
+		}
+		
+		node.nodeList.add(node);
+		return node;
+	}
 
 	@Override
 	public String toString() {

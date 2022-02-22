@@ -9,7 +9,7 @@ public class Tree {
 	}
 	
 	public Node buscar(String value) {
-		return root.searchPreOrder(root, value);
+		return root.searchNode(root, value);
 	}
 	
 	public void preOrden() {
@@ -18,5 +18,9 @@ public class Tree {
 	
 	public void postOrder() {
 		this.root.postOrder(root);
+	}
+	
+	public void insertNode(Node parent, String value) {
+		parent.insertNode(parent, value);
 	}
 }
