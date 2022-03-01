@@ -19,7 +19,6 @@ public class PokemonDAO extends AbstractDAO {
      * @deprecated
      * This method is no longer acceptable to compute time between versions.
      * Use #getFromDatabase(int startingId, int limit) instead.
-     *
      */
     @Deprecated
 	public List<Pokemon> getAllFromDatabase() {

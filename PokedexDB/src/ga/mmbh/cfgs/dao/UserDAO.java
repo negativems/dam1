@@ -8,7 +8,7 @@ import ga.mmbh.cfgs.models.User;
 public class UserDAO extends AbstractDAO {
 	
 	public UserDAO() {
-		super("users");
+		super("Users");
 	}
 
 	public boolean login(User user) {

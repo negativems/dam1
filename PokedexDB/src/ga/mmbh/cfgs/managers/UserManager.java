@@ -1,5 +1,6 @@
 package ga.mmbh.cfgs.managers;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,12 +30,13 @@ public class UserManager {
 				user.getPassword()
 		};
 		
-		return userDAO.insertOne("Username, Password", values);
+		return userDAO.insertOne("username, password", values);
 	}
 	
 	public boolean exists(String username, String password) {
 		try {
-			return userDAO.getFirst("*", "Username = '" + username + "' " + (password != null ? " AND Password = '" + password + "'": "")).next();
+			ResultSet rs = userDAO.getFirst("*", "username = '" + username + "' " + (password != null ? " AND password = '" + password + "'": ""));
+			return rs != null && rs.next();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
