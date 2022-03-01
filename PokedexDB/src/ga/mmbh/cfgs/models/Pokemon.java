@@ -7,7 +7,7 @@ import ga.mmbh.cfgs.utils.AppUtils;
 
 public class Pokemon {
 
-	protected final int id;
+	protected int id;
 	protected String name, description, specie, ability, imageURL;
 	protected Gender gender;
 	protected final List<PokemonType> types = new ArrayList<>();
@@ -60,6 +60,10 @@ public class Pokemon {
 	}
 	
 	// Getters & Setters
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public int getId() {
 		return id;
 	}
