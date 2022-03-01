@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -89,7 +90,7 @@ public class RegisterView {
 		frame.getContentPane().add(password2Field);
 		
 		labelPickachuImage = new JLabel("");
-		labelPickachuImage.setIcon(new ImageIcon(RegisterView.class.getResource("/assets/img/pikachu.png")));
+		labelPickachuImage.setIcon(new ImageIcon(new File("/assets/img/pikachu.png").getAbsolutePath()));
 		labelPickachuImage.setBounds(331, 11, 93, 93);
 		frame.getContentPane().add(labelPickachuImage);
 		

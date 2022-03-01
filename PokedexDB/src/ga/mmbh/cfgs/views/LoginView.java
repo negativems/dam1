@@ -1,6 +1,7 @@
 package ga.mmbh.cfgs.views;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -42,6 +43,8 @@ public class LoginView {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setBounds(100, 100, 500, 600);
+		frame.setMaximumSize(new Dimension(500, 600));
 		frame.setVisible(true);
 		frame.getContentPane().setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 12));
 		
@@ -103,8 +106,8 @@ public class LoginView {
 		errorLabel.setBounds(108, 367, 244, 25);
 		frame.getContentPane().add(errorLabel);
 		
-		frame.setBounds(100, 100, 450, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.repaint();
 	}
 	
 	/**
@@ -121,6 +124,11 @@ public class LoginView {
 					return;
 				}
 
+				if (pokedexApp.getPokemonManager().getPokemons().isEmpty()) {
+					errorLabel.setText("Usuario o contraseña erróneos");
+					return;
+				}
+				
 				frame.setVisible(false);
 				new PokemonView(pokedexApp);
 			}
