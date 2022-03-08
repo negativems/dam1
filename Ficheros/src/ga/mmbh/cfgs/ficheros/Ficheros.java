@@ -12,57 +12,68 @@ import ga.mmbh.cfgs.ficheros.models.Show;
 
 public class Ficheros {
 	
-	private final List<Show> showsList = new ArrayList<>();
+	private final static List<Show> showsList = new ArrayList<>();
 	
 	public static void main(String[] args) {
 		File file = new File("resources/netflix_titles.csv");
 		Scanner scanner = null;
+		
 		try {
 			scanner = new Scanner(file, "UTF-8");
 			scanner.nextLine(); // Para omitir el primero
 			
 			int i = 0;
-			while (scanner.hasNextLine() && i < 1) {
+			
+			// Iterates every row of the csv
+			while (scanner.hasNextLine()) {
 				String line = scanner.nextLine();
-				
-				List<String> list = new ArrayList<>();
-				
+				List<String> rowList = new ArrayList<>();
 				Iterator<String> iterator = Arrays.asList(line.split(",")).iterator();
 				
 				int z = 0;
-				boolean foundComma = false;
-				boolean firstCommaFounded = true;
+				boolean insideList = false;
+				boolean firstListElement = false;
+				boolean lastListElement = false;
+				
+				// Iterates every element (separated by comma) on the row
 				while (iterator.hasNext()) {
-					String value = iterator.next();
-					if (value.contains("\"")) foundComma = !foundComma;
+					String value = iterator.next().replaceAll("\"\"", "'");
 					
-					if (foundComma) {
-						if (firstCommaFounded) {
-							list.add(value);
-							firstCommaFounded = false;
-						} else {
-							list.set(z, list.get(z) + value);
-						}
-					} 
+					firstListElement = value.contains("\"") && !insideList;
+					lastListElement = value.contains("\"") && insideList;
 					
-					if (!foundComma && value.contains("\"")) {
-						list.set(list.size() - 1, list.get(list.size() - 1) + value);
-					} else if (!foundComma) {
-						list.add(value);
-						firstCommaFounded = true;
-						z++;
+					// Toggle insideList boolean every time '"' is founded.
+					if (value.contains("\"")) {
+						insideList = !insideList;
 					}
 					
+					if (insideList || lastListElement) {						
+						if (firstListElement) {
+							if (value.charAt(value.length() - 1) == '"') {
+								insideList = !insideList;
+							}
+							
+							rowList.add(value + ",");
+							if (rowList.size() - 1 > z) z++;
+							continue;
+						} else if (!lastListElement) {
+							rowList.set(z, rowList.get(z) + value + ",");
+							continue;
+						} else {
+							rowList.set(z, rowList.get(z) + value);
+							z++;
+							continue;
+						}
+					}
+					
+					rowList.add(value);
+					z++;
 				}
 				
+				Show show = new Show(rowList.toArray(new String[0]));
+				showsList.add(show);
 				i++;
-				
-				for (String string : list) {
-					System.out.println(string);
-				}
 			}
-			
-			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -1,5 +1,7 @@
 package ga.mmbh.cfgs.ficheros.models;
 
+import java.util.List;
+
 public class Show {
 
 	private String show_id, type, title, director, cast,
@@ -24,6 +26,10 @@ public class Show {
 		this.description = description;
 	}
 	
-	
+	public Show(String[] columns) {
+		this(columns[0], columns[0], columns[0], columns[0], columns[0],
+			 columns[0], columns[0], columns[0], columns[0], columns[0],
+			 columns[0], columns[0]);
+	}
 	
 }
