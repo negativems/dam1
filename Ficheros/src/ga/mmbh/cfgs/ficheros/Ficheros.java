@@ -23,7 +23,6 @@ public class Ficheros {
 			scanner.nextLine(); // Para omitir el primero
 			
 			int i = 0;
-			
 			// Iterates every row of the csv
 			while (scanner.hasNextLine()) {
 				String line = scanner.nextLine();
@@ -47,7 +46,7 @@ public class Ficheros {
 						insideList = !insideList;
 					}
 					
-					if (insideList || lastListElement) {						
+					if (insideList || lastListElement) {
 						if (firstListElement) {
 							if (value.charAt(value.length() - 1) == '"') {
 								insideList = !insideList;
@@ -61,23 +60,33 @@ public class Ficheros {
 							continue;
 						} else {
 							rowList.set(z, rowList.get(z) + value);
+							System.out.println(rowList.get(z));
 							z++;
 							continue;
 						}
 					}
 					
+					System.out.println(value);
 					rowList.add(value);
 					z++;
 				}
 				
 				Show show = new Show(rowList.toArray(new String[0]));
 				showsList.add(show);
+				
 				i++;
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		System.out.println("Hay " + showsList.size() + " shows:");
+		
+//		for (int i = 0; i < 10; i++) {
+//			Show show = showsList.get(i);
+//			System.out.println(showsList.get(i).getTitle());
+//		}
 		
 		scanner.close();
 	}

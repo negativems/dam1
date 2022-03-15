@@ -11,7 +11,7 @@ import models.Trainer;
 import utils.PrintUtils;
 import utils.Storage;
 
-public class MainApp {
+public class CombatePokemon {
 
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);

@@ -27,9 +27,58 @@ public class Show {
 	}
 	
 	public Show(String[] columns) {
-		this(columns[0], columns[0], columns[0], columns[0], columns[0],
-			 columns[0], columns[0], columns[0], columns[0], columns[0],
-			 columns[0], columns[0]);
+		this(columns[0], columns[1], columns[2], columns[3], columns[4],
+			 columns[5], columns[6], columns[7], columns[8], columns[9],
+			 columns[10], columns[11]);
+	}
+
+	public String getShow_id() {
+		return show_id;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public String getDirector() {
+		return director;
+	}
+
+	public String getCast() {
+		return cast;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public String getDate_added() {
+		return date_added;
+	}
+
+	public String getRelease_year() {
+		return release_year;
+	}
+
+	public String getRating() {
+		return rating;
+	}
+
+	public String getDuration() {
+		return duration;
+	}
+
+	public String getListed_in() {
+		return listed_in;
+	}
+
+	public String getDescription() {
+		return description;
 	}
 	
+		
 }

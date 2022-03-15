@@ -80,6 +80,21 @@ public class Node {
 		return node;
 	}
 	
+	public Node path(Node node, String value) {
+		if (!node.value.equals(value)) {
+			if (hasChild(node)) {
+				for (Node child : node.nodeList) {
+					Node nieto = searchNode(child, value);
+					if (nieto != null) return nieto;
+				}
+			}
+			
+			return null;
+		}
+
+		return node;
+	}
+	
 	public String getValue() {
 		return value;
 	}

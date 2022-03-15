@@ -8,7 +8,7 @@ public class Tree {
 		this.root = root;
 	}
 	
-	public Node buscar(String value) {
+	public Node search(String value) {
 		return root.searchNode(root, value);
 	}
 	
@@ -19,10 +19,14 @@ public class Tree {
 	
 	public void postOrder() {
 		this.root.postOrder(root);
-		System.out.println(root.getValue());
+		System.out.print(root.getValue());
 	}
 	
 	public void insertNode(Node parent, String value) {
 		parent.insertNode(parent, value);
+	}
+	
+	public Node path(String value) {
+		search(value).path(value);
 	}
 }

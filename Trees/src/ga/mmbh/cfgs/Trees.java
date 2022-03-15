@@ -20,13 +20,13 @@ public class Trees {
 		Node ternera = new Node("ternera", cuatro);
 		Node cerdo = new Node("cerdo", tres);
 		Node pollo = new Node("pollo", uno, dos);
-
+		
 		Node raiz = new Node("raiz", pollo, cerdo, ternera);
 		Tree arbol = new Tree(raiz);
 		
 		// System.out.println(arbol.buscar("cuatro"));
 		// arbol.insertNode(pollo, "hola");
-		arbol.postOrder();
+		arbol.path("cuatro");
 	}
 
 }
