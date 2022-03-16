@@ -5,11 +5,8 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URL;
+import java.io.File;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -24,14 +21,12 @@ import ga.mmbh.cfgs.utils.AppUtils;
 public class LoginView {
 
 	private final NetflixApp netflixApp;
-	
+
 	private JFrame frame;
 	private JTextField usernameField;
 	private JPasswordField passwordField;
-	private JLabel titleLabel, welcomeLabel, usernameLabel, passwordLabel;
+	private JLabel titleLabel, welcomeLabel, usernameLabel, passwordLabel, errorLabel;
 	private JButton registerButton, loginButton;
-	private JLabel errorLabel;
-	private Font font;
 
 	/**
 	 * Create the application.
@@ -47,91 +42,89 @@ public class LoginView {
 	 */
 	private void initialize() {		
 		frame = new JFrame();
-		frame.setVisible(true);
-		frame.getContentPane().setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 12));
-		
-		this.font = new Font("Franklin Gothic Medium", Font.PLAIN, 14);
-		frame.setFont(font);
+		frame.getContentPane().setFont(AppUtils.getNetflixFont("Medium", 12));
+		frame.setFont(new Font("Rubik", Font.PLAIN, 14));
 		frame.getContentPane().setBackground(AppUtils.BACKGROUND_COLOR);
 		frame.getContentPane().setLayout(null);
+		frame.setBounds(100, 100, 450, 500);
+		frame.setVisible(true);
 		
 		titleLabel = new JLabel("");
+		Image image = new ImageIcon(new File("resources/netflix-logo.png").getAbsolutePath()).getImage();
+		titleLabel.setIcon(new ImageIcon(image));
 		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		titleLabel.setBounds(0, 0, 434, 112);
-		
-		try {
-			URL url = new URL("https://1000marcas.net/wp-content/uploads/2020/01/Logo-Netflix.png");
-		    BufferedImage bufferedImage = ImageIO.read(url);
-		    Image image = new ImageIcon(bufferedImage).getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT);
-		    titleLabel.setIcon(new ImageIcon(image));
-		} catch (IOException editPokemonButton) {
-			editPokemonButton.printStackTrace();
-		}
-		
+		titleLabel.setBounds(0, 10, 500, 100);
 		frame.getContentPane().add(titleLabel);
 		
 		welcomeLabel = new JLabel("Bienvenido, inicia sesión");
+		welcomeLabel.setFont(new Font("Rubik", Font.PLAIN, 18));
 		welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		welcomeLabel.setForeground(new Color(255, 255, 255));
-		welcomeLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
-		welcomeLabel.setBounds(108, 109, 244, 30);
+		welcomeLabel.setBounds(125, 109, 250, 30);
 		frame.getContentPane().add(welcomeLabel);
 		
-		registerButton = new JButton("Registrarme");
-		registerButton.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		
-		registerButton.setBounds(339, 425, 85, 25);
-		frame.getContentPane().add(registerButton);
-		
 		usernameLabel = new JLabel("Usuario");
-		usernameLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
 		usernameLabel.setForeground(AppUtils.TEXT_COLOR);
-		usernameLabel.setBounds(108, 150, 244, 20);
+		usernameLabel.setBounds(125, 170, 250, 20);
 		frame.getContentPane().add(usernameLabel);
 		
 		usernameField = new JTextField();
 		usernameField.setColumns(10);
-		usernameField.setBounds(108, 181, 244, 30);
+		usernameField.setBounds(125, 200, 250, 30);
 		frame.getContentPane().add(usernameField);
 		
 		passwordLabel = new JLabel("Contraseña");
 		passwordLabel.setForeground(AppUtils.TEXT_COLOR);
-		passwordLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
-		passwordLabel.setBounds(108, 226, 244, 20);
+		passwordLabel.setBounds(125, 250, 250, 20);
 		frame.getContentPane().add(passwordLabel);
 		
 		passwordField = new JPasswordField();
 		passwordField.setColumns(10);
-		passwordField.setBounds(108, 257, 244, 30);
+		passwordField.setBounds(125, 280, 250, 30);
 		frame.getContentPane().add(passwordField);
 		
 		loginButton = new JButton("Iniciar Sesión");
-
 		loginButton.setBackground(new Color(176, 196, 222));
-		loginButton.setBounds(108, 311, 244, 30);
+		loginButton.setBounds(125, 350, 250, 30);
 		frame.getContentPane().add(loginButton);
 		
 		errorLabel = new JLabel("");
-		errorLabel.setFont(new Font("SansSerif", Font.PLAIN, 11));
 		errorLabel.setForeground(AppUtils.ERROR_COLOR);
-		errorLabel.setBounds(108, 367, 244, 25);
+		errorLabel.setBounds(125, 390, 250, 25);
 		frame.getContentPane().add(errorLabel);
 		
-		frame.setBounds(100, 100, 450, 500);
+		registerButton = new JButton("Registrarme");
+		registerButton.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		registerButton.setBounds(275, 425, 100, 25);
+		frame.getContentPane().add(registerButton);
+		
+		JLabel registerLabel = new JLabel("¿Nuevo usuario?");
+		registerLabel.setForeground(Color.WHITE);
+		registerLabel.setBounds(125, 425, 150, 25);
+		frame.getContentPane().add(registerLabel);
+		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		frame.repaint();
 	}
 	
 	/**
 	 * Create buttons listeners
 	 */
 	public void createListeners() {
+		passwordField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+			    if (event.getSource() == passwordField) loginButton.doClick();
+			}
+		});
+		
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String username = usernameField.getText();
 				String password = new String(passwordField.getPassword());
 				
 				if (!netflixApp.getUserManager().login(username, password)) {
-					errorLabel.setText("Usuario o contraseña erróneos");
+					errorLabel.setText("Ese usuario no existe");
 					return;
 				}
 				
@@ -145,6 +138,6 @@ public class LoginView {
 				frame.dispose();
 				new RegisterView(netflixApp);
 			}
-		});		
+		});
 	}	
 }

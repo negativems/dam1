@@ -14,7 +14,11 @@ public class PokemonManager {
 	
 	public PokemonManager() {
 		this.pokemonDAO = new PokemonDAO();
-		this.pokemons = pokemonDAO.getAllFromDatabase();
+		this.pokemons = pokemonDAO.isConnected() ? pokemonDAO.getAllFromDatabase() : new ArrayList<>();
+	}
+	
+	public boolean isConnected() {
+		return pokemonDAO.isConnected();
 	}
 	
 	public void addPokemon(Pokemon pokemon) {

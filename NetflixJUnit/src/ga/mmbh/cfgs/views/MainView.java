@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -58,7 +59,7 @@ public class MainView {
 	 * @wbp.parser.constructor
 	 */
 	public MainView(NetflixApp netflixApp) {
-		this(netflixApp, 1);
+		this(netflixApp, 0);
 	}
 
 	/**
@@ -74,7 +75,7 @@ public class MainView {
 
 		// Top rounded panel
 		topPanel = new RoundedJPanel(40, 40);
-		topPanel.setBounds(0, -22, 484, 300);
+		topPanel.setBounds(0, -22, 500, 300);
 		topPanel.setBackground(AppUtils.ACCENT_COLOR);
 		topPanel.setBorder(null);
 		topPanel.setOpaque(false);
@@ -83,7 +84,7 @@ public class MainView {
 
 		// Back button
 		backButton = new JButton("");
-		backButton.setIcon(new ImageIcon(MainView.class.getResource("/return.png")));
+		backButton.setIcon(new ImageIcon(new File("resources/return.png").getAbsolutePath()));
 		backButton.setBounds(10, 39, 32, 28);
 		backButton.setBackground(AppUtils.TRANSPARENT_COLOR);
 		backButton.setOpaque(false);
@@ -93,7 +94,7 @@ public class MainView {
 		backButtonLabel = new JLabel("Cerrar sesión");
 		backButtonLabel.setForeground(Color.WHITE);
 		backButtonLabel.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 18));
-		backButtonLabel.setBounds(69, 33, 115, 34);
+		backButtonLabel.setBounds(69, 33, 150, 34);
 		topPanel.add(backButtonLabel);
 
 		// Movie ID label
@@ -126,7 +127,7 @@ public class MainView {
 
 		// Movie's name
 		movieNameLabel = new JLabel(movie.getName());
-		movieNameLabel.setBounds(10, 240, 464, 39);
+		movieNameLabel.setBounds(0, 240, 500, 39);
 		movieNameLabel.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 24));
 		movieNameLabel.setForeground(Color.WHITE);
 		movieNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -135,7 +136,7 @@ public class MainView {
 		// Movie's image
 		movieImageLabel = new JLabel("");
 		movieImageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		movieImageLabel.setBounds(0, 78, 484, 153);
+		movieImageLabel.setBounds(0, 78, 500, 153);
 		try {
 			URL url = new URL(movie.getImageURL());
 			BufferedImage bufferedImage = ImageIO.read(url);
@@ -150,56 +151,56 @@ public class MainView {
 		durationLabel = new JLabel("Duración");
 		durationLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
 		durationLabel.setForeground(Color.WHITE);
-		durationLabel.setBounds(120, 310, 120, 25);
+		durationLabel.setBounds(100, 334, 150, 25);
 		frame.getContentPane().add(durationLabel);
 
 		durationValueLabel = new JLabel(movie.getDuration() + "");
 		durationValueLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		durationValueLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
 		durationValueLabel.setForeground(Color.WHITE);
-		durationValueLabel.setBounds(250, 310, 158, 25);
+		durationValueLabel.setBounds(250, 334, 150, 25);
 		frame.getContentPane().add(durationValueLabel);
 
 		// Min age label
 		minAgeLabel = new JLabel("Edad recomendada");
 		minAgeLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
 		minAgeLabel.setForeground(Color.WHITE);
-		minAgeLabel.setBounds(120, 350, 120, 25);
+		minAgeLabel.setBounds(100, 374, 150, 25);
 		frame.getContentPane().add(minAgeLabel);
 
 		minAgeValueLabel = new JLabel(movie.getMinAge() + "");
 		minAgeValueLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		minAgeValueLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
 		minAgeValueLabel.setForeground(Color.WHITE);
-		minAgeValueLabel.setBounds(250, 350, 158, 25);
+		minAgeValueLabel.setBounds(250, 374, 150, 25);
 		frame.getContentPane().add(minAgeValueLabel);
 
 		// Genre
 		genreLabel = new JLabel("Género");
 		genreLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
 		genreLabel.setForeground(Color.WHITE);
-		genreLabel.setBounds(120, 430, 120, 25);
+		genreLabel.setBounds(100, 454, 150, 25);
 		frame.getContentPane().add(genreLabel);
 
 		genreValueLabel = new JLabel(movie.getGenre().name().toLowerCase());
 		genreValueLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		genreValueLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
 		genreValueLabel.setForeground(Color.WHITE);
-		genreValueLabel.setBounds(250, 430, 158, 25);
+		genreValueLabel.setBounds(250, 454, 150, 25);
 		frame.getContentPane().add(genreValueLabel);
 
 		// Director
 		directorLabel = new JLabel("Director");
 		directorLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
 		directorLabel.setForeground(Color.WHITE);
-		directorLabel.setBounds(120, 390, 120, 25);
+		directorLabel.setBounds(100, 414, 150, 25);
 		frame.getContentPane().add(directorLabel);
 
 		directorValueLabel = new JLabel(movie.getDirector());
 		directorValueLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
 		directorValueLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		directorValueLabel.setForeground(Color.WHITE);
-		directorValueLabel.setBounds(250, 390, 158, 25);
+		directorValueLabel.setBounds(250, 414, 150, 25);
 		frame.getContentPane().add(directorValueLabel);
 
 		// Error label
@@ -207,20 +208,20 @@ public class MainView {
 		errorLabel.setVerticalAlignment(SwingConstants.TOP);
 		errorLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		errorLabel.setForeground(Color.WHITE);
-		errorLabel.setBounds(0, 493, 484, 26);
+		errorLabel.setBounds(0, 493, 500, 26);
 		frame.getContentPane().add(errorLabel);
 
 		// Create movie button
 		createButton = new JButton("Crear");
 		createButton.setBackground(AppUtils.GREEN_COLOR);
 		createButton.setForeground(AppUtils.BACKGROUND_COLOR);
-		createButton.setBounds(353, 530, 89, 23);
+		createButton.setBounds(350, 530, 100, 23);
 		frame.getContentPane().add(createButton);
 
 		deleteButton = new JButton("Eliminar");
 		deleteButton.setForeground(AppUtils.BACKGROUND_COLOR);
 		deleteButton.setBackground(AppUtils.GREEN_COLOR);
-		deleteButton.setBounds(254, 530, 89, 23);
+		deleteButton.setBounds(240, 530, 100, 23);
 		frame.getContentPane().add(deleteButton);
 	}
 

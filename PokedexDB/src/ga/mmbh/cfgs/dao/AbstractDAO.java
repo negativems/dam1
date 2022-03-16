@@ -18,6 +18,17 @@ public abstract class AbstractDAO {
 		password = "root";
 	}
 	
+	public boolean isConnected() {
+		try {
+			Connection connection = DriverManager.getConnection(databaseURL, username, password);
+			return connection != null && !connection.isClosed();
+		} catch (SQLException e) {
+			// ignore exception
+		}
+		
+		return false;
+	}
+	
 	// Gets data from database
 	public ResultSet query(String query) {
 		try {

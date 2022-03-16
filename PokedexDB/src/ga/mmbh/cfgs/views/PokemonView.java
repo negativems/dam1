@@ -17,7 +17,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 
 import ga.mmbh.cfgs.PokedexDB;
@@ -33,11 +32,11 @@ public class PokemonView {
 	private Pokemon pokemon;
 		
 	private JFrame frame;
-	private JPanel  topPanel;
+	private JPanel topPanel;
 	private JButton backButton, previousPokemonButton, nextPokemonButton, editButton, createButton, saveButton;
-	private JLabel  returnTextLabel, nameLabel, pokemonImageLabel, errorLabel, pokemonIdLabel, heightLabel, weightLabel, genderLabel,
-					heightValueLabel, specieLabel, specieValueLabel, abilityLabel, abilityValueLabel, genderValueLabel, weightValueLabel;
 	private JTextArea descriptionArea;
+	private JLabel returnTextLabel, nameLabel, pokemonImageLabel, errorLabel, pokemonIdLabel, heightLabel, weightLabel, genderLabel,
+				   heightValueLabel, specieLabel, specieValueLabel, abilityLabel, abilityValueLabel, genderValueLabel, weightValueLabel;
 
 	/**
 	 * Constructor, initialize view

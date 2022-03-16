@@ -37,10 +37,7 @@ public class RegisterView {
 
 	private void initialize() {
 		frame = new JFrame();
-		frame.setVisible(true);
-		frame.getContentPane().setFont(new Font("SansSerif", Font.PLAIN, 11));
-		
-		frame.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
+		frame.getContentPane().setFont(new Font("SansSerif", Font.PLAIN, 12));
 		frame.getContentPane().setBackground(new Color(39, 45, 54));
 		frame.getContentPane().setLayout(null);
 		
@@ -90,7 +87,7 @@ public class RegisterView {
 		frame.getContentPane().add(password2Field);
 		
 		labelPickachuImage = new JLabel("");
-		labelPickachuImage.setIcon(new ImageIcon(new File("/assets/img/pikachu.png").getAbsolutePath()));
+		labelPickachuImage.setIcon(new ImageIcon(new File("resources/pikachu.png").getAbsolutePath()));
 		labelPickachuImage.setBounds(331, 11, 93, 93);
 		frame.getContentPane().add(labelPickachuImage);
 		
@@ -106,7 +103,7 @@ public class RegisterView {
 		backButton.setEnabled(false);
 		backButton.setOpaque(false);
 		backButton.setBorder(BorderFactory.createEmptyBorder());
-		backButton.setIcon(new ImageIcon(RegisterView.class.getResource("/assets/img/return.png")));
+		backButton.setIcon(new ImageIcon(new File("resources/return.png").getAbsolutePath()));
 		backButton.setBounds(10, 22, 38, 33);
 		frame.getContentPane().add(backButton);
 		
@@ -129,7 +126,6 @@ public class RegisterView {
 		
 		registerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.setVisible(false);
 				String username = usernameField.getText();
 				String password = new String(passwordField.getPassword());
 				String password2 = new String(password2Field.getPassword());
@@ -139,7 +135,13 @@ public class RegisterView {
 					return;
 				}
 				
+				if (!pokedexApp.getPokemonManager().isConnected()) {
+					errorLabel.setText("La base de datos no está conectada.");
+					return;
+				}
+				
 				register(username, password);
+				frame.dispose();
 				new LoginView(pokedexApp);
 			}
 		});
