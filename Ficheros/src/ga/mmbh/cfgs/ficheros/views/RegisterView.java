@@ -1,4 +1,4 @@
-package ga.mmbh.cfgs.views;
+package ga.mmbh.cfgs.ficheros.views;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -14,12 +14,12 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import ga.mmbh.cfgs.NetflixApp;
-import ga.mmbh.cfgs.models.User;
+import ga.mmbh.cfgs.ficheros.FicherosApp;
+import ga.mmbh.cfgs.ficheros.models.User;
 
 public class RegisterView {
 
-	private final NetflixApp netflixApp;
+	private final FicherosApp ficherosApp;
 	
 	private JFrame frame;
 	private JLabel welcomeLabel, usernameLabel;
@@ -28,8 +28,8 @@ public class RegisterView {
 	private JLabel passwordLabel, password2Label, labelPickachuImage, errorLabel;
 	private JButton registerButton, backButton;
 	
-	public RegisterView(NetflixApp netflixApp) {
-		this.netflixApp = netflixApp;
+	public RegisterView(FicherosApp ficherosApp) {
+		this.ficherosApp = ficherosApp;
 		initialize();
 		setListeners();
 	}
@@ -98,7 +98,7 @@ public class RegisterView {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
 				frame.dispose();
-				new LoginView(netflixApp);
+				new LoginView(ficherosApp);
 			}
 		});
 		
@@ -122,7 +122,7 @@ public class RegisterView {
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				new LoginView(netflixApp);
+				new LoginView(ficherosApp);
 			}
 		});
 		
@@ -139,12 +139,12 @@ public class RegisterView {
 				}
 				
 				register(username, password);
-				new LoginView(netflixApp);
+				new LoginView(ficherosApp);
 			}
 		});
 	}
 	
 	public void register(String username, String password) {
-		netflixApp.getUserManager().registerUser(new User(username, password));
+		ficherosApp.getUserManager().registerUser(new User(username, password));
 	}
 }
