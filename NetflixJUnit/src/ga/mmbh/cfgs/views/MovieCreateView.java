@@ -6,12 +6,14 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -27,8 +29,8 @@ import ga.mmbh.cfgs.models.Movie;
 import ga.mmbh.cfgs.utils.AppUtils;
 import ga.mmbh.cfgs.utils.JavaUtils;
 import ga.mmbh.cfgs.utils.RoundedJPanel;
-import javax.swing.DefaultComboBoxModel;
 
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class MovieCreateView {
 
 	private final NetflixApp netflixApp;
@@ -67,7 +69,7 @@ public class MovieCreateView {
 
 		// Top rounded panel
 		topPanel = new RoundedJPanel(40, 40);
-		topPanel.setBounds(0, -22, 484, 298);
+		topPanel.setBounds(0, -22, 500, 298);
 		topPanel.setBackground(AppUtils.ACCENT_COLOR);
 		topPanel.setBorder(null);
 		topPanel.setOpaque(false);
@@ -76,7 +78,7 @@ public class MovieCreateView {
 
 		// Back button
 		backButton = new JButton("");
-		backButton.setIcon(new ImageIcon(MovieCreateView.class.getResource("/return.png")));
+		backButton.setIcon(new ImageIcon(new File("/return.png").getAbsolutePath()));
 		backButton.setBounds(10, 39, 32, 28);
 		backButton.setBackground(AppUtils.BACKGROUND_COLOR);
 		backButton.setOpaque(false);
@@ -99,7 +101,7 @@ public class MovieCreateView {
 		
 		// Movie's name
 		nameField = new JTextField("Nombre");
-		nameField.setBounds(10, 240, 465, 26);
+		nameField.setBounds(0, 240, 500, 26);
 		nameField.setBackground(AppUtils.ACCENT_COLOR);
 		nameField.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 16));
 		nameField.setForeground(Color.WHITE);
@@ -117,13 +119,12 @@ public class MovieCreateView {
 		genreLabel = new JLabel("Género");
 		genreLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
 		genreLabel.setForeground(Color.WHITE);
-		genreLabel.setBounds(101, 440, 140, 25);
+		genreLabel.setBounds(100, 440, 150, 25);
 		frame.getContentPane().add(genreLabel);
 		
-		// String[] genreList = Arrays.asList(Genre.values()).stream().map(Genre::name).toArray(String[]::new);
 		genreValueComboBox = new JComboBox<String>();
 		genreValueComboBox.setModel(new DefaultComboBoxModel(Genre.values()));
-		genreValueComboBox.setBounds(251, 440, 66, 25);
+		genreValueComboBox.setBounds(250, 440, 150, 25);
 		genreValueComboBox.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
 		genreValueComboBox.setForeground(Color.WHITE);
 		genreValueComboBox.setBackground(AppUtils.BACKGROUND_COLOR);
@@ -133,7 +134,7 @@ public class MovieCreateView {
 		durationLabel = new JLabel("Duración");
 		durationLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
 		durationLabel.setForeground(Color.WHITE);
-		durationLabel.setBounds(101, 320, 140, 25);
+		durationLabel.setBounds(100, 320, 150, 25);
 		frame.getContentPane().add(durationLabel);
 		
 		durationField = new JTextField("120");
@@ -141,28 +142,28 @@ public class MovieCreateView {
 		durationField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
 		durationField.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE));
 		durationField.setBackground(new Color(39, 45, 54));
-		durationField.setBounds(251, 320, 140, 25);
+		durationField.setBounds(250, 320, 150, 25);
 		frame.getContentPane().add(durationField);
 
 		// Weight
 		minAgeLabel = new JLabel("Edad recomendada");
 		minAgeLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
 		minAgeLabel.setForeground(Color.WHITE);
-		minAgeLabel.setBounds(101, 360, 140, 25);
+		minAgeLabel.setBounds(100, 360, 150, 25);
 		frame.getContentPane().add(minAgeLabel);
 
 		// Specie
 		directorLabel = new JLabel("Director");
 		directorLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
 		directorLabel.setForeground(Color.WHITE);
-		directorLabel.setBounds(101, 400, 140, 25);
+		directorLabel.setBounds(100, 400, 150, 25);
 		frame.getContentPane().add(directorLabel);
 
 		directorField = new JTextField("Christopher Nolan");
 		directorField.setForeground(Color.WHITE);
 		directorField.setBackground(AppUtils.BACKGROUND_COLOR);
 		directorField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
-		directorField.setBounds(251, 400, 140, 25);
+		directorField.setBounds(250, 400, 150, 25);
 		directorField.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE));
 		frame.getContentPane().add(directorField);
 
@@ -170,14 +171,14 @@ public class MovieCreateView {
 		cancelButton = new JButton("Cancelar");
 		cancelButton.setForeground(Color.WHITE);
 		cancelButton.setBackground(Color.RED);
-		cancelButton.setBounds(358, 530, 80, 23);
+		cancelButton.setBounds(358, 530, 100, 23);
 		frame.getContentPane().add(cancelButton);
 
 		// Save button
 		saveMovieButton = new JButton("Guardar");
 		saveMovieButton.setForeground(Color.WHITE);
 		saveMovieButton.setBackground(AppUtils.GREEN_COLOR);
-		saveMovieButton.setBounds(268, 530, 80, 23);
+		saveMovieButton.setBounds(250, 530, 100, 23);
 		frame.getContentPane().add(saveMovieButton);
 		
 		// URL
@@ -188,7 +189,7 @@ public class MovieCreateView {
 		frame.getContentPane().add(URLLabel);
 		
 		URLField = new JTextField("");
-		URLField.setBounds(87, 530, 171, 23);
+		URLField.setBounds(87, 530, 150, 23);
 		frame.getContentPane().add(URLField);
 		
 		// Error label
@@ -196,7 +197,7 @@ public class MovieCreateView {
 		errorLabel.setVerticalAlignment(SwingConstants.TOP);
 		errorLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		errorLabel.setForeground(AppUtils.ERROR_COLOR);
-		errorLabel.setBounds(0, 493, 484, 26);
+		errorLabel.setBounds(0, 485, 500, 26);
 		frame.getContentPane().add(errorLabel);
 		
 		minAgeField = new JTextField("14");
@@ -204,7 +205,7 @@ public class MovieCreateView {
 		minAgeField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
 		minAgeField.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE));
 		minAgeField.setBackground(new Color(39, 45, 54));
-		minAgeField.setBounds(251, 360, 140, 25);
+		minAgeField.setBounds(250, 360, 150, 25);
 		frame.getContentPane().add(minAgeField);
 	}
 
@@ -236,7 +237,7 @@ public class MovieCreateView {
 				} catch (IOException e) {
 					errorLabel.setText("Error en el campo URL");
 					return;
-				}		
+				}
 				
 				String name = nameField.getText();
 				int minAge = Integer.parseInt(minAgeField.getText());
@@ -245,11 +246,13 @@ public class MovieCreateView {
 				String imageURL = URLField.getText();
 				int duration = Integer.parseInt(durationField.getText());
 				
-				Movie movie = new Movie(id, name, minAge, director, genre, duration, imageURL);
+				List<Movie> movies = netflixApp.getMovieManager().getMovies();
+				int nextId = movies.get(movies.size() - 1).getId() + 1; // Last movie id + 1
+				Movie movie = new Movie(nextId, name, minAge, director, genre, duration, imageURL);
 				netflixApp.getMovieManager().addMovie(movie);
 				
 				frame.dispose();
-				new MainView(netflixApp, id);
+				new MainView(netflixApp, nextId);
 			}
 		});
 

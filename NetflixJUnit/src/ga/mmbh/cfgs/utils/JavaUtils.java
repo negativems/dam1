@@ -11,6 +11,14 @@ public class JavaUtils {
 	    }
 	}
 	
+	public static boolean isFloat(String... strings) {
+	    for (String s : strings) {
+	    	if (!isFloat(s)) return false;
+	    }
+	    
+	    return true;
+	}
+	
 	public static boolean isInteger(String string) {
 	    try{
 	        Integer.parseInt(string);
@@ -18,6 +26,14 @@ public class JavaUtils {
 	    }catch(NumberFormatException e){
 	        return false;
 	    }
+	}
+	
+	public static boolean isInteger(String... strings) {
+	    for (String s : strings) {
+	    	if (!isInteger(s)) return false;
+	    }
+	    
+	    return true;
 	}
 	
 	public static boolean isString(Object object) {

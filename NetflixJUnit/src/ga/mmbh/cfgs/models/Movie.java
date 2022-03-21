@@ -17,17 +17,6 @@ public class Movie {
 		this.genre = genre;
 	}
 	
-	private boolean checkGenre(String genre) {
-		try {
-			this.genre = Genre.valueOf(genre);
-			return true;
-		} catch(Exception e) {
-			System.out.println("Has intro");
-		}
-		
-		return false;
-	}
-	
 	// Getters
 	public int getId() {
 		return ID;

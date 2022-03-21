@@ -44,9 +44,8 @@ public class LoginView {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 500, 600);
-		frame.setMaximumSize(new Dimension(500, 600));
-		frame.setVisible(true);
 		frame.getContentPane().setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 12));
+		frame.setVisible(true);
 		
 		frame.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
 		frame.getContentPane().setBackground(AppUtils.BACKGROUND_COLOR);
@@ -119,13 +118,18 @@ public class LoginView {
 				String username = usernameField.getText();
 				String password = new String(passwordField.getPassword());
 				
+				if (!pokedexApp.getPokemonManager().isConnected()) {
+					errorLabel.setText("La base de datos no está conectada.");
+					return;
+				}
+				
 				if (!pokedexApp.getUserManager().login(username, password)) {
 					errorLabel.setText("Usuario o contraseña erróneos");
 					return;
 				}
 
 				if (pokedexApp.getPokemonManager().getPokemons().isEmpty()) {
-					errorLabel.setText("Usuario o contraseña erróneos");
+					errorLabel.setText("No existen pokemons en la base de datos");
 					return;
 				}
 				

@@ -1,0 +1,7 @@
+Proyecto Mohamed: https://github.com/mohamedmbh/netflixjunit
+Tests Mohamed: https://github.com/mohamedmbh/junitfutbol
+Cliente Mohamed: https://docs.google.com/document/d/1edtaCunrFKCcMSWOyz19QAUyzJ-2Z2jIFHXMATM98pA
+
+Proyecto Fran Silva: https://github.com/FranSilvaMartin/junitfutbol
+Tests Fran Silva: https://github.com/FranSilvaMartin/netflixjunit
+Cliente Fran Silva: https://docs.google.com/document/d/1EoQyqFMPOxMNvozPJiTuGB6OPPncJoz9O_Yq1Fsu7cQ
