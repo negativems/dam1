@@ -15,7 +15,6 @@ import javax.swing.JTextField;
 import ga.mmbh.cfgs.ficheros.FicherosApp;
 import ga.mmbh.cfgs.ficheros.models.Show;
 import ga.mmbh.cfgs.ficheros.panels.ShowsPanel;
-import ga.mmbh.cfgs.ficheros.utils.AppUtils;
 import ga.mmbh.cfgs.ficheros.utils.JPanelBackground;
 
 public class HomeView {
@@ -47,7 +46,6 @@ public class HomeView {
 	 */
 	public HomeView() {
 		this.ficherosApp = null;
-		initializeEditor();
 	}
 
 	/**
