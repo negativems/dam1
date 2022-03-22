@@ -1,4 +1,4 @@
-package ga.mmbh.cfgs.ficheros;
+package ga.mmbh.cfgs.ficheros.managers;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,13 +8,18 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
+import ga.mmbh.cfgs.ficheros.FicherosApp;
 import ga.mmbh.cfgs.ficheros.models.Show;
 
-public class Ficheros {
+public class ShowManager {
+
+	private final List<Show> showsList = new ArrayList<>();
 	
-	private final static List<Show> showsList = new ArrayList<>();
+	public ShowManager() {
+		loadShows();
+	}
 	
-	public static void main(String[] args) {
+	private void loadShows() {
 		File file = new File("resources/netflix_titles.csv");
 		Scanner scanner = null;
 		
@@ -22,7 +27,6 @@ public class Ficheros {
 			scanner = new Scanner(file, "UTF-8");
 			scanner.nextLine(); // Para omitir el primero
 			
-			int i = 0;
 			// Iterates every row of the csv
 			while (scanner.hasNextLine()) {
 				String line = scanner.nextLine();
@@ -60,28 +64,23 @@ public class Ficheros {
 							continue;
 						} else {
 							rowList.set(z, rowList.get(z) + value);
-							System.out.println(rowList.get(z));
 							z++;
 							continue;
 						}
 					}
 					
-					System.out.println(value);
 					rowList.add(value);
 					z++;
 				}
 				
 				Show show = new Show(rowList.toArray(new String[0]));
 				showsList.add(show);
-				
-				i++;
 			}
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		System.out.println("Hay " + showsList.size() + " shows:");
+//		System.out.println("Hay " + showsList.size() + " shows:");
 		
 //		for (int i = 0; i < 10; i++) {
 //			Show show = showsList.get(i);
@@ -90,5 +89,11 @@ public class Ficheros {
 		
 		scanner.close();
 	}
+	
+	
+	public List<Show> getShows() {
+		return this.showsList;
+	}
+	
 	
 }
