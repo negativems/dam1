@@ -92,8 +92,9 @@ public class SeleniumMaven {
 		WebElement submitButton = driver.findElement(By.cssSelector("#wrapwrap > main > div > div.subscription-widget-container.bg-white > div > div.fill-info-step.o_trial_step_2 > div > div.col-lg-7.mt48.o_animate_in_children.o_visible > div > div.col-12.mb-4.mb-md-5 > form > div.row.mt24 > div.col-auto.text-right > button"));
 		submitButton.click();
 		
-		
 		Thread.sleep(1000000);
 	}
+	
+	
 	
 }
