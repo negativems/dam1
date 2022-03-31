@@ -26,7 +26,7 @@ public class Tree {
 		parent.insertNode(parent, value);
 	}
 	
-	public Node path(String value) {
-		search(value).path(value);
+	public String getPath(String value) {
+		return search(value).getPath(root, value);
 	}
 }

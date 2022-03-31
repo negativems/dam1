@@ -1,4 +1,4 @@
-package ga.mmbh.cfgs;
+package ga.mmbh.cfgs.seleniummaven;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -18,9 +18,8 @@ public class SeleniumMaven {
 		driver = new ChromeDriver();
 		
 		try {
-			// startWikipediaTest();
+			startWikipediaTest();
 			startOdooTest();
-			
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} finally {
@@ -40,7 +39,7 @@ public class SeleniumMaven {
 		
 		System.out.println(driver.getTitle());
 		
-		Thread.sleep(10000);
+		Thread.sleep(3000);
 	}
 	
 	private static void startOdooTest() throws InterruptedException {
@@ -74,7 +73,7 @@ public class SeleniumMaven {
 		phoneInput.sendKeys("12345678");
 		
 		WebElement countrySelect = driver.findElement(By.cssSelector("#country-id"));
-		countrySelect.sendKeys("es");
+		countrySelect.sendKeys("España");
 		
 		WebElement languageSelect = driver.findElement(By.cssSelector("#wrapwrap > main > div > div.subscription-widget-container.bg-white > div > div.fill-info-step.o_trial_step_2 > div > div.col-lg-7.mt48.o_animate_in_children.o_visible > div > div.col-12.mb-4.mb-md-5 > form > div:nth-child(6) > div:nth-child(2) > div > select"));
 		languageSelect.sendKeys("Español");
@@ -92,8 +91,9 @@ public class SeleniumMaven {
 		WebElement submitButton = driver.findElement(By.cssSelector("#wrapwrap > main > div > div.subscription-widget-container.bg-white > div > div.fill-info-step.o_trial_step_2 > div > div.col-lg-7.mt48.o_animate_in_children.o_visible > div > div.col-12.mb-4.mb-md-5 > form > div.row.mt24 > div.col-auto.text-right > button"));
 		submitButton.click();
 		
-		
-		Thread.sleep(1000000);
+		Thread.sleep(6000);
 	}
+	
+	
 	
 }
