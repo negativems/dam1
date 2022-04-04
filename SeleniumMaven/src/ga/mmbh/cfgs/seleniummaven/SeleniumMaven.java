@@ -7,13 +7,11 @@ import org.openqa.selenium.support.ui.Select;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-
 public class SeleniumMaven {
-
+	
 	private static ChromeDriver driver;
 	
 	public static void main(String[] args) {
-		
 		WebDriverManager.chromedriver().setup();
 		driver = new ChromeDriver();
 		
@@ -73,10 +71,10 @@ public class SeleniumMaven {
 		phoneInput.sendKeys("12345678");
 		
 		WebElement countrySelect = driver.findElement(By.cssSelector("#country-id"));
-		countrySelect.sendKeys("España");
+		countrySelect.sendKeys("EspaÃ±a");
 		
 		WebElement languageSelect = driver.findElement(By.cssSelector("#wrapwrap > main > div > div.subscription-widget-container.bg-white > div > div.fill-info-step.o_trial_step_2 > div > div.col-lg-7.mt48.o_animate_in_children.o_visible > div > div.col-12.mb-4.mb-md-5 > form > div:nth-child(6) > div:nth-child(2) > div > select"));
-		languageSelect.sendKeys("Español");
+		languageSelect.sendKeys("EspaÃ±ol");
 		
 		WebElement companySizeSelect = driver.findElement(By.cssSelector("#wrapwrap > main > div > div.subscription-widget-container.bg-white > div > div.fill-info-step.o_trial_step_2 > div > div.col-lg-7.mt48.o_animate_in_children.o_visible > div > div.col-12.mb-4.mb-md-5 > form > div:nth-child(7) > div:nth-child(1) > div > select"));
 		Select select = new Select(companySizeSelect);
