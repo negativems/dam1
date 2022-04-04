@@ -50,11 +50,11 @@ public class Node {
 		}
 	}
 
-	public Node searchNode(Node node, String value) {
-		if (!node.value.equals(value)) {
+	public Node searchNode(Node node, String searchValue) {
+		if (!node.value.equals(searchValue)) {
 			if (hasChild(node)) {
 				for (Node child : node.nodeList) {
-					Node nieto = searchNode(child, value);
+					Node nieto = searchNode(child, searchValue);
 					if (nieto != null) return nieto;
 				}
 			}
@@ -80,19 +80,19 @@ public class Node {
 		return node;
 	}
 	
-	public Node path(Node node, String value) {
-		if (!node.value.equals(value)) {
+	public String getPath(Node node, String searchValue) {
+		if (!node.value.equals(searchValue)) {
 			if (hasChild(node)) {
 				for (Node child : node.nodeList) {
-					Node nieto = searchNode(child, value);
-					if (nieto != null) return nieto;
+					String nieto = getPath(child, searchValue);
+					if (nieto != null) return node.value + "/" + nieto;
 				}
 			}
 			
 			return null;
 		}
 
-		return node;
+		return node.getValue();
 	}
 	
 	public String getValue() {

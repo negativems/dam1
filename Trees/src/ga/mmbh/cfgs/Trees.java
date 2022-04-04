@@ -26,7 +26,9 @@ public class Trees {
 		
 		// System.out.println(arbol.buscar("cuatro"));
 		// arbol.insertNode(pollo, "hola");
-		arbol.path("cuatro");
+		// System.out.println(arbol.getPath("cuatro"));
+		
+		System.out.println(arbol.getPath("cuatro"));
 	}
 
 }
