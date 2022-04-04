@@ -22,8 +22,8 @@ public class Tree {
 		System.out.print(root.getValue());
 	}
 	
-	public void insertNode(Node parent, String value) {
-		parent.insertNode(parent, value);
+	public Node insertNode(Node node, String value) {
+		return root.insertNode(root, node, value);
 	}
 	
 	public String getPath(String value) {

@@ -8,7 +8,7 @@ public class Node {
 
 	private String value;
 
-	private List<Node> nodeList = new ArrayList<>();
+	private List<Node> nodeList = new ArrayList<Node>();
 
 	public Node(String value) {
 		this.value = value;
@@ -21,7 +21,7 @@ public class Node {
 
 	public Node(String value, Node... nodes) {
 		this.value = value;
-		this.nodeList = Arrays.asList(nodes);
+		nodeList.addAll(Arrays.asList(nodes));
 	}
 
 	public List<Node> getChildren() {
@@ -65,18 +65,21 @@ public class Node {
 		return node;
 	}
 	
-	public Node insertNode(Node node, String value) {
-		if (!node.value.equals(value)) {
-			if (hasChild(node)) {
-				for (Node child : nodeList) {
-					Node nieto = insertNode(child, value);
+	public Node insertNode(Node currentNode, Node node, String value) {
+		if (node == null) throw new NullPointerException();
+		
+		if (!currentNode.equals(node)) {
+			if (hasChild(currentNode)) {
+				for (Node child : currentNode.nodeList) {
+					Node nieto = insertNode(child, node, value);
 					if (nieto != null) return nieto;
 				}
 			}
+			
 			return null;
 		}
 		
-		node.nodeList.add(node);
+		node.nodeList.add(new Node(value));
 		return node;
 	}
 	

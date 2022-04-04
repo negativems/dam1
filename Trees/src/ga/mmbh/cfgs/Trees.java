@@ -24,11 +24,9 @@ public class Trees {
 		Node raiz = new Node("raiz", pollo, cerdo, ternera);
 		Tree arbol = new Tree(raiz);
 		
-		// System.out.println(arbol.buscar("cuatro"));
-		// arbol.insertNode(pollo, "hola");
-		// System.out.println(arbol.getPath("cuatro"));
-		
-		System.out.println(arbol.getPath("cuatro"));
+		System.out.println("Buscando nodo: " + arbol.search("cuatro"));
+		System.out.println("Insertando nodo: " + arbol.insertNode(pollo, "hola"));
+		System.out.println("Obteniendo ruta: " + arbol.getPath("cuatro"));
 	}
 
 }
