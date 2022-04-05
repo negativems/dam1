@@ -2,7 +2,7 @@ package ga.mmbh.cfgs.netflixdb;
 
 import ga.mmbh.cfgs.netflixdb.managers.ShowManager;
 import ga.mmbh.cfgs.netflixdb.managers.UserManager;
-import ga.mmbh.cfgs.netflixdb.views.HomeView;
+import ga.mmbh.cfgs.netflixdb.views.LoginView;
 
 public class NetflixApp {
 	
@@ -17,7 +17,7 @@ public class NetflixApp {
 		this.userManager = new UserManager(this);
 		this.showManager = new ShowManager();
 		
-		new HomeView(this);
+		new LoginView(this);
 	}
 	
 	public UserManager getUserManager() {

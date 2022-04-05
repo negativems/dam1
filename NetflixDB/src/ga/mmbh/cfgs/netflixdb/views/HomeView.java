@@ -13,9 +13,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import ga.mmbh.cfgs.netflixdb.models.Show;
-import ga.mmbh.cfgs.netflixdb.panels.ShowsPanel;
-import ga.mmbh.cfgs.netflixdb.utils.JPanelBackground;
 import ga.mmbh.cfgs.netflixdb.NetflixApp;
+import ga.mmbh.cfgs.netflixdb.graphic.panels.BackgroundPanel;
+import ga.mmbh.cfgs.netflixdb.graphic.panels.ShowsPanel;
 
 public class HomeView {
 
@@ -24,7 +24,7 @@ public class HomeView {
 	private Show show;
 
 	private JFrame frame;
-	private JPanelBackground panel;
+	private BackgroundPanel panel;
 	private JButton previousShowButton, nextShowButton;
 	private JLabel errorLabel;
 	private JTextField textField;
@@ -60,7 +60,7 @@ public class HomeView {
 		frame.setResizable(false);
 		
 		try {
-			panel = new JPanelBackground("resources/home_background.jfif");
+			panel = new BackgroundPanel("resources/home_background.jfif");
 			panel.setBounds(0, 0, 500, 600);
 		} catch (IOException e) {
 			e.printStackTrace();

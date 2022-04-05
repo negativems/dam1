@@ -1,4 +1,4 @@
-package ga.mmbh.cfgs.netflixdb.panels;
+package ga.mmbh.cfgs.netflixdb.graphic.panels;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;

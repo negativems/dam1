@@ -1,6 +1,6 @@
 package ga.mmbh.cfgs.netflixdb.views;
 
-import ga.mmbh.cfgs.netflixdb.panels.CustomFrame;
+import ga.mmbh.cfgs.netflixdb.graphic.frames.CustomFrame;
 
 public abstract class AbstractView {
 

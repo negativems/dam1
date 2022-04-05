@@ -1,12 +1,11 @@
-package ga.mmbh.cfgs.netflixdb.panels;
+package ga.mmbh.cfgs.netflixdb.graphic.panels;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import ga.mmbh.cfgs.netflixdb.NetflixApp;
 import ga.mmbh.cfgs.netflixdb.models.Show;
 import ga.mmbh.cfgs.netflixdb.utils.AppUtils;
-import ga.mmbh.cfgs.netflixdb.NetflixApp;
 
 public class ShowsPanel extends JPanel {
 
@@ -21,7 +20,6 @@ public class ShowsPanel extends JPanel {
 			JPanel elementPanel = new ShowElementPanel(this, show);
 			elementPanel.setBounds(0, 0 + (50 * i), 350, 40);
 		}
-		
 	}
 	
 }

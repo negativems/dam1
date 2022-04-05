@@ -2,15 +2,9 @@ package ga.mmbh.cfgs.netflixdb.views;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URL;
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,20 +12,20 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import ga.mmbh.cfgs.netflixdb.utils.AppUtils;
 import ga.mmbh.cfgs.netflixdb.NetflixApp;
+import ga.mmbh.cfgs.netflixdb.graphic.frames.CustomFrame;
+import ga.mmbh.cfgs.netflixdb.utils.AppUtils;
 
 public class LoginView {
 
 	private final NetflixApp ficherosApp;
 
-	private JFrame frame;
+	private CustomFrame frame;
 	private JTextField usernameField;
 	private JPasswordField passwordField;
 	private JLabel titleLabel, welcomeLabel, usernameLabel, passwordLabel;
 	private JButton registerButton, loginButton;
 	private JLabel errorLabel;
-	private Font font;
 
 	/**
 	 * Create the application.
@@ -46,14 +40,8 @@ public class LoginView {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setVisible(true);
-		frame.getContentPane().setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 12));
-
-		this.font = new Font("Franklin Gothic Medium", Font.PLAIN, 14);
-		frame.setFont(font);
+		frame = new CustomFrame();
 		frame.getContentPane().setBackground(AppUtils.DARK_BACKGROUND);
-		frame.getContentPane().setLayout(null);
 
 		titleLabel = new JLabel("");
 		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -73,18 +61,15 @@ public class LoginView {
 		welcomeLabel = new JLabel("Bienvenido, inicia sesión");
 		welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		welcomeLabel.setForeground(new Color(255, 255, 255));
-		welcomeLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 16));
 		welcomeLabel.setBounds(108, 109, 244, 30);
 		frame.getContentPane().add(welcomeLabel);
 
 		registerButton = new JButton("Registrarme");
-		registerButton.setFont(new Font("Tahoma", Font.PLAIN, 10));
 
 		registerButton.setBounds(339, 425, 85, 25);
 		frame.getContentPane().add(registerButton);
 
 		usernameLabel = new JLabel("Usuario");
-		usernameLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
 		usernameLabel.setForeground(AppUtils.TEXT_COLOR);
 		usernameLabel.setBounds(108, 150, 244, 20);
 		frame.getContentPane().add(usernameLabel);
@@ -96,7 +81,6 @@ public class LoginView {
 
 		passwordLabel = new JLabel("Contraseña");
 		passwordLabel.setForeground(AppUtils.TEXT_COLOR);
-		passwordLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
 		passwordLabel.setBounds(108, 226, 244, 20);
 		frame.getContentPane().add(passwordLabel);
 
@@ -106,19 +90,19 @@ public class LoginView {
 		frame.getContentPane().add(passwordField);
 
 		loginButton = new JButton("Iniciar Sesión");
-
 		loginButton.setBackground(new Color(176, 196, 222));
 		loginButton.setBounds(108, 311, 244, 30);
 		frame.getContentPane().add(loginButton);
 
 		errorLabel = new JLabel("");
-		errorLabel.setFont(new Font("SansSerif", Font.PLAIN, 11));
 		errorLabel.setForeground(AppUtils.ERROR_COLOR);
 		errorLabel.setBounds(108, 367, 244, 25);
 		frame.getContentPane().add(errorLabel);
 
 		frame.setBounds(100, 100, 450, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
+		frame.changeFont(frame);
 	}
 
 	/**
