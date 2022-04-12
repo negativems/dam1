@@ -1,4 +1,4 @@
-package ga.mmbh.cfgs.utils;
+package ga.mmbh.cfgs.pokedexdb.utils;
 
 import java.awt.Color;
 import java.awt.Font;

@@ -1,9 +1,9 @@
-package ga.mmbh.cfgs.dao;
+package ga.mmbh.cfgs.pokedexdb.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import ga.mmbh.cfgs.models.User;
+import ga.mmbh.cfgs.pokedexdb.models.User;
 
 public class UserDAO extends AbstractDAO {
 	

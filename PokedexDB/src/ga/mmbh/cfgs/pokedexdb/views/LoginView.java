@@ -1,4 +1,4 @@
-package ga.mmbh.cfgs.views;
+package ga.mmbh.cfgs.pokedexdb.views;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,8 +13,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import ga.mmbh.cfgs.PokedexDB;
-import ga.mmbh.cfgs.utils.AppUtils;
+import ga.mmbh.cfgs.pokedexdb.PokedexDB;
+import ga.mmbh.cfgs.pokedexdb.utils.AppUtils;
 
 public class LoginView {
 

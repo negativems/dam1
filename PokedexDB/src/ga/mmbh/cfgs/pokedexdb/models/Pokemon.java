@@ -1,9 +1,9 @@
-package ga.mmbh.cfgs.models;
+package ga.mmbh.cfgs.pokedexdb.models;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ga.mmbh.cfgs.utils.AppUtils;
+import ga.mmbh.cfgs.pokedexdb.utils.AppUtils;
 
 public class Pokemon {
 
