@@ -8,8 +8,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import ga.mmbh.cfgs.netflixdb.utils.AppUtils;
-
 public class BackgroundPanel extends JPanel {
 
   private Image backgroundImage;
@@ -17,11 +15,9 @@ public class BackgroundPanel extends JPanel {
   public BackgroundPanel(String fileName) throws IOException {
 	  backgroundImage = ImageIO.read(new File(fileName));
   }
-  
-  public void paintComponent(Graphics g) {
-    super.paintComponent(g);
 
-    // Draw the background image.
-    g.drawImage(backgroundImage, 0, 0, this);
+  public void paintComponent(Graphics graphics) {
+    graphics.drawImage(backgroundImage, 0, 0, this);
+    super.paintComponent(graphics);
   }
 }

@@ -1,12 +1,10 @@
 package ga.mmbh.cfgs.netflixdb.views;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.nio.charset.StandardCharsets;
 
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,137 +12,135 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import ga.mmbh.cfgs.netflixdb.models.User;
+import com.google.common.hash.Hashing;
+
 import ga.mmbh.cfgs.netflixdb.NetflixApp;
+import ga.mmbh.cfgs.netflixdb.graphic.frames.CustomFrame;
+import ga.mmbh.cfgs.netflixdb.models.User;
+import ga.mmbh.cfgs.netflixdb.utils.AppUtils;
 
 public class RegisterView {
 
-	private final NetflixApp ficherosApp;
-	
-	private JFrame frame;
-	private JLabel welcomeLabel, usernameLabel;
-	private JTextField usernameField;
-	private JPasswordField passwordField, password2Field;
-	private JLabel passwordLabel, password2Label, labelPickachuImage, errorLabel;
-	private JButton registerButton, backButton;
-	
+	private final NetflixApp netflixApp;
+
+	private CustomFrame frame;
+	private JTextField usernameField, emailField;
+	private JPasswordField passwordField, passwordField2;
+	private JLabel welcomeLabel, usernameLabel, emailLabel, passwordLabel, passwordLabel2;
+	private JButton registerButton;
+	private JLabel errorLabel;
+
+	/**
+	 * Create the application.
+	 */
 	public RegisterView(NetflixApp ficherosApp) {
-		this.ficherosApp = ficherosApp;
+		this.netflixApp = ficherosApp;
 		initialize();
-		setListeners();
+		createListeners();
 	}
 
+	/**
+	 * Initialize the contents of the frame.
+	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setVisible(true);
-		frame.getContentPane().setFont(new Font("SansSerif", Font.PLAIN, 11));
+		frame = new CustomFrame();
+		frame.setBounds((1920 / 2) - (500 / 2), (1080 / 2) - (700 / 2), 500, 600);
 		
-		frame.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
-		frame.getContentPane().setBackground(new Color(39, 45, 54));
-		frame.getContentPane().setLayout(null);
-		
-		welcomeLabel = new JLabel("REGISTRO");
+		welcomeLabel = new JLabel("Registro");
+		welcomeLabel.setFont(AppUtils.getTitleFont().deriveFont(18F));
 		welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		welcomeLabel.setForeground(new Color(255, 255, 255));
-		welcomeLabel.setFont(new Font("Rubik", Font.BOLD, 22));
-		welcomeLabel.setBounds(107, 25, 244, 30);
+		welcomeLabel.setBounds(120, 50, 260, 30);
 		frame.getContentPane().add(welcomeLabel);
 		
 		usernameLabel = new JLabel("Usuario");
-		usernameLabel.setFont(new Font("SansSerif", Font.BOLD, 12));
-		usernameLabel.setForeground(new Color(255, 255, 255));
-		usernameLabel.setBounds(107, 107, 244, 20);
+		usernameLabel.setForeground(AppUtils.TEXT_COLOR);
+		usernameLabel.setBounds(120, 150, 360, 20);
 		frame.getContentPane().add(usernameLabel);
 		
 		usernameField = new JTextField();
-		usernameField.setBounds(107, 138, 244, 20);
-		frame.getContentPane().add(usernameField);
 		usernameField.setColumns(10);
+		usernameField.setBounds(120, 180, 260, 30);
+		frame.getContentPane().add(usernameField);
 		
-		registerButton = new JButton("Registrarme");
-		registerButton.setBackground(new Color(176, 196, 222));
-		registerButton.setForeground(new Color(0, 0, 0));
-		registerButton.setFont(new Font("SansSerif", Font.PLAIN, 10));
-		registerButton.setBounds(107, 358, 244, 23);
-		frame.getContentPane().add(registerButton);
+		emailLabel = new JLabel("Usuario");
+		emailLabel.setForeground(AppUtils.TEXT_COLOR);
+		emailLabel.setBounds(120, 150, 360, 20);
+		frame.getContentPane().add(usernameLabel);
+		
+		emailField = new JTextField();
+		emailField.setColumns(10);
+		emailField.setBounds(120, 180, 260, 30);
+		frame.getContentPane().add(usernameField);
 		
 		passwordLabel = new JLabel("Contraseña");
-		passwordLabel.setForeground(Color.WHITE);
-		passwordLabel.setBounds(107, 183, 244, 20);
+		passwordLabel.setForeground(AppUtils.TEXT_COLOR);
+		passwordLabel.setBounds(120, 240, 260, 20);
 		frame.getContentPane().add(passwordLabel);
 		
 		passwordField = new JPasswordField();
 		passwordField.setColumns(10);
-		passwordField.setBounds(107, 214, 244, 20);
+		passwordField.setBounds(120, 270, 260, 30);
 		frame.getContentPane().add(passwordField);
 		
-		password2Label = new JLabel("Repetir contraseña");
-		password2Label.setForeground(Color.WHITE);
-		password2Label.setBounds(107, 261, 244, 20);
-		frame.getContentPane().add(password2Label);
+		passwordLabel2 = new JLabel("Verifica la contraseña");
+		passwordLabel2.setForeground(AppUtils.TEXT_COLOR);
+		passwordLabel2.setBounds(120, 330, 260, 20);
+		frame.getContentPane().add(passwordLabel2);
 		
-		password2Field = new JPasswordField();
-		password2Field.setColumns(10);
-		password2Field.setBounds(107, 292, 244, 20);
-		frame.getContentPane().add(password2Field);
+		passwordField2 = new JPasswordField();
+		passwordField2.setColumns(10);
+		passwordField2.setBounds(120, 360, 260, 30);
+		frame.getContentPane().add(passwordField2);
 		
-		labelPickachuImage = new JLabel("");
-		labelPickachuImage.setIcon(new ImageIcon(RegisterView.class.getResource("/assets/img/pikachu.png")));
-		labelPickachuImage.setBounds(331, 11, 93, 93);
-		frame.getContentPane().add(labelPickachuImage);
-		
-		backButton = new JButton("");
-		backButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frame.setVisible(false);
-				frame.dispose();
-				new LoginView(ficherosApp);
-			}
-		});
-		
-		backButton.setEnabled(false);
-		backButton.setOpaque(false);
-		backButton.setBorder(BorderFactory.createEmptyBorder());
-		backButton.setIcon(new ImageIcon(RegisterView.class.getResource("/assets/img/return.png")));
-		backButton.setBounds(10, 22, 38, 33);
-		frame.getContentPane().add(backButton);
+		registerButton = new JButton("Registrate");
+		registerButton.setBackground(AppUtils.ACCENT_COLOR);
+		registerButton.setBorder(null);
+		registerButton.setBounds(120, 430, 260, 30);
+		frame.getContentPane().add(registerButton);
 		
 		errorLabel = new JLabel("");
-		errorLabel.setForeground(Color.RED);
-		errorLabel.setBounds(107, 420, 244, 14);
+		errorLabel.setForeground(AppUtils.ERROR_COLOR);
+		errorLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		errorLabel.setBounds(120, 480, 260, 25);
 		frame.getContentPane().add(errorLabel);
 		
-		frame.setBounds(100, 100, 450, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
 	}
-	
-	public void setListeners() {
-		backButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				new LoginView(ficherosApp);
-			}
-		});
-		
+
+	/**
+	 * Create buttons listeners
+	 */
+	public void createListeners() {
 		registerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.setVisible(false);
 				String username = usernameField.getText();
+				String email = emailField.getText();
 				String password = new String(passwordField.getPassword());
-				String password2 = new String(password2Field.getPassword());
+				String password2 = new String(passwordField2.getPassword());
+				
+				if (netflixApp.getUserManager().exists(username)) {
+					errorLabel.setText("Ese nombre de email ya está registrado");
+					return;
+				}
 				
 				if (!password.equals(password2)) {
 					errorLabel.setText("Las contraseñas no coinciden");
 					return;
 				}
 				
-				register(username, password);
-				new LoginView(ficherosApp);
+				if (!netflixApp.getDatabaseManager().isConnected()) {
+					errorLabel.setText("La base de datos no está conectada.");
+					return;
+				}
+				
+				String encodedPassword = Hashing.sha256().hashString(password, StandardCharsets.UTF_8).toString();
+				User user = netflixApp.getUserManager().getUser(username);				
+				netflixApp.getUserManager().sendVerification(user);
+				frame.dispose();
+				new AuthView();
 			}
 		});
-	}
-	
-	public void register(String username, String password) {
-		ficherosApp.getUserManager().registerUser(new User(username, password));
 	}
 }

@@ -26,9 +26,9 @@ public class Show {
 	}
 	
 	public Show(String[] columns) {
-		this(Integer.parseInt(columns[0].substring(1)), columns[1], columns[2], columns[3], columns[4],
+		this(Integer.parseInt(columns[0].substring(1)), columns[1], columns[2], columns[3].replaceAll("\"", ""), columns[4],
 			 columns[5], columns[6], columns[7], columns[8], columns[9],
-			 columns[10], columns[11]);
+			 columns[10], columns[11].replaceAll("\"", ""));
 	}
 
 	public int getId() {
@@ -77,6 +77,10 @@ public class Show {
 
 	public String getDescription() {
 		return description;
+	}
+	
+	public String getShortDescription() {
+		return description.substring(0, description.length() > 95 ? 95 : description.length()) + "...";
 	}
 	
 		

@@ -1,9 +1,9 @@
 package ga.mmbh.cfgs.netflixdb.views;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.nio.charset.StandardCharsets;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,26 +12,28 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import com.google.common.hash.Hashing;
+
 import ga.mmbh.cfgs.netflixdb.NetflixApp;
 import ga.mmbh.cfgs.netflixdb.graphic.frames.CustomFrame;
+import ga.mmbh.cfgs.netflixdb.models.User;
 import ga.mmbh.cfgs.netflixdb.utils.AppUtils;
 
 public class LoginView {
 
-	private final NetflixApp ficherosApp;
+	private NetflixApp netflixApp;
 
 	private CustomFrame frame;
 	private JTextField usernameField;
 	private JPasswordField passwordField;
-	private JLabel titleLabel, welcomeLabel, usernameLabel, passwordLabel;
+	private JLabel welcomeLabel, usernameLabel, passwordLabel, registerLabel, errorLabel;
 	private JButton registerButton, loginButton;
-	private JLabel errorLabel;
 
 	/**
 	 * Create the application.
 	 */
-	public LoginView(NetflixApp ficherosApp) {
-		this.ficherosApp = ficherosApp;
+	public LoginView() {
+		this.netflixApp = NetflixApp.getInstance();
 		initialize();
 		createListeners();
 	}
@@ -41,68 +43,62 @@ public class LoginView {
 	 */
 	private void initialize() {
 		frame = new CustomFrame();
-		frame.getContentPane().setBackground(AppUtils.DARK_BACKGROUND);
-
-		titleLabel = new JLabel("");
-		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		titleLabel.setBounds(0, 0, 434, 112);
-
-//		try {
-//			URL url = new URL("https://1000marcas.net/wp-content/uploads/2020/01/Logo-Netflix.png");
-//		    BufferedImage bufferedImage = ImageIO.read(url);
-//		    Image image = new ImageIcon(bufferedImage).getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT);
-//		    titleLabel.setIcon(new ImageIcon(image));
-//		} catch (IOException editMovieButton) {
-//			editMovieButton.printStackTrace();
-//		}
-
-		frame.getContentPane().add(titleLabel);
+		frame.setBounds((1920 / 2) - (500 / 2), (1080 / 2) - (700 / 2), 500, 600);
 
 		welcomeLabel = new JLabel("Bienvenido, inicia sesión");
+		welcomeLabel.setFont(AppUtils.getTitleFont().deriveFont(18F));
 		welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		welcomeLabel.setForeground(new Color(255, 255, 255));
-		welcomeLabel.setBounds(108, 109, 244, 30);
+		welcomeLabel.setBounds(120, 50, 260, 30);
 		frame.getContentPane().add(welcomeLabel);
-
-		registerButton = new JButton("Registrarme");
-
-		registerButton.setBounds(339, 425, 85, 25);
-		frame.getContentPane().add(registerButton);
 
 		usernameLabel = new JLabel("Usuario");
 		usernameLabel.setForeground(AppUtils.TEXT_COLOR);
-		usernameLabel.setBounds(108, 150, 244, 20);
+		usernameLabel.setBounds(120, 150, 360, 20);
 		frame.getContentPane().add(usernameLabel);
 
 		usernameField = new JTextField();
 		usernameField.setColumns(10);
-		usernameField.setBounds(108, 181, 244, 30);
+		usernameField.setBounds(120, 180, 260, 30);
 		frame.getContentPane().add(usernameField);
 
 		passwordLabel = new JLabel("Contraseña");
 		passwordLabel.setForeground(AppUtils.TEXT_COLOR);
-		passwordLabel.setBounds(108, 226, 244, 20);
+		passwordLabel.setBounds(120, 240, 260, 20);
 		frame.getContentPane().add(passwordLabel);
 
 		passwordField = new JPasswordField();
 		passwordField.setColumns(10);
-		passwordField.setBounds(108, 257, 244, 30);
+		passwordField.setBounds(120, 270, 260, 30);
 		frame.getContentPane().add(passwordField);
 
+		registerLabel = new JLabel("¿No tienes cuenta?");
+		registerLabel.setBounds(185, 350, 120, 25);
+		registerLabel.setForeground(Color.WHITE);
+		registerLabel.setBorder(null);
+		frame.getContentPane().add(registerLabel);
+
+		registerButton = new JButton("Registrate!");
+		registerButton.setBounds(300, 350, 80, 25);
+		registerButton.setForeground(AppUtils.ACCENT_COLOR);
+		registerButton.setBackground(null);
+		registerButton.setBorder(null);
+		frame.getContentPane().add(registerButton);
+		
 		loginButton = new JButton("Iniciar Sesión");
-		loginButton.setBackground(new Color(176, 196, 222));
-		loginButton.setBounds(108, 311, 244, 30);
+		loginButton.setBackground(AppUtils.ACCENT_COLOR);
+		loginButton.setBorder(null);
+		loginButton.setForeground(Color.WHITE);
+		loginButton.setBounds(120, 380, 260, 30);
 		frame.getContentPane().add(loginButton);
 
 		errorLabel = new JLabel("");
 		errorLabel.setForeground(AppUtils.ERROR_COLOR);
-		errorLabel.setBounds(108, 367, 244, 25);
+		errorLabel.setBounds(120, 420, 260, 25);
 		frame.getContentPane().add(errorLabel);
 
-		frame.setBounds(100, 100, 450, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		frame.changeFont(frame);
 	}
 
 	/**
@@ -113,21 +109,39 @@ public class LoginView {
 			public void actionPerformed(ActionEvent e) {
 				String username = usernameField.getText();
 				String password = new String(passwordField.getPassword());
-
-				if (!ficherosApp.getUserManager().login(username, password)) {
+				String encodedPassword = Hashing.sha256().hashString(password, StandardCharsets.UTF_8).toString();
+				
+				if (!netflixApp.getDatabaseManager().isConnected()) {
+					errorLabel.setText("La base de datos no está conectada");
+					return;
+				}
+				
+				User user = null;
+				if (!netflixApp.getUserManager().exists(username) || (user = netflixApp.getUserManager().getUser(username)) == null) {
+					errorLabel.setText("Ese usuario no existe");
+					return;
+				}
+				
+				if (netflixApp.getUserManager().isNotAuthenticated(user.getId())) {
+					frame.dispose();
+					new AuthView();
+					return;
+				}
+				
+				if (!netflixApp.getUserManager().login(username, encodedPassword)) {
 					errorLabel.setText("Usuario o contraseña erróneos");
 					return;
 				}
-
+				
 				frame.setVisible(false);
-				new HomeView(ficherosApp);
+				new HomeView();
 			}
 		});
 
 		registerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				new RegisterView(ficherosApp);
+				new RegisterView(netflixApp);
 			}
 		});
 	}

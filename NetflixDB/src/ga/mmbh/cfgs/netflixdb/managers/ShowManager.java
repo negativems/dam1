@@ -25,10 +25,11 @@ public class ShowManager {
 		
 		try {
 			scanner = new Scanner(file, "UTF-8");
-			scanner.nextLine(); // Para omitir el primero
+			scanner.nextLine(); // Skip the first one
 			
 			// Iterates every row of the csv
-			while (scanner.hasNextLine()) {
+			int i = 0;
+			while (scanner.hasNextLine() && i < 20) {
 				String line = scanner.nextLine();
 				List<String> rowList = new ArrayList<>();
 				Iterator<String> iterator = Arrays.asList(line.split(",")).iterator();
@@ -75,6 +76,7 @@ public class ShowManager {
 				
 				Show show = new Show(rowList.toArray(new String[0]));
 				showsList.add(show);
+				i++;
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -84,7 +86,7 @@ public class ShowManager {
 		
 //		for (int i = 0; i < 10; i++) {
 //			Show show = showsList.get(i);
-//			System.out.println(showsList.get(i).getTitle());
+//			System.out.println(showsList.get(i).getDescription());
 //		}
 		
 		scanner.close();

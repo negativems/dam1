@@ -10,23 +10,18 @@ import ga.mmbh.cfgs.netflixdb.models.Show;
 public class ShowDAO extends AbstractDAO {
 	
 	public ShowDAO() {
-		super("Pokemons");
+		super("shows");
 	}
 	
     /**
-     * Gets all pokemons from database
-     * @deprecated
-     * This method is no longer acceptable to compute time between versions.
-     * Use #getFromDatabase(int startingId, int limit) instead.
+     * Gets all shows from the database
      */
-    @Deprecated
 	public List<Show> getAllFromDatabase() {
     	List<Show> result = new ArrayList();
 		ResultSet rs = getAll("show_id, type, title, director, cast, country, date_added, release_year, rating, duration, listed_in, description");
 		
 		try {
 			while (rs.next()) {
-				
 				int id = rs.getInt("show_id");
 				String type = rs.getString("type");
 				String title = rs.getString("title");

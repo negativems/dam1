@@ -6,8 +6,6 @@ public abstract class AbstractView {
 
 	private CustomFrame frame;
 	
-	
-	
 	public abstract void initialize();
 	
 	public abstract void updateView();

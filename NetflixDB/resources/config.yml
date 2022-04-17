@@ -1,0 +1,10 @@
+database:
+  host: localhost
+  auth:
+    enabled: false
+    username: root
+    password: root
+
+smtp:
+  email: "mohamedbenhamzatest@gmail.com"
+  password: "password"

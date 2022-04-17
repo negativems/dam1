@@ -9,13 +9,17 @@ import java.util.List;
 
 public abstract class AbstractDAO {
 	
-	protected final String table, databaseURL, username, password, database = "netflix";
+	protected final String table, databaseURL, username, password, database = "Netflix";
 	
 	public AbstractDAO(String table) {
 		this.table = table;
 		databaseURL = "jdbc:mysql://localhost/" + database;
 		username = "root";
-		password = "root";
+		password = "";
+	}
+	
+	public boolean isConnected() {
+		return query("SELECT * FROM " + table + " LIMIT 1") != null;
 	}
 	
 	// Gets data from database
@@ -60,14 +64,16 @@ public abstract class AbstractDAO {
 	}
 	
 	public boolean insertOne(String columns, String[] values) {
-		String insert = "INSERT INTO " + table + "(" + columns + ")\r\nVALUES (" + String.join(", ", values) + ")";
 		try {
 			Connection conn = DriverManager.getConnection(databaseURL, username, password);
 			Statement stmt = conn.createStatement();
+			
+			String insert = "INSERT INTO " + table + "(" + columns + ") VALUES (" + String.join(", ", values) + ")";
 			return stmt.executeUpdate(insert) > 0;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return false;
 	}
 	
