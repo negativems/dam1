@@ -22,6 +22,8 @@ public class AppUtils {
 	public static final Color ERROR_COLOR = new Color(255, 0, 0);
 	public static final Color GREEN_COLOR = new Color(92, 255, 138);
 	public static final Color TRANSPARENT_COLOR = new Color(0, 0, 0, 0);
+	
+	public static final String HEADER_CSV = "show_id,type,title,director,cast,country,date_added,release_year,rating,duration,listed_in,description";
 
 	public static Font getFont(String path, float size) {
 		try {
@@ -63,15 +65,6 @@ public class AppUtils {
 				changeFont(child, font);
 			}
 		}
-	}
-
-	public static String createMD5Hash(String input) throws NoSuchAlgorithmException {
-		String hashtext = null;
-		MessageDigest md = MessageDigest.getInstance("MD5");
-
-		byte[] messageDigest = md.digest(input.getBytes());
-		hashtext = convertToHex(messageDigest);
-		return hashtext;
 	}
 
 	private static String convertToHex(final byte[] messageDigest) {

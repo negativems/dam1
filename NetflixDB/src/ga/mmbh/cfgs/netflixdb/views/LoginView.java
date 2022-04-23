@@ -16,6 +16,7 @@ import com.google.common.hash.Hashing;
 
 import ga.mmbh.cfgs.netflixdb.NetflixApp;
 import ga.mmbh.cfgs.netflixdb.graphic.frames.CustomFrame;
+import ga.mmbh.cfgs.netflixdb.managers.UserManager;
 import ga.mmbh.cfgs.netflixdb.models.User;
 import ga.mmbh.cfgs.netflixdb.utils.AppUtils;
 
@@ -27,7 +28,7 @@ public class LoginView {
 	private JTextField usernameField;
 	private JPasswordField passwordField;
 	private JLabel welcomeLabel, usernameLabel, passwordLabel, registerLabel, errorLabel;
-	private JButton registerButton, loginButton;
+	private JButton registerButton, loginButton, forgotPasswordButton;
 
 	/**
 	 * Create the application.
@@ -52,7 +53,7 @@ public class LoginView {
 		welcomeLabel.setBounds(120, 50, 260, 30);
 		frame.getContentPane().add(welcomeLabel);
 
-		usernameLabel = new JLabel("Usuario");
+		usernameLabel = new JLabel("Usuario o Correo");
 		usernameLabel.setForeground(AppUtils.TEXT_COLOR);
 		usernameLabel.setBounds(120, 150, 360, 20);
 		frame.getContentPane().add(usernameLabel);
@@ -77,8 +78,8 @@ public class LoginView {
 		registerLabel.setForeground(Color.WHITE);
 		registerLabel.setBorder(null);
 		frame.getContentPane().add(registerLabel);
-
-		registerButton = new JButton("Registrate!");
+		
+		registerButton = new JButton("¡Registrate!");
 		registerButton.setBounds(300, 350, 80, 25);
 		registerButton.setForeground(AppUtils.ACCENT_COLOR);
 		registerButton.setBackground(null);
@@ -91,6 +92,13 @@ public class LoginView {
 		loginButton.setForeground(Color.WHITE);
 		loginButton.setBounds(120, 380, 260, 30);
 		frame.getContentPane().add(loginButton);
+		
+		forgotPasswordButton = new JButton("¡He olvidad mi contraseña!");
+		forgotPasswordButton.setBounds(220, 420, 160, 30);
+		forgotPasswordButton.setForeground(Color.WHITE);
+		forgotPasswordButton.setBackground(null);
+		forgotPasswordButton.setBorder(null);
+		frame.getContentPane().add(forgotPasswordButton);
 
 		errorLabel = new JLabel("");
 		errorLabel.setForeground(AppUtils.ERROR_COLOR);
@@ -116,15 +124,20 @@ public class LoginView {
 					return;
 				}
 				
-				User user = null;
-				if (!netflixApp.getUserManager().exists(username) || (user = netflixApp.getUserManager().getUser(username)) == null) {
-					errorLabel.setText("Ese usuario no existe");
+				UserManager userManager = netflixApp.getUserManager();
+				User user = userManager.existsUsername(username) ? user = userManager.getUser(username) : null;
+				if (user == null && userManager.existsEmail(username)) {
+					user = userManager.getUserByEmail(username);
+				}
+				
+				if (user == null) {
+					errorLabel.setText("No existe es usuario o ese correo");
 					return;
 				}
 				
 				if (netflixApp.getUserManager().isNotAuthenticated(user.getId())) {
 					frame.dispose();
-					new AuthView();
+					new AuthView(user.getId());
 					return;
 				}
 				
@@ -141,7 +154,14 @@ public class LoginView {
 		registerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				new RegisterView(netflixApp);
+				new RegisterView();
+			}
+		});
+		
+		forgotPasswordButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				new ForgotPasswordView();
 			}
 		});
 	}

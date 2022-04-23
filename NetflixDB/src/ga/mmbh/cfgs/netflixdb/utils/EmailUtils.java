@@ -10,9 +10,12 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import ga.mmbh.cfgs.netflixdb.NetflixApp;
+import ga.mmbh.cfgs.netflixdb.config.Config;
+
 public class EmailUtils {
 
-	public static void send(String from, String password, String to, String sub, String msg) {
+	public static void send(String to, String sub, String msg) {
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.socketFactory.port", "465");
@@ -22,7 +25,8 @@ public class EmailUtils {
 		
 		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(from, password);
+				Config config = NetflixApp.getInstance().getConfig();
+				return new PasswordAuthentication(config.getEmail(), config.getPassword());
 			}
 		});
 		

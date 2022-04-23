@@ -83,5 +83,9 @@ public class Show {
 		return description.substring(0, description.length() > 95 ? 95 : description.length()) + "...";
 	}
 	
-		
+	public String getFormattedCSV(char c) {
+		return "s" + id + c + type + c + title + c + director + c + cast + c +
+			   country + c + dateAdded + c + releaseYear + c + rating +
+			   c + duration + c + listedIn + c + description;
+	}
 }

@@ -1,4 +1,4 @@
-package ga.mmbh.cfgs.netflixdb.utils;
+package ga.mmbh.cfgs.netflixdb.graphic.panels;
 
 import java.awt.Dimension;
 import java.awt.Graphics;

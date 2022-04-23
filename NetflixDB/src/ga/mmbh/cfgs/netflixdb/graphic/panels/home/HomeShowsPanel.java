@@ -13,7 +13,10 @@ public class HomeShowsPanel extends JPanel {
 	
 	public final static int MAX_SHOWS_PER_PAGE = 9;
 	
-	public HomeShowsPanel(int page) {
+	private final List<Show> shows;
+	
+	public HomeShowsPanel(List<Show> shows, int page) {
+		this.shows = shows;
 		this.setBackground(AppUtils.TRANSPARENT_COLOR);
 		this.setBounds(100, 200, 700, 700);
 		this.setLayout(null);
@@ -21,7 +24,6 @@ public class HomeShowsPanel extends JPanel {
 	}
 	
 	public void showPage(int page) {
-		List<Show> shows = NetflixApp.getInstance().getShowManager().getShows();
 		int i = 0;
 		int startingIndex = (page * MAX_SHOWS_PER_PAGE) - MAX_SHOWS_PER_PAGE;
 		for(int row = 0; row < 3; row++) {

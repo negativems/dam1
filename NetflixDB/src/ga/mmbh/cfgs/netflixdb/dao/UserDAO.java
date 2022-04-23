@@ -10,10 +10,14 @@ public class UserDAO extends AbstractDAO {
 	public UserDAO() {
 		super("users");
 	}
-
+	
 	public boolean login(User user) {
-		String columns = "username, password";
-		String where = "username = '" + user.getUsername() + "' AND password = '" + user.getPassword() + "'";
+		String username = user.getUsername();
+		String password = user.getPassword();
+		String email = user.getEmail();
+		
+		String columns = "username, email, password";
+		String where = "username = '" + username + "' AND password = '" + password + "'" + " AND email = '" + email + "'";
 		ResultSet rs = getFirst(columns, where);
 		
 		try {
@@ -26,20 +30,21 @@ public class UserDAO extends AbstractDAO {
 	}
 	
 	public boolean register(User user) {
-		String[] values = new String[] {user.getUsername(), user.getUnencodedPassword()};
-		return insertOne("username, password", values);
+		String[] values = new String[] {user.getUsername(), user.getEmail(), user.getPassword()};
+		return insertOne("username, email, password", values);
 	}
 	
-	public User getUser(String username) {
-		String columns = "id, password";
-		String where = "username = '" + username + "'";
+	public User getUser(String username, boolean isEmail) {
+		String columns = "id, email, password";
+		String where = (isEmail ? "email" : "username") + " = '" + username + "'";
 		ResultSet rs = getFirst(columns, where);
 		
 		try {
 			if (rs.next()) {
 				int id = rs.getInt("id");
+				String email = rs.getString("email");
 				String password = rs.getString("password");
-				return new User(id, username, password);
+				return new User(id, username, email, password);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

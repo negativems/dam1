@@ -27,7 +27,6 @@ public class FavouriteShowsPanel extends JPanel {
 		int lastPageIndex = (page * MAX_SHOWS_PER_PAGE);
 		lastPageIndex = lastPageIndex >= favourites.size() ? favourites.size() : lastPageIndex;
 		
-		System.out.println(firstPageIndex + " - " + lastPageIndex);
 		Iterator<Show> favouritesIterator = favourites.subList(firstPageIndex, lastPageIndex).iterator();
 		
 		int i = 0;

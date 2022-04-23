@@ -88,12 +88,11 @@ public abstract class AbstractDAO {
 				value = value + (z < values.length - 1 ? "," : "");
 				line += value;
 			}
-			insertValues += line + ")" + (i < valuesList.size() - 1 ? ",\r\n" : "");
+			insertValues += line + ")" + (i < valuesList.size() - 1 ? "," : "");
 		}
 		
-		String insert = "INSERT INTO " + table + "(" + columns + ")\r\nVALUES\r\n" + insertValues;
+		String insert = "INSERT INTO " + table + "(" + columns + ") VALUES " + insertValues;
 		
-		System.out.println(insert);
 		try {
 			Connection conn = DriverManager.getConnection(databaseURL, username, password);
 			Statement stmt = conn.createStatement();
@@ -115,12 +114,11 @@ public abstract class AbstractDAO {
 				value = value + (z < values.length - 1 ? "," : "");
 				line += value;
 			}
-			insertValues += line + ")" + (i < valuesList.size() - 1 ? ",\r\n" : "");
+			insertValues += line + ")" + (i < valuesList.size() - 1 ? "," : "");
 		}
 		
-		String insert = "INSERT INTO " + table + "(" + columns + ")\r\nVALUES\r\n" + insertValues + " ON DUPLICATE KEY UPDATE " + where;
+		String insert = "INSERT INTO " + table + "(" + columns + ") VALUES " + insertValues + " ON DUPLICATE KEY UPDATE " + where;
 		
-		System.out.println(insert);
 		try {
 			Connection conn = DriverManager.getConnection(databaseURL, username, password);
 			Statement stmt = conn.createStatement();
@@ -132,22 +130,42 @@ public abstract class AbstractDAO {
 	}
 	
 	// Update
-	public void update(String update) {
+	public void update(String set) {
 		try {
 			Connection conn = DriverManager.getConnection(databaseURL, username, password);
 			Statement stmt = conn.createStatement();
-			stmt.executeUpdate(update);
+			stmt.executeUpdate("UPDATE " + table + " SET " + set);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void update(String set, String where) {
+		try {
+			Connection conn = DriverManager.getConnection(databaseURL, username, password);
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate("UPDATE " + table + " SET " + set + " WHERE (" + where + ")");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	// Delete
-	public void delete(String delete) {
+	public void delete() {
 		try {
 			Connection conn = DriverManager.getConnection(databaseURL, username, password);
 			Statement stmt = conn.createStatement();
-			stmt.executeUpdate(delete);
+			stmt.executeUpdate("DELETE FROM " + table);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void delete(String where) {
+		try {
+			Connection conn = DriverManager.getConnection(databaseURL, username, password);
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate("DELETE FROM " + table + " WHERE " + where);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
