@@ -1,4 +1,4 @@
-package ga.mmbh.cfgs.views;
+package ga.mmbh.cfgs.netflixjunit.views;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -15,9 +15,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import ga.mmbh.cfgs.NetflixApp;
-import ga.mmbh.cfgs.managers.UserManager;
-import ga.mmbh.cfgs.utils.AppUtils;
+import ga.mmbh.cfgs.netflixjunit.NetflixApp;
+import ga.mmbh.cfgs.netflixjunit.managers.UserManager;
+import ga.mmbh.cfgs.netflixjunit.utils.AppUtils;
 
 public class RegisterView {
 

@@ -1,10 +1,10 @@
-package ga.mmbh.cfgs.managers;
+package ga.mmbh.cfgs.netflixjunit.managers;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ga.mmbh.cfgs.models.Genre;
-import ga.mmbh.cfgs.models.Movie;
+import ga.mmbh.cfgs.netflixjunit.models.Genre;
+import ga.mmbh.cfgs.netflixjunit.models.Movie;
 
 public class MovieManager {
 

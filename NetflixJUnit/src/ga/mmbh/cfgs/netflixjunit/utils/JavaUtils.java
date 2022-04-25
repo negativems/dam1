@@ -1,4 +1,4 @@
-package ga.mmbh.cfgs.utils;
+package ga.mmbh.cfgs.netflixjunit.utils;
 
 public class JavaUtils {
 

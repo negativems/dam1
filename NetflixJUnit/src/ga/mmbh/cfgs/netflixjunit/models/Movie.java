@@ -1,4 +1,4 @@
-package ga.mmbh.cfgs.models;
+package ga.mmbh.cfgs.netflixjunit.models;
 
 public class Movie {
 

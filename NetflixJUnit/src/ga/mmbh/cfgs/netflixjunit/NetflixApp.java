@@ -1,8 +1,8 @@
-package ga.mmbh.cfgs;
+package ga.mmbh.cfgs.netflixjunit;
 
-import ga.mmbh.cfgs.managers.MovieManager;
-import ga.mmbh.cfgs.managers.UserManager;
-import ga.mmbh.cfgs.views.LoginView;
+import ga.mmbh.cfgs.netflixjunit.managers.MovieManager;
+import ga.mmbh.cfgs.netflixjunit.managers.UserManager;
+import ga.mmbh.cfgs.netflixjunit.views.LoginView;
 
 public class NetflixApp {
 

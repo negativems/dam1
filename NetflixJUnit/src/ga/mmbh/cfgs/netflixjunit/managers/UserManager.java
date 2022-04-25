@@ -1,11 +1,11 @@
-package ga.mmbh.cfgs.managers;
+package ga.mmbh.cfgs.netflixjunit.managers;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import ga.mmbh.cfgs.NetflixApp;
-import ga.mmbh.cfgs.models.User;
+import ga.mmbh.cfgs.netflixjunit.NetflixApp;
+import ga.mmbh.cfgs.netflixjunit.models.User;
 
 @SuppressWarnings("unused")
 public class UserManager {

@@ -1,4 +1,4 @@
-package ga.mmbh.cfgs;
+package ga.mmbh.cfgs.netflixjunit;
 
 public class MainApp {
 	
