@@ -7,38 +7,42 @@ import java.awt.RenderingHints;
 import javax.swing.JPanel;
 
 /**
- * Necesitamos una clase JPanel que represente nuestro tablero y que a la hora
- * de pintarse le diga a la serpiente que también se pinte. Para ello necesita
- * saber quién está controlando el juego (el frame de tipo MySnakeFrame) y hacer
- * un "override" del método paint.
  * 
+ * Represents the game board panel that needs to be painted with the snake and
+ * apple.
  * 
- * @author andres
- *
+ * Inherits from JPanel and overrides the paint method.
  */
-
 public class GamePanel extends JPanel {
 
-	private static final long serialVersionUID = 1L;
+   private static final long serialVersionUID = 1L;
 
-	private SnakeFrame snakeFrame;
+   private SnakeFrame snakeFrame;
 
-	// comportamiento para "enganchar" el tablero con el frame controlador.
-	public void setSnakeFrame(SnakeFrame sf) {
-		snakeFrame = sf;
-	}
+   /**
+    * 
+    * Set the SnakeFrame that controls the game.
+    * 
+    * @param sf The SnakeFrame that controls the game.
+    */
+   public void setSnakeFrame(SnakeFrame sf) {
+      snakeFrame = sf;
+   }
 
-	@Override
-	public void paint(Graphics g) {
-		super.paint(g);
-		if (snakeFrame != null) { // pintamos si tenemos serpiente
-			Graphics2D g2d = (Graphics2D) g;
-			// configuramos los gráficos para que pinte figuras suaves...
-			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-			// le decimos al controlador que nos de la serpiente para pintarla...
-			snakeFrame.getSnake().print(g2d);
-			snakeFrame.printApple(g2d);
-		}
-	}
+   /**
+    * 
+    * Overrides the paint method to paint the snake and apple in the board.
+    * 
+    * @param g The Graphics object used to draw on the panel.
+    */
+   @Override
+   public void paint(Graphics g) {
+      super.paint(g);
+      if (snakeFrame != null) {
+         Graphics2D g2d = (Graphics2D) g;
+         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+         snakeFrame.getSnake().print(g2d);
+         snakeFrame.printApple(g2d);
+      }
+   }
 }

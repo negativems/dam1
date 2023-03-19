@@ -13,6 +13,13 @@ public class Square {
     private int x, y, side;
     private Color color;
 
+    /**
+     * Create a snake square
+     * @param x The X cordinate
+     * @param y The Y cordinate
+     * @param side The size of the square
+     * @param color The color of the square
+     */
     public Square(int x,int y,int side, int color) {
     	this.x = x;
         this.y = y;
@@ -29,7 +36,8 @@ public class Square {
 
     /**
      * Change the square direction
-     * @param direction The direction of the square
+     * this method is used only in the head of the snake
+     * @param direction The direction of the square (UP = 1, DOWN = 2, LEFT = 3, RIGHT = 4)
      */
     public void changeDirection(int direction) {
         switch (direction) {
@@ -85,7 +93,7 @@ public class Square {
         return y;
     }
     
-    public int getLado() {
+    public int getSide() {
     	return side;
 	}
     

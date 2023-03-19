@@ -2,51 +2,44 @@ package models;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
 import panels.SnakeFrame;
 
 /**
- * Esta clase es también un ejemplo de como Java.awt controla la E/S de teclado.
- * Para tener control de las pulsaciones de teclado tenemos que implementar una clase
- * que herede de KeyListener, que se encarga de escuchar las pulsaciones del teclado
- * Una vez heredamos, sólo implementamos el keyPressed, y el método típico de 
- * "enganche" entre el Control de Teclado y el snakeFrame (controlador del juego)
- * @author andres
- *
+ * This class is an implementation of KeyListener which handles keyboard events.
+ * When a key is pressed, the keyPressed method is called. It extracts the ASCII
+ * keycode of the pressed key and passes it to the SnakeFrame controller to
+ * update the snake direction.
  */
-
 public class Controller implements KeyListener {
-	
-	//Este es un enlace al controlador del videojuego
-	private SnakeFrame snakeFrame;
-	
-	
-	//si pulsan una tecla se activa este comportamiento. KeyEvent es un objeto con un montón
-	//de información, entre otras cosas el código ASCII de la tecla pulsada, que es lo que nos 
-	//interesa darle al controlador del videojuego para que se lo pase a la serpiente.
-	@Override
-    public void keyPressed(KeyEvent e) {
-        int key = e.getKeyCode();
-        if (snakeFrame != null) {
-        	snakeFrame.changeDirection(key); 
-        }
-    }
-	
-	public void setSnakeFrame(SnakeFrame sf) {
-		snakeFrame = sf;
-	}
 
-	//Estos dos no hace falta reimplementarlos.
-	
-	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+   // Reference to the SnakeFrame controller
+   private SnakeFrame snakeFrame;
 
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+   // Invoked when a key has been pressed.
+   @Override
+   public void keyPressed(KeyEvent e) {
+      int key = e.getKeyCode();
+      if (snakeFrame != null) {
+         snakeFrame.changeDirection(key);
+      }
+   }
+
+   /**
+    * Sets the SnakeFrame controller.
+    *
+    * @param sf the SnakeFrame controller
+    */
+   public void setSnakeFrame(SnakeFrame sf) {
+      snakeFrame = sf;
+   }
+
+   // Not implemented, no need to override
+   @Override
+   public void keyReleased(KeyEvent arg0) {
+   }
+
+   // Not implemented, no need to override
+   @Override
+   public void keyTyped(KeyEvent arg0) {
+   }
 }
